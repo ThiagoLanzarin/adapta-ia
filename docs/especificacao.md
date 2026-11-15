@@ -13,7 +13,7 @@ ARASAAC ao lado das palavras-chave. Ele revisa, edita e imprime.
 
 - **Usuário:** professor da escola pública, sem formação específica em TEA.
 - **Custo para o professor:** gratuito.
-- **Contexto:** trabalho acadêmico em grupo (EdTech), com prazo de 3 dias informado em 14/11/2026.
+- **Contexto:** trabalho acadêmico em grupo (EdTech), com entrega na quarta-feira, 18/11/2026.
   O objetivo é que o sistema seja usável no dia a dia, e não só uma demonstração.
 
 ## 2. Versões

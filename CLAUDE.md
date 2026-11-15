@@ -8,7 +8,7 @@ Trabalho acadêmico em grupo.
 
 - `docs/especificacao.md`: o que o sistema faz, e o que entra na entrega (E1) ou depois (V2).
 - `docs/arquitetura.md`: tecnologias, pastas, camadas e pontos em aberto.
-- `docs/tarefas.md`: lista de tarefas, quando existir.
+- `docs/tarefas.md`: lista de tarefas, ordem em fatias e quem está em cada uma.
 
 ## Regras de trabalho
 
@@ -46,4 +46,5 @@ Aprovadas pelo grupo em 15/11/2026.
 
 ## Estado atual
 
-Fases 1 (especificação) e 2 (arquitetura) escritas. Ainda não há código nem lista de tarefas.
+Fases 1 (especificação), 2 (arquitetura) e 3 (lista de tarefas) escritas. Ainda não há
+código. Entrega na quarta-feira, 18/11/2026.

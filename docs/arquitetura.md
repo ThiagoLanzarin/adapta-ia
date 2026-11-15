@@ -59,7 +59,7 @@ adapta-ai/
   docs/
     especificacao.md       o que o sistema faz
     arquitetura.md         este documento
-    tarefas.md             lista de tarefas (fase 3, ainda não existe)
+    tarefas.md             lista de tarefas e quem está em cada uma
   frontend/
     src/
       features/
