@@ -8,7 +8,7 @@ Trabalho acadêmico em grupo.
 
 - `docs/especificacao.md`: o que o sistema faz, e o que entra na entrega (E1) ou depois (V2).
 - `docs/arquitetura.md`: tecnologias, pastas, camadas e pontos em aberto.
-- `docs/tarefas.md`: lista de tarefas, quando existir.
+- `docs/tarefas.md`: lista de tarefas, ordem em fatias e quem está em cada uma.
 
 ## Regras de trabalho
 
@@ -30,6 +30,13 @@ Aprovadas pelo grupo em 15/11/2026.
    conseguir defender.
 10. **Documentos em dia.** Se uma decisão mudar, atualizar os documentos.
 
+## Convenções do Git
+
+- Repositório: https://github.com/eiq03/adapta-ia
+- Ramos no formato `tipo/tNN-descricao`, por exemplo `feat/t03-upload-imagem`.
+- Mensagens de commit em português.
+- O ramo entra em `main` por pedido de revisão, depois que outra pessoa do grupo olhar.
+
 ## Estrutura
 
 - `frontend/`: React + TypeScript + Tailwind, organizado por funcionalidade em
@@ -39,4 +46,5 @@ Aprovadas pelo grupo em 15/11/2026.
 
 ## Estado atual
 
-Fases 1 (especificação) e 2 (arquitetura) escritas. Ainda não há código nem lista de tarefas.
+Fases 1 (especificação), 2 (arquitetura) e 3 (lista de tarefas) escritas. Ainda não há
+código. Entrega na quarta-feira, 18/11/2026.

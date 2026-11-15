@@ -13,7 +13,7 @@ ARASAAC ao lado das palavras-chave. Ele revisa, edita e imprime.
 
 - **Usuário:** professor da escola pública, sem formação específica em TEA.
 - **Custo para o professor:** gratuito.
-- **Contexto:** trabalho acadêmico em grupo (EdTech), com prazo de 3 dias informado em 14/11/2026.
+- **Contexto:** trabalho acadêmico em grupo (EdTech), com entrega na quarta-feira, 18/11/2026.
   O objetivo é que o sistema seja usável no dia a dia, e não só uma demonstração.
 
 ## 2. Versões
@@ -157,7 +157,7 @@ decidido lá: Git com GitHub.
 
 1. **Chave do Gemini.** Um membro precisa criar a chave no Google AI Studio e conferir, no
    painel, os limites reais da faixa gratuita.
-2. **Tamanho máximo do arquivo.** Depende do que o provedor de IA aceita.
+2. **Tamanho máximo do arquivo.** Decidido: 20 MB. Ver [arquitetura.md](arquitetura.md).
 3. **Critérios de aceite.** Os da seção 4 são rascunho e ainda não foram revisados pelo grupo.
 
 ## Registro

@@ -21,5 +21,8 @@ dist/
 .DS_Store
 Thumbs.db
 
+# Página da proposta enviada ao professor (publicada à parte)
+adapta-ai.html
+
 # Configuração local da IA
 .claude/
