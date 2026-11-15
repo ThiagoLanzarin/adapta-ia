@@ -2,8 +2,8 @@
 
 > Documento da fase 2. Diz **como** o sistema é organizado.
 > O que ele faz está em [especificacao.md](especificacao.md).
-> Tudo aqui foi decidido pelo grupo em 15/11/2026, exceto as seções marcadas como
-> **proposta a confirmar**.
+> Tudo aqui foi decidido pelo grupo em 15/11/2026. O que falta está em
+> [Pontos em aberto](#pontos-em-aberto).
 
 ## 1. Visão geral
 
@@ -79,10 +79,7 @@ adapta-ai/
     requirements.txt
 ```
 
-**Proposta a confirmar:** o grupo aprovou esta estrutura com os nomes em português e depois
-decidiu que o código fica em inglês. Os nomes em inglês acima (`features`, `adaptation`,
-`sheet`, `profiles`, `history`, `shared`, `services`, `ai_providers`, `readers`, `models`)
-são a tradução feita pela IA.
+Os nomes em inglês foram aprovados pelo grupo em 15/11/2026.
 
 ## 4. Camadas e quem pode chamar quem
 
@@ -126,7 +123,9 @@ a imagem fiel do slide.
 | Tema | Decisão |
 |---|---|
 | IA | Faixa gratuita do Gemini; provedor trocável pela camada `ai_providers` |
-| PowerPoint | Extração de texto e imagens no servidor |
+| PowerPoint | Extração de texto e imagens no nosso servidor. O Gemini aceita `.pptx` direto, mas o converte em texto, não permite listar slides para escolher e prenderia o sistema a esse provedor |
+| Imagens aceitas | PNG, JPEG, WEBP, HEIC e HEIF (os formatos que o Gemini recebe) |
+| Tamanho máximo | 20 MB por arquivo enviado |
 | Navegação | Páginas com endereço próprio |
 | Armazenamento | IndexedDB no navegador, guardando original e adaptada |
 | Preto e branco | Parâmetro `color=false` da API do ARASAAC |
@@ -142,14 +141,18 @@ a imagem fiel do slide.
 
 ## 8. Git e GitHub
 
-- Repositório único, com `frontend/` e `backend/`.
-- Um ramo por tarefa.
+- Repositório único, com `frontend/` e `backend/`: https://github.com/eiq03/adapta-ia
+- Um ramo por tarefa, com o nome no formato `tipo/tNN-descricao`.
+  Exemplos: `feat/t03-upload-imagem`, `fix/t07-busca-pictograma`.
 - O ramo entra na linha principal por pedido de revisão (pull request), depois que outra
   pessoa do grupo olhar.
+- Mensagens de commit em português.
+- `adapta-ai.html` (a página da proposta) fica fora do Git.
 
-## 9. Proposta a confirmar: contrato de dados
+## 9. Contrato de dados
 
-Rascunho derivado da prova de conceito. Será fechado na primeira tarefa do servidor.
+Rascunho derivado da prova de conceito, aprovado pelo grupo como ponto de partida. Os campos
+que faltam são detalhados na primeira tarefa do servidor e confirmados com o grupo.
 
 ```json
 {
@@ -171,13 +174,8 @@ Rascunho derivado da prova de conceito. Será fechado na primeira tarefa do serv
 ## Pontos em aberto
 
 1. **Chave do Gemini.** Um membro cria a chave no Google AI Studio e confere os limites reais
-   da faixa gratuita.
-2. **Formatos aceitos pelo Gemini.** Confirmar na documentação que ele recebe imagem e não
-   recebe `.pptx`, antes de implementar.
-3. **Tamanho máximo do arquivo.** Depende do item anterior.
-4. **Nomes das pastas em inglês.** Ver a nota da seção 3.
-5. **Contrato de dados.** Ver a seção 9.
-6. **Convenções do Git.** Idioma das mensagens de commit e padrão de nome dos ramos.
-7. **Repositório no GitHub.** O grupo cria e informa o endereço para conectar.
-8. **Página da proposta.** Decidir se `adapta-ai.html`, hoje solto na raiz, entra no
-   repositório e em qual pasta.
+   da faixa gratuita. A documentação não informa limites de imagem para essa faixa.
+2. **Foto grande.** O Gemini aceita até 20 MB por pedido, somando texto e arquivo. Uma foto
+   perto dos 20 MB pode ser recusada por ele. A saída (por exemplo, reduzir a imagem antes
+   de enviar) é decidida na tarefa de envio de imagem.
+3. **Campos do contrato de dados.** Ver a seção 9.

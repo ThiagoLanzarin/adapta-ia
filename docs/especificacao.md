@@ -157,7 +157,7 @@ decidido lá: Git com GitHub.
 
 1. **Chave do Gemini.** Um membro precisa criar a chave no Google AI Studio e conferir, no
    painel, os limites reais da faixa gratuita.
-2. **Tamanho máximo do arquivo.** Depende do que o provedor de IA aceita.
+2. **Tamanho máximo do arquivo.** Decidido: 20 MB. Ver [arquitetura.md](arquitetura.md).
 3. **Critérios de aceite.** Os da seção 4 são rascunho e ainda não foram revisados pelo grupo.
 
 ## Registro

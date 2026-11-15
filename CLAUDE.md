@@ -30,6 +30,13 @@ Aprovadas pelo grupo em 15/11/2026.
    conseguir defender.
 10. **Documentos em dia.** Se uma decisão mudar, atualizar os documentos.
 
+## Convenções do Git
+
+- Repositório: https://github.com/eiq03/adapta-ia
+- Ramos no formato `tipo/tNN-descricao`, por exemplo `feat/t03-upload-imagem`.
+- Mensagens de commit em português.
+- O ramo entra em `main` por pedido de revisão, depois que outra pessoa do grupo olhar.
+
 ## Estrutura
 
 - `frontend/`: React + TypeScript + Tailwind, organizado por funcionalidade em
