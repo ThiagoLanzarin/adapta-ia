@@ -9,11 +9,18 @@ import MaterialInput from './MaterialInput';
 import MaterialTypePicker from './MaterialTypePicker';
 import { useAdaptationRequest } from './useAdaptationRequest';
 
+function materialFields(material: OriginalMaterial) {
+  if (material.kind === 'image') return { image: material.image };
+  if (material.kind === 'slides') return { slides: material.slides };
+  return { text: material.text };
+}
+
 interface AdaptationFormProps {
   onDone: (adaptation: Adaptation, original: OriginalMaterial, profile: StudentProfile) => void;
 }
 
-/** Spec 001: type of material, support options, photo or text, progress and errors. */
+/** Specs 001 and 002: type of material, support options, photo, text or slides, progress
+ * and errors. */
 export default function AdaptationForm({ onDone }: AdaptationFormProps) {
   const [materialType, setMaterialType] = useState<MaterialType>('test');
   const [profile, setProfile] = useState<StudentProfile>(EMPTY_PROFILE);
@@ -23,13 +30,13 @@ export default function AdaptationForm({ onDone }: AdaptationFormProps) {
 
   const send = async () => {
     if (!material) {
-      showError('Envie a foto da prova ou cole o texto.');
+      showError('Envie a foto da prova, cole o texto ou marque os slides.');
       return;
     }
     const adaptation = await submit({
       materialType,
       profile,
-      ...(material.kind === 'image' ? { image: material.image } : { text: material.text }),
+      ...materialFields(material),
     });
     if (adaptation) onDone(adaptation, material, profile);
   };

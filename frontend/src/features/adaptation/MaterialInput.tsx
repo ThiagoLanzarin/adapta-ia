@@ -3,8 +3,16 @@ import { useState } from 'react';
 import type { OriginalMaterial } from '@/shared/types/original';
 
 import { MAX_UPLOAD_BYTES, reduceImage } from './reduceImage';
+import SlidePicker from './SlidePicker';
 
 export const MAX_TEXT_LENGTH = 20_000;
+type Mode = OriginalMaterial['kind'];
+
+const MODES: { mode: Mode; label: string }[] = [
+  { mode: 'image', label: 'Foto da prova' },
+  { mode: 'text', label: 'Colar texto' },
+  { mode: 'slides', label: 'PowerPoint' },
+];
 const ACCEPTED = 'image/png,image/jpeg,image/webp,image/heic,image/heif,.heic,.heif';
 
 interface MaterialInputProps {
@@ -13,9 +21,10 @@ interface MaterialInputProps {
   onError: (message: string) => void;
 }
 
-/** Photo of the blank test (reduced in the browser) or pasted text (RF-01, RF-19). */
+/** Photo of the blank test (reduced in the browser), pasted text or PowerPoint slides
+ * (RF-01, RF-19, RF-02). */
 export default function MaterialInput({ value, onChange, onError }: MaterialInputProps) {
-  const [mode, setMode] = useState<'image' | 'text'>(value?.kind ?? 'image');
+  const [mode, setMode] = useState<Mode>(value?.kind ?? 'image');
   const [reducing, setReducing] = useState(false);
 
   const choose = async (file: File | undefined) => {
@@ -31,7 +40,7 @@ export default function MaterialInput({ value, onChange, onError }: MaterialInpu
     onChange({ kind: 'image', image, url: URL.createObjectURL(image) });
   };
 
-  const switchTo = (next: 'image' | 'text') => {
+  const switchTo = (next: Mode) => {
     setMode(next);
     onChange(null);
   };
@@ -40,18 +49,25 @@ export default function MaterialInput({ value, onChange, onError }: MaterialInpu
     <fieldset>
       <legend className="mb-2 font-semibold">Material</legend>
       <div className="mb-3 flex gap-2">
-        {(['image', 'text'] as const).map((option) => (
+        {MODES.map((option) => (
           <button
-            key={option}
+            key={option.mode}
             type="button"
-            onClick={() => switchTo(option)}
-            className={`rounded-lg px-4 py-2 ${mode === option ? 'bg-teal-700 text-white' : 'bg-slate-200'}`}
+            aria-pressed={mode === option.mode}
+            onClick={() => switchTo(option.mode)}
+            className={`rounded-lg px-4 py-2 ${mode === option.mode ? 'bg-teal-700 text-white' : 'bg-slate-200'}`}
           >
-            {option === 'image' ? 'Foto da prova' : 'Colar texto'}
+            {option.label}
           </button>
         ))}
       </div>
-      {mode === 'image' ? (
+      {mode === 'slides' && (
+        <SlidePicker
+          onChange={(slides) => onChange(slides.length > 0 ? { kind: 'slides', slides } : null)}
+          onError={onError}
+        />
+      )}
+      {mode === 'image' && (
         <div className="space-y-3">
           {/* The native file input looks like plain text after Tailwind's reset, so the
               visible part is the label, styled as a big button that opens the file window. */}
@@ -77,7 +93,8 @@ export default function MaterialInput({ value, onChange, onError }: MaterialInpu
             <img src={value.url} alt="Prova enviada" className="max-h-64 rounded border" />
           )}
         </div>
-      ) : (
+      )}
+      {mode === 'text' && (
         <label className="block">
           <textarea
             className="block w-full rounded-lg border border-slate-300 p-3"
