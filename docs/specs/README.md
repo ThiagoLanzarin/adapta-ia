@@ -16,7 +16,7 @@ constituicao.md ──> specs/NNN-*.md ──> arquitetura.md ──> tarefas.md
 | `constitution.md` | `docs/constituicao.md` |
 | `specs/NNN/spec.md` | `docs/specs/NNN-nome.md` (um arquivo por funcionalidade) |
 | `plan.md`, `data-model.md`, `contracts/` | `docs/arquitetura.md` (um plano para o sistema todo; contrato na seção 10) |
-| `research.md` | resultado da T00, anotado na T03 |
+| `research.md` | `docs/pesquisa-t00.md` (resultado da T00) |
 | `tasks.md` | `docs/tarefas.md` |
 | `/clarify` | marcadores `[PRECISA ESCLARECER]` na spec, resolvidos pelo grupo |
 | `/analyze` | os portões da constituição |

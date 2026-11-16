@@ -20,7 +20,7 @@ from typing import Literal
 
 from google import genai
 from google.genai import errors, types
-from pydantic import BaseModel, Field, ValidationError
+from pydantic import BaseModel, ValidationError
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from app.config import get_settings  # noqa: E402
@@ -34,6 +34,10 @@ MIME_TYPES = {
     ".heif": "image/heif",
 }
 TIMEOUT_MS = 90_000
+# Limits stay out of the schema sent to Gemini (it rejects long nested array limits
+# with "too many states"); they are checked after the answer instead.
+MAX_STEPS = 20
+MAX_KEYWORDS_PER_STEP = 3
 
 
 class AiKeyword(BaseModel):
@@ -46,7 +50,7 @@ class AiStep(BaseModel):
     sourceNumber: str | None
     text: str
     options: list[str]
-    keywords: list[AiKeyword] = Field(max_length=3)
+    keywords: list[AiKeyword]
 
 
 class AiAdaptation(BaseModel):
@@ -55,7 +59,7 @@ class AiAdaptation(BaseModel):
     transcription: str
     sourceQuestions: list[str]
     teacherNotes: list[str]
-    steps: list[AiStep] = Field(max_length=20)
+    steps: list[AiStep]
 
 
 PROMPT = """Você adapta materiais escolares para um aluno com autismo (TEA).
@@ -107,6 +111,8 @@ def check(adaptation: AiAdaptation) -> dict[str, object]:
         "missing_questions": missing,
         "options_total": sum(len(s.options) for s in questions),
         "keywords_not_in_text": keywords_not_in_text,
+        "over_limits": len(adaptation.steps) > MAX_STEPS
+        or any(len(s.keywords) > MAX_KEYWORDS_PER_STEP for s in adaptation.steps),
     }
 
 
@@ -122,7 +128,7 @@ def probe(client: genai.Client, model: str, path: Path, out_dir: Path) -> dict[s
             model=model, contents=build_parts(path), config=config
         )
     except errors.APIError as error:
-        return {"file": path.name, "error": f"{error.code} {error.status}"}
+        return {"file": path.name, "error": f"{error.code} {(error.message or '')[:200]}"}
     seconds = round(time.perf_counter() - started, 1)
     raw = response.text or ""
     (out_dir / f"{path.stem}.json").write_text(raw, encoding="utf-8")
