@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.ai_providers.base import AiProvider
 from app.ai_providers.fake import FakeAiProvider
-from app.api import health, pictograms
+from app.api import adaptations, health, pictograms
 from app.api.errors import register_error_handlers
 from app.config import Settings, get_settings
 from app.pictogram_providers.arasaac import ArasaacProvider
@@ -45,6 +45,7 @@ def create_app(
     register_error_handlers(app)
     app.include_router(health.router)
     app.include_router(pictograms.router)
+    app.include_router(adaptations.router)
     return app
 
 

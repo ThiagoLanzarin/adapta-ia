@@ -18,6 +18,7 @@ from app.models.ai_adaptation import AiAdaptation, ai_response_schema
 from app.models.material import Material
 from app.models.profile import MaterialType, StudentProfile
 from app.services.errors import ServiceError
+from app.services.material_service import read_material
 from app.services.pictogram_service import PictogramService
 from app.services.post_processing import build_adaptation, max_keywords
 
@@ -49,6 +50,16 @@ class AdaptationService:
         self._ai = ai
         self._pictograms = pictograms
         self._sleep = sleep
+
+    def adapt_submission(
+        self,
+        text: str | None,
+        image: bytes | None,
+        material_type: MaterialType,
+        profile: StudentProfile,
+    ) -> Adaptation:
+        """What the route calls: read the material, then adapt it."""
+        return self.adapt(read_material(text, image), material_type, profile)
 
     def adapt(
         self, material: Material, material_type: MaterialType, profile: StudentProfile

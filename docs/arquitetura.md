@@ -120,7 +120,7 @@ adapta-ia/
       ai_providers/        camada 3: interface (base.py), erros, texto do pedido (prompt.py),
                            IA simulada (fake.py); Gemini e replay nas T05 e T22
       pictogram_providers/ camada 3: interface (base.py), ARASAAC (arasaac.py) e simulado (fake.py)
-      readers/             camada 3: pptx, imagem, texto
+      readers/             camada 3: imagem (image_reader.py), texto (text_reader.py); pptx na T07
       models/              formato dos dados, usado por todas as camadas
     tests/
     requirements.txt
@@ -211,7 +211,7 @@ a imagem fiel do slide.
 |---|---|
 | IA | Faixa gratuita do Gemini; provedor trocável pela camada `ai_providers`. O nome do modelo vem da variável de ambiente `GEMINI_MODEL`. Escolhido na T00: `gemini-3.5-flash` (ver [pesquisa-t00.md](pesquisa-t00.md)); sem troca automática para modelo mais leve, porque o `flash-lite` mudou conteúdo cobrado |
 | PowerPoint | Extração no nosso servidor, **só do texto** na E1 (figuras na V2). O Gemini aceita `.pptx` direto, mas o converte em texto, não permite listar slides para escolher e prenderia o sistema a esse provedor |
-| Imagens aceitas | PNG, JPEG, WEBP, HEIC e HEIF (os formatos que o Gemini recebe) |
+| Imagens aceitas | PNG, JPEG, WEBP, HEIC e HEIF (os formatos que o Gemini recebe). O formato é conferido pelos primeiros bytes do arquivo, nunca pelo nome nem pelo tipo informado pelo navegador (T08a) |
 | Redução da imagem | No navegador, com canvas e sem biblioteca: lado maior com até 1600 px, JPEG com qualidade 0,85. Resolve o limite de 20 MB do Gemini, o tempo de envio e o espaço no IndexedDB, e apaga os metadados (como o GPS). HEIC/HEIF segue sem redução, porque o Chrome não abre esse formato no canvas |
 | Tamanho máximo | 20 MB por arquivo enviado, conferido também no servidor |
 | Figuras do original | A IA devolve a caixa da figura na foto; a **tela** recorta a figura da foto reduzida (canvas, sem biblioteca) e a coloca junto da questão. O servidor não mexe em imagem. Sem foto ou sem caixa, aviso `NEEDS_FIGURE` |
