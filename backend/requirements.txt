@@ -8,6 +8,7 @@ pydantic==2.14.3
 httpx==0.28.1
 google-genai==3.3.0
 python-multipart==0.0.34
+python-pptx==1.0.2
 
 # Testes e padronização
 pytest==9.2.0

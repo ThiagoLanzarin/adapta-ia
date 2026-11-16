@@ -120,7 +120,7 @@ adapta-ia/
       ai_providers/        camada 3: interface (base.py), erros, texto do pedido (prompt.py),
                            IA simulada (fake.py); Gemini e replay nas T05 e T22
       pictogram_providers/ camada 3: interface (base.py), ARASAAC (arasaac.py) e simulado (fake.py)
-      readers/             camada 3: imagem (image_reader.py), texto (text_reader.py); pptx na T07
+      readers/             camada 3: imagem (image_reader.py), texto (text_reader.py), PowerPoint (pptx_reader.py)
       models/              formato dos dados, usado por todas as camadas
     tests/
     requirements.txt

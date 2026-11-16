@@ -70,7 +70,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 | T14 | Trocar e remover pictograma | 2 | T12, T06 | Gabriel | concluída |
 | T16 | Colorido / preto e branco | 2 | T12 | Gabriel | concluída |
 | T17 | Imprimir e baixar PDF | 2 | T12 | Gabriel | concluída |
-| T07 | Leitor de PowerPoint | 3 | T03 | | livre |
+| T07 | Leitor de PowerPoint | 3 | T03 | Gabriel | concluída |
 | T08b | Rota de slides | 3 | T07, T08a | | livre |
 | T11 | Enviar PowerPoint e escolher slides | 3 | T10, T08b | | livre |
 | T19 | Histórico | 4 | T12 | | livre |
@@ -241,6 +241,12 @@ início da tarefa.
 - **Requisitos:** RF-02
 - **Pronto quando:** dado um `.pptx`, o leitor devolve a lista de slides com número, título e
   texto; arquivo inválido gera erro claro; tem testes com um arquivo de exemplo.
+- **Notas (16/11/2026):**
+  - Os arquivos de exemplo são gerados dentro do teste (`tests/pptx_factory.py`), sem binário
+    no repositório.
+  - O título do slide não se repete no texto. A T08b manda os dois para a IA.
+  - O texto segue a ordem de leitura (de cima para baixo, da esquerda para a direita), e não
+    a ordem em que as caixas foram criadas.
 
 #### T08b — Rota de slides
 - **Pastas:** `backend/app/api/`, `backend/tests/`
