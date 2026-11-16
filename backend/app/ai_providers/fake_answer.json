@@ -1,0 +1,48 @@
+{
+  "title": "Prova de Ciências (exemplo da IA simulada)",
+  "objective": "Reconhecer as etapas do ciclo da água",
+  "transcription": "Leia o texto e responda.\nO CICLO DA ÁGUA\nO sol aquece a água dos rios e dos mares. A água vira vapor e sobe. No alto, o vapor esfria e forma as nuvens.\n1) Como se chama a etapa em que a água vira vapor?\na) Condensação b) Evaporação c) Precipitação d) Infiltração\n2) Observe o gráfico e responda: em qual mês choveu mais?",
+  "sourceQuestions": ["1", "2"],
+  "teacherNotes": [
+    "Esta é uma resposta da IA simulada: ela não leu o seu material.",
+    "Dividi o texto em frases curtas, sem mudar o conteúdo."
+  ],
+  "steps": [
+    {
+      "kind": "instruction",
+      "sourceNumber": null,
+      "text": "Leia o texto. Depois, responda às questões.",
+      "options": [],
+      "keywords": [{ "word": "texto", "searchTerm": "texto" }],
+      "needsFigure": false,
+      "figureBox": null
+    },
+    {
+      "kind": "text",
+      "sourceNumber": null,
+      "text": "O CICLO DA ÁGUA\n\nO sol aquece a água dos rios e dos mares.\n\nA água vira vapor e sobe.\n\nNo alto, o vapor esfria e forma as nuvens.",
+      "options": [],
+      "keywords": [],
+      "needsFigure": false,
+      "figureBox": null
+    },
+    {
+      "kind": "question",
+      "sourceNumber": "1",
+      "text": "A água vira vapor. Como se chama essa etapa?",
+      "options": ["a) Condensação", "b) Evaporação", "c) Precipitação", "d) Infiltração"],
+      "keywords": [{ "word": "vapor", "searchTerm": "vapor" }],
+      "needsFigure": false,
+      "figureBox": null
+    },
+    {
+      "kind": "question",
+      "sourceNumber": "2",
+      "text": "Olhe o gráfico. Em qual mês choveu mais?",
+      "options": [],
+      "keywords": [{ "word": "gráfico", "searchTerm": "gráfico" }],
+      "needsFigure": true,
+      "figureBox": [540, 120, 760, 480]
+    }
+  ]
+}

@@ -60,7 +60,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 | T02 | Esqueleto da tela | 1 | — | Gabriel | concluída |
 | T20a | Publicar o esqueleto | 1 | T01, T02 | Gabriel | concluída |
 | T03 | Formato dos dados | 1 | T00 (resultado) | Gabriel | concluída |
-| T04 | Contrato de IA, IA simulada e regra de adaptar | 1 | T01, T03 | | livre |
+| T04 | Contrato de IA, IA simulada e regra de adaptar | 1 | T01, T03 | Gabriel | concluída |
 | T06 | Pictogramas ARASAAC | 1 | T01, T03 | | livre |
 | T08a | Rota de adaptar: texto e imagem | 1 | T04, T06 | | livre |
 | T05 | Provedor Gemini | 1 | T04 e a chave | | livre |
