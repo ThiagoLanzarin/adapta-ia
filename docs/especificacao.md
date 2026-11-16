@@ -124,6 +124,10 @@ spec pode contrariar estão em [constituicao.md](constituicao.md).
   a chave. No painel do grupo, em 16/11/2026: **5 pedidos por minuto e 20 por dia** para o
   modelo escolhido (ver [pesquisa-t00.md](pesquisa-t00.md)). Por isso o limite de 5 slides por vez, uma chamada à IA por adaptação e o
   provedor trocável.
+- **Cobrança da API:** em 16/11/2026 o grupo decidiu usar créditos pré-pagos (cerca de R$ 60),
+  pagos pelo grupo, para ter cota nos testes e na apresentação. Com a cobrança ativa, o uso
+  conta como serviço pago e os dados deixam de ser usados para treino. O professor continua
+  sem custo (P4). Detalhes em [pesquisa-t00.md](pesquisa-t00.md).
 - **Dados na faixa gratuita do Gemini:** pelos termos da API, na faixa gratuita o Google usa
   o que é enviado e o que é gerado para melhorar os produtos dele, e pessoas podem revisar
   esse conteúdo. Fonte: Termos adicionais da API Gemini e página de política de dados

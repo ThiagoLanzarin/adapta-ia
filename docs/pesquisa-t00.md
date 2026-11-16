@@ -142,6 +142,24 @@ esse modelo [a verificar: conferir no painel se o uso subiu para 9 depois das 3 
 **O que isso significa: 20 adaptações por dia, por chave.** Para o grupo todo, contando
 desenvolvimento, testes e a apresentação. Cada nova tentativa também conta.
 
+## Cobrança da API (decisão de 16/11/2026)
+
+O grupo decidiu colocar **cerca de R$ 60 em créditos pré-pagos** na API (Billing do AI Studio),
+antes da T05. Motivos:
+
+- A assinatura Google AI Pro não aumenta a cota da chave de API. Ela dá cerca de US$ 10/mês
+  em créditos, mas exige ativar a cobrança com depósito mínimo de US$ 5.
+- No pré-pago, o uso é descontado do saldo: sem conta surpresa. Créditos valem 1 ano e não
+  têm reembolso.
+- Estimativa: cerca de US$ 0,03 por prova fotografada (até US$ 0,06 se o raciocínio do modelo
+  for cobrado) [preço a verificar na página oficial], ou seja, 150 a 300 adaptações.
+- Com a cobrança ativa, o uso conta como serviço pago e o Google não usa os dados para
+  treinar modelos (ver especificação, seção 7).
+
+Quem ativa é o membro dono da chave. Depois de ativar: conferir os novos limites no painel e
+anotar aqui. Na T05, avaliar trocar `GEMINI_MODEL` para `gemini-3.6-flash` (há indício de que
+o `3.5-flash` está descontinuado e redirecionado) [a verificar].
+
 ## Decisões para a T03 e a T05
 
 Além das da seção anterior:
