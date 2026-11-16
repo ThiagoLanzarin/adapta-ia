@@ -1,0 +1,12 @@
+# Versões conferidas na instalação (16/11/2026, Python 3.13).
+# Cada tarefa acrescenta só o que usa (ver docs/arquitetura.md, seção 2).
+
+# Servidor
+fastapi==0.163.1
+uvicorn[standard]==0.54.0
+pydantic==2.14.3
+httpx==0.28.1
+
+# Testes e padronização
+pytest==9.2.0
+ruff==0.17.5

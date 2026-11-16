@@ -55,7 +55,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 | Tarefa | Título | Fatia | Depende de | Responsável | Estado |
 |---|---|---|---|---|---|
 | T00 | Prova rápida do Gemini | 1 | a chave | | livre |
-| T01 | Esqueleto do servidor | 1 | — | | livre |
+| T01 | Esqueleto do servidor | 1 | — | Gabriel | concluída |
 | T02 | Esqueleto da tela | 1 | — | | livre |
 | T20a | Publicar o esqueleto | 1 | T01, T02 | | livre |
 | T03 | Formato dos dados | 1 | T00 (resultado) | | livre |
