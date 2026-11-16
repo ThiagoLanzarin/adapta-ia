@@ -41,6 +41,8 @@ preto e branco, para a folha ficar certa para o meu aluno.
 - **CA-004-23** [manual] Removo um pictograma: a palavra continua no texto, sem imagem.
 - **CA-004-24** [manual] Um botão alterna todos os pictogramas da folha entre colorido e
   preto e branco.
+- **CA-004-26** [manual] Removo a figura recortada de uma questão: a questão continua, sem a
+  figura, e aparece o aviso `NEEDS_FIGURE` para aquela questão.
 - **CA-004-25** [manual] As edições ficam salvas: se a spec 007 estiver pronta, ao reabrir a
   adaptação pelo histórico, as mudanças estão lá.
 

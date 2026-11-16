@@ -59,7 +59,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 | T01 | Esqueleto do servidor | 1 | — | Gabriel | concluída |
 | T02 | Esqueleto da tela | 1 | — | | livre |
 | T20a | Publicar o esqueleto | 1 | T01, T02 | | livre |
-| T03 | Formato dos dados | 1 | T00 (resultado) | | livre |
+| T03 | Formato dos dados | 1 | T00 (resultado) | Gabriel | concluída |
 | T04 | Contrato de IA, IA simulada e regra de adaptar | 1 | T01, T03 | | livre |
 | T06 | Pictogramas ARASAAC | 1 | T01, T03 | | livre |
 | T08a | Rota de adaptar: texto e imagem | 1 | T04, T06 | | livre |
@@ -172,7 +172,7 @@ início da tarefa.
     busca pelo sentido, nenhuma palavra-chave que seja resposta possível);
   - os testes com o Gemini real respeitam a cota (20 pedidos por dia por chave);
   - os erros do Google viram os códigos da seção 7 da arquitetura, com tempo-limite de
-    cerca de 60 s;
+    90 s (R-001-09);
   - sem a chave, o sistema segue funcionando com a IA simulada;
   - a chave não aparece no código nem no Git.
 
