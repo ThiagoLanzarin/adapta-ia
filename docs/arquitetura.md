@@ -116,7 +116,7 @@ adapta-ia/
       main.py              ponto de montagem: cria o app e escolhe os provedores
       config.py            lê as variáveis de ambiente
       api/                 camada 1: rotas, só recebem e respondem
-      services/            camada 2: regras (adaptar, pictogramas, conferir questões)
+      services/            camada 2: regras (adaptar, pictogramas, slides, conferir questões)
       ai_providers/        camada 3: interface (base.py), erros, texto do pedido (prompt.py),
                            IA simulada (fake.py); Gemini e replay nas T05 e T22
       pictogram_providers/ camada 3: interface (base.py), ARASAAC (arasaac.py) e simulado (fake.py)
@@ -338,6 +338,9 @@ no Pydantic. Modelos em `backend/app/models/`; tipos da tela em
 ```
 
 `notes` tem até 500 caracteres.
+
+Os slides escolhidos viram um único texto para a IA, um bloco por slide, em ordem de número:
+`Slide 2: <título>`, quebra de linha, `<texto>` (CA-002-07). Slide sem título nem texto fica de fora.
 
 ### Lista de slides
 

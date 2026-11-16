@@ -71,7 +71,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 | T16 | Colorido / preto e branco | 2 | T12 | Gabriel | concluída |
 | T17 | Imprimir e baixar PDF | 2 | T12 | Gabriel | concluída |
 | T07 | Leitor de PowerPoint | 3 | T03 | Gabriel | concluída |
-| T08b | Rota de slides | 3 | T07, T08a | | livre |
+| T08b | Rota de slides | 3 | T07, T08a | Gabriel | concluída |
 | T11 | Enviar PowerPoint e escolher slides | 3 | T10, T08b | | livre |
 | T19 | Histórico | 4 | T12 | | livre |
 | T18 | Perfis de aluno | 4 | T10 | | livre |

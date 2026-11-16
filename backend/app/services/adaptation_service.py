@@ -18,6 +18,7 @@ from app.models.adaptation import MAX_STEPS, Adaptation
 from app.models.ai_adaptation import AiAdaptation, ai_response_schema
 from app.models.material import Material
 from app.models.profile import MaterialType, StudentProfile
+from app.models.slides import Slide
 from app.services.errors import ServiceError
 from app.services.material_service import read_material
 from app.services.pictogram_service import PictogramService
@@ -58,9 +59,10 @@ class AdaptationService:
         image: bytes | None,
         material_type: MaterialType,
         profile: StudentProfile,
+        slides: list[Slide] | None = None,
     ) -> Adaptation:
         """What the route calls: read the material, then adapt it."""
-        return self.adapt(read_material(text, image), material_type, profile)
+        return self.adapt(read_material(text, image, slides), material_type, profile)
 
     def adapt(
         self, material: Material, material_type: MaterialType, profile: StudentProfile
