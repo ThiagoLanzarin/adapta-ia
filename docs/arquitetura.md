@@ -95,6 +95,7 @@ adapta-ia/
     specs/                 uma spec por funcionalidade, com critérios de aceite
     arquitetura.md         este documento (o plano técnico)
     tarefas.md             lista de tarefas e quem está em cada uma
+    pesquisa-t00.md        resultado do teste do Gemini real (research.md)
     roadmap.md             etapas até a entrega e V2
     contrato-exemplo.json  exemplo do contrato, validado por teste (criado na T03)
   frontend/
@@ -197,7 +198,7 @@ a imagem fiel do slide.
 
 | Tema | Decisão |
 |---|---|
-| IA | Faixa gratuita do Gemini; provedor trocável pela camada `ai_providers`. O nome do modelo vem da variável de ambiente `GEMINI_MODEL` |
+| IA | Faixa gratuita do Gemini; provedor trocável pela camada `ai_providers`. O nome do modelo vem da variável de ambiente `GEMINI_MODEL`. Escolhido na T00: `gemini-3.5-flash` (ver [pesquisa-t00.md](pesquisa-t00.md)); sem troca automática para modelo mais leve, porque o `flash-lite` mudou conteúdo cobrado |
 | PowerPoint | Extração no nosso servidor, **só do texto** na E1 (figuras na V2). O Gemini aceita `.pptx` direto, mas o converte em texto, não permite listar slides para escolher e prenderia o sistema a esse provedor |
 | Imagens aceitas | PNG, JPEG, WEBP, HEIC e HEIF (os formatos que o Gemini recebe) |
 | Redução da imagem | No navegador, com canvas e sem biblioteca: lado maior com até 1600 px, JPEG com qualidade 0,85. Resolve o limite de 20 MB do Gemini, o tempo de envio e o espaço no IndexedDB, e apaga os metadados (como o GPS). HEIC/HEIF segue sem redução, porque o Chrome não abre esse formato no canvas |
@@ -225,9 +226,11 @@ Gemini (resposta em JSON com schema) -> valida com Pydantic -> regras do serviç
  erro AI_INVALID                                       questão faltando vira aviso
 ```
 
-- A resposta da IA é pedida em JSON com schema, pela saída estruturada do SDK, e validada de
-  novo com Pydantic. O schema da IA fica raso, sem modelos aninhados profundos.
-- Limites no modelo: até 20 etapas; até 3 palavras-chave por etapa.
+- A resposta da IA é pedida em JSON com schema, pela saída estruturada do SDK
+  (`response_json_schema`), e validada de novo com Pydantic.
+- O schema enviado à IA **não tem limites de tamanho de lista**: o Gemini recusou "até 20
+  etapas" e "até 3 palavras-chave" com o erro "estados demais" (T00). Os limites (20 etapas;
+  palavras-chave conforme R-001-04) são conferidos pelo servidor depois da resposta.
 - O texto do pedido à IA (prompt) fica num arquivo próprio em `ai_providers`, versionado.
 - Regras de prova no pedido: manter todas as questões e alternativas; numerar como no
   original; não acrescentar conteúdo; não destacar nem ilustrar a resposta; palavras-chave só

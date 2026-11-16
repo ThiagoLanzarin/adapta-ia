@@ -55,7 +55,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 
 | Tarefa | Título | Fatia | Depende de | Responsável | Estado |
 |---|---|---|---|---|---|
-| T00 | Prova rápida do Gemini | 1 | a chave | Gabriel | em andamento |
+| T00 | Prova rápida do Gemini | 1 | a chave | Gabriel | concluída |
 | T01 | Esqueleto do servidor | 1 | — | Gabriel | concluída |
 | T02 | Esqueleto da tela | 1 | — | | livre |
 | T20a | Publicar o esqueleto | 1 | T01, T02 | | livre |
@@ -167,6 +167,9 @@ início da tarefa.
 - **Depende de:** um membro ter criado a chave no Google AI Studio.
 - **Pronto quando:**
   - com a chave no `.env`, uma adaptação real funciona de ponta a ponta;
+  - foi testado com 3 fotos de provas em branco (pendência da T00, ver
+    [pesquisa-t00.md](pesquisa-t00.md)), anotando o tempo e a qualidade da leitura;
+  - o pedido à IA inclui as descobertas 5, 6 e 7 da pesquisa da T00;
   - os erros do Google viram os códigos da seção 7 da arquitetura, com tempo-limite de
     cerca de 60 s;
   - sem a chave, o sistema segue funcionando com a IA simulada;
