@@ -58,7 +58,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 | T00 | Prova rápida do Gemini | 1 | a chave | Gabriel | concluída |
 | T01 | Esqueleto do servidor | 1 | — | Gabriel | concluída |
 | T02 | Esqueleto da tela | 1 | — | Gabriel | concluída |
-| T20a | Publicar o esqueleto | 1 | T01, T02 | | livre |
+| T20a | Publicar o esqueleto | 1 | T01, T02 | Gabriel | concluída |
 | T03 | Formato dos dados | 1 | T00 (resultado) | Gabriel | concluída |
 | T04 | Contrato de IA, IA simulada e regra de adaptar | 1 | T01, T03 | | livre |
 | T06 | Pictogramas ARASAAC | 1 | T01, T03 | | livre |
@@ -292,6 +292,8 @@ início da tarefa.
   gravadas; material não gravado devolve erro claro; a tela mostra "modo demonstração".
 
 #### T20b — Publicar a versão final
+- **Como:** em cada serviço do Render, **Manual Deploy** → **Deploy latest commit** (não há
+  deploy automático; ver arquitetura, seção 6). Trocar `AI_PROVIDER` para `gemini` no servidor.
 - **Pronto quando:** a versão congelada está publicada e uma adaptação real funciona nela.
 
 #### T21 — Testar e roteiro da demonstração
