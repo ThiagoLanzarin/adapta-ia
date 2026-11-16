@@ -53,12 +53,24 @@ export default function MaterialInput({ value, onChange, onError }: MaterialInpu
       </div>
       {mode === 'image' ? (
         <div className="space-y-3">
-          <input
-            type="file"
-            accept={ACCEPTED}
-            aria-label="Foto da prova em branco"
-            onChange={(event) => void choose(event.target.files?.[0])}
-          />
+          {/* The native file input looks like plain text after Tailwind's reset, so the
+              visible part is the label, styled as a big button that opens the file window. */}
+          <label className="flex cursor-pointer flex-col items-center gap-1 rounded-lg border-2 border-dashed border-teal-700 bg-teal-50 px-4 py-6 text-center hover:bg-teal-100 focus-within:outline-2 focus-within:outline-teal-700">
+            <span className="text-lg font-semibold text-teal-800">
+              {value?.kind === 'image' ? 'Trocar a foto' : 'Escolher foto da prova'}
+            </span>
+            <span className="text-sm text-slate-600">PNG, JPG, WEBP ou HEIC (foto do celular)</span>
+            <input
+              type="file"
+              accept={ACCEPTED}
+              aria-label="Foto da prova em branco"
+              className="sr-only"
+              onChange={(event) => {
+                void choose(event.target.files?.[0]);
+                event.target.value = '';
+              }}
+            />
+          </label>
           <p className="text-sm text-slate-600">Fotografe a prova em branco, sem nome de aluno.</p>
           {reducing && <p className="text-sm">Preparando a foto...</p>}
           {value?.kind === 'image' && (
