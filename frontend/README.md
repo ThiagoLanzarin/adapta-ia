@@ -47,18 +47,18 @@ O `lint` também cobra a arquitetura: uma funcionalidade não importa de outra, 
 
 ## Pastas
 
-| Pasta | O que tem |
-|---|---|
-| `src/App.tsx` | Rotas (React Router) |
-| `src/pages/` | Uma página por endereço; só junta funcionalidades |
-| `src/features/adaptation/` | Enviar material e escolher slides |
-| `src/features/sheet/` | Folha adaptada, edição e impressão |
-| `src/features/profiles/` | Perfis de aluno |
-| `src/features/history/` | Histórico |
-| `src/shared/api/` | Cliente do servidor |
-| `src/shared/types/` | Tipos do contrato (iguais aos do servidor) |
-| `src/shared/fixtures/` | Exemplo do contrato, para trabalhar sem o servidor |
-| `src/shared/ui/` | Componentes genéricos |
+| Pasta                      | O que tem                                          |
+| -------------------------- | -------------------------------------------------- |
+| `src/App.tsx`              | Rotas (React Router)                               |
+| `src/pages/`               | Uma página por endereço; só junta funcionalidades  |
+| `src/features/adaptation/` | Enviar material e escolher slides                  |
+| `src/features/sheet/`      | Folha adaptada, edição e impressão                 |
+| `src/features/profiles/`   | Perfis de aluno                                    |
+| `src/features/history/`    | Histórico                                          |
+| `src/shared/api/`          | Cliente do servidor                                |
+| `src/shared/types/`        | Tipos do contrato (iguais aos do servidor)         |
+| `src/shared/fixtures/`     | Exemplo do contrato, para trabalhar sem o servidor |
+| `src/shared/ui/`           | Componentes genéricos                              |
 
 ## Versões
 
