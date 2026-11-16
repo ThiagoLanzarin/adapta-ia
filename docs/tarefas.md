@@ -67,7 +67,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 | T10 | Enviar imagem e colar texto | 1 | T02, T03 | Gabriel | concluída |
 | T12 | Folha adaptada ao lado do original | 1 | T10 | Gabriel | concluída |
 | T13 | Editar o texto da folha | 2 | T12 | | livre |
-| T14 | Trocar e remover pictograma | 2 | T12, T06 | | livre |
+| T14 | Trocar e remover pictograma | 2 | T12, T06 | Gabriel | concluída |
 | T16 | Colorido / preto e branco | 2 | T12 | | livre |
 | T17 | Imprimir e baixar PDF | 2 | T12 | | livre |
 | T07 | Leitor de PowerPoint | 3 | T03 | | livre |

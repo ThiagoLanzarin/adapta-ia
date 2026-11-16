@@ -1,23 +1,47 @@
+import { useState } from 'react';
+
 import type { Adaptation } from '@/shared/types/contract';
 import type { OriginalMaterial } from '@/shared/types/original';
 
+import { type KeywordRef, setPictogram } from './editAdaptation';
 import OriginalPanel from './OriginalPanel';
+import PictogramPicker from './PictogramPicker';
 import ReviewNotes from './ReviewNotes';
 import Sheet from './Sheet';
 
 interface AdaptationResultProps {
   adaptation: Adaptation;
   original: OriginalMaterial;
+  onChange: (adaptation: Adaptation) => void;
   onNew: () => void;
 }
 
-/** Spec 001, RF-09: original and adapted sheet side by side, with the notes outside it. */
-export default function AdaptationResult({ adaptation, original, onNew }: AdaptationResultProps) {
+/** Spec 001, RF-09: original and adapted sheet side by side, with the notes outside it.
+ * Spec 004: the teacher fixes the sheet here; every edit goes up through `onChange`. */
+export default function AdaptationResult({
+  adaptation,
+  original,
+  onChange,
+  onNew,
+}: AdaptationResultProps) {
+  const [picking, setPicking] = useState<KeywordRef | null>(null);
   const imageUrl = original.kind === 'image' ? original.url : null;
+  const color = true;
+  const pickedKeyword = picking
+    ? adaptation.steps.find((step) => step.id === picking.stepId)?.keywords[picking.index]
+    : undefined;
+
+  function choose(pictogramId: number | null) {
+    if (picking) onChange(setPictogram(adaptation, picking, pictogramId));
+    setPicking(null);
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4 print:hidden">
-        <p className="text-slate-700">Confira a folha antes de imprimir.</p>
+        <p className="text-slate-700">
+          Confira a folha antes de imprimir. Clique num pictograma para trocar ou remover.
+        </p>
         <button type="button" onClick={onNew} className="rounded-lg bg-slate-200 px-4 py-2">
           Adaptar outro material
         </button>
@@ -27,8 +51,17 @@ export default function AdaptationResult({ adaptation, original, onNew }: Adapta
         <div className="print:hidden lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] lg:self-start lg:overflow-y-auto">
           <OriginalPanel original={original} transcription={adaptation.transcription} />
         </div>
-        <Sheet adaptation={adaptation} imageUrl={imageUrl} color />
+        <Sheet adaptation={adaptation} imageUrl={imageUrl} color={color} onPick={setPicking} />
       </div>
+      {pickedKeyword && (
+        <PictogramPicker
+          keyword={pickedKeyword}
+          color={color}
+          onChoose={choose}
+          onRemove={() => choose(null)}
+          onClose={() => setPicking(null)}
+        />
+      )}
     </div>
   );
 }

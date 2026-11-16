@@ -21,6 +21,7 @@ export default function AdaptationPage() {
       <AdaptationResult
         adaptation={result.adaptation}
         original={result.original}
+        onChange={(adaptation) => setResult({ ...result, adaptation })}
         onNew={() => setResult(null)}
       />
     );
