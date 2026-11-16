@@ -69,7 +69,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 | T13 | Editar o texto da folha | 2 | T12 | Gabriel | concluída |
 | T14 | Trocar e remover pictograma | 2 | T12, T06 | Gabriel | concluída |
 | T16 | Colorido / preto e branco | 2 | T12 | Gabriel | concluída |
-| T17 | Imprimir e baixar PDF | 2 | T12 | | livre |
+| T17 | Imprimir e baixar PDF | 2 | T12 | Gabriel | concluída |
 | T07 | Leitor de PowerPoint | 3 | T03 | | livre |
 | T08b | Rota de slides | 3 | T07, T08a | | livre |
 | T11 | Enviar PowerPoint e escolher slides | 3 | T10, T08b | | livre |
@@ -226,6 +226,12 @@ início da tarefa.
 - **Pronto quando:** a impressão sai em A4 só com a folha adaptada (sem o quadro "O que
   mudou" nem os avisos); a impressão espera os pictogramas carregarem; o botão de PDF abre a
   impressão do navegador; o crédito do ARASAAC aparece no rodapé.
+- **Notas (16/11/2026):**
+  - O crédito vai na margem de baixo de cada página (`@page @bottom-center` no `index.css`).
+    Conferido no Chrome. Firefox e Safari: a verificar.
+  - O texto do crédito (R-006-01) ainda não foi conferido no site do ARASAAC: a página de
+    condições de uso não abriu no navegador da IA. Alguém do grupo confere e corrige
+    `ARASAAC_CREDIT` (`frontend/src/shared/pictograms.ts`), se precisar.
 
 ### Fatia 3 — PowerPoint
 

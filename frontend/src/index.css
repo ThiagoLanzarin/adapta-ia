@@ -4,3 +4,26 @@
 html {
   font-size: 18px;
 }
+
+/* Spec 006: A4 sheet. CA-006-03: the ARASAAC credit goes in the bottom margin of every page;
+   printSheet.ts sets --sheet-credit from ARASAAC_CREDIT, so the text lives in one place. */
+@page {
+  size: A4;
+  margin: 15mm 15mm 20mm;
+
+  @bottom-center {
+    content: var(--sheet-credit);
+    font: 8pt sans-serif;
+    color: #475569;
+  }
+}
+
+@media print {
+  html {
+    font-size: 16px;
+  }
+
+  img {
+    break-inside: avoid;
+  }
+}
