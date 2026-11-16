@@ -3,7 +3,14 @@ import { useState } from 'react';
 import type { Adaptation } from '@/shared/types/contract';
 import type { OriginalMaterial } from '@/shared/types/original';
 
-import { type KeywordRef, setPictogram } from './editAdaptation';
+import {
+  type KeywordRef,
+  removeFigure,
+  type SheetActions,
+  setOptionText,
+  setPictogram,
+  setStepText,
+} from './editAdaptation';
 import OriginalPanel from './OriginalPanel';
 import PictogramPicker from './PictogramPicker';
 import ReviewNotes from './ReviewNotes';
@@ -31,6 +38,13 @@ export default function AdaptationResult({
     ? adaptation.steps.find((step) => step.id === picking.stepId)?.keywords[picking.index]
     : undefined;
 
+  const actions: SheetActions = {
+    pickPictogram: setPicking,
+    editText: (stepId, text) => onChange(setStepText(adaptation, stepId, text)),
+    editOption: (stepId, index, text) => onChange(setOptionText(adaptation, stepId, index, text)),
+    removeFigure: (stepId) => onChange(removeFigure(adaptation, stepId)),
+  };
+
   function choose(pictogramId: number | null) {
     if (picking) onChange(setPictogram(adaptation, picking, pictogramId));
     setPicking(null);
@@ -40,7 +54,8 @@ export default function AdaptationResult({
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4 print:hidden">
         <p className="text-slate-700">
-          Confira a folha antes de imprimir. Clique num pictograma para trocar ou remover.
+          Confira a folha antes de imprimir. Clique num texto para reescrever ou num pictograma para
+          trocar.
         </p>
         <button type="button" onClick={onNew} className="rounded-lg bg-slate-200 px-4 py-2">
           Adaptar outro material
@@ -51,7 +66,7 @@ export default function AdaptationResult({
         <div className="print:hidden lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] lg:self-start lg:overflow-y-auto">
           <OriginalPanel original={original} transcription={adaptation.transcription} />
         </div>
-        <Sheet adaptation={adaptation} imageUrl={imageUrl} color={color} onPick={setPicking} />
+        <Sheet adaptation={adaptation} imageUrl={imageUrl} color={color} actions={actions} />
       </div>
       {pickedKeyword && (
         <PictogramPicker
