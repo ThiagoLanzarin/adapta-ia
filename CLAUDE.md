@@ -22,7 +22,8 @@ Aprovadas pelo grupo em 15/11/2026.
    antes. Na dúvida, perguntar.
 2. **Uma tarefa por vez**, tirada de `docs/tarefas.md`. Nada fora da tarefa.
 3. **Camadas do servidor.** Rota não tem regra. Regra não conhece o Gemini nem o ARASAAC, só as
-   interfaces dos provedores. Só o `main.py` escolhe o provedor.
+   interfaces dos provedores. Só o `main.py` escolhe o provedor. O `pytest` confere as
+   camadas (`tests/test_architecture.py`).
 4. **Camadas da tela.** Componente não chama a API direto, usa o cliente em `shared`.
    Uma funcionalidade não importa de dentro de outra.
 5. **Arquivo pequeno.** Uma responsabilidade por arquivo. Passou de 200 linhas, dividir.

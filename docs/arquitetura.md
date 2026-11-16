@@ -117,7 +117,8 @@ adapta-ia/
       config.py            lê as variáveis de ambiente
       api/                 camada 1: rotas, só recebem e respondem
       services/            camada 2: regras (adaptar, pictogramas, conferir questões)
-      ai_providers/        camada 3: interface de IA + Gemini, simulada e replay
+      ai_providers/        camada 3: interface (base.py), erros, texto do pedido (prompt.py),
+                           IA simulada (fake.py); Gemini e replay nas T05 e T22
       pictogram_providers/ camada 3: interface de pictogramas + ARASAAC e simulado
       readers/             camada 3: pptx, imagem, texto
       models/              formato dos dados, usado por todas as camadas
@@ -163,6 +164,8 @@ models/ é usado por todas as camadas
   implementação da mesma interface.
 - `readers`: transformam o material enviado (pptx, imagem, texto) em um formato único.
 - `models`: o formato dos dados que entram e saem.
+- **As regras desta tabela são conferidas por teste** (`backend/tests/test_architecture.py`):
+  um import proibido, ou a palavra "Gemini" em `services`, faz o `pytest` falhar.
 - `main.py`: o único lugar que sabe qual implementação usar. É o que torna a troca de
   provedor uma mudança de `.env`, e não de código.
 
@@ -272,7 +275,8 @@ Gemini (resposta em JSON com schema) -> valida com Pydantic -> regras do serviç
 | Erro | Nova tentativa | Código devolvido |
 |---|---|---|
 | Limite da cota (429) | Não | `AI_QUOTA` |
-| Tempo esgotado (90 s; ver R-001-09) ou erro do Google (5xx) | 1 vez, depois de cerca de 2 s | `AI_TIMEOUT` ou `AI_UNAVAILABLE` |
+| IA sobrecarregada ou fora do ar (5xx) | 1 vez, depois de 2 s | `AI_UNAVAILABLE` |
+| Tempo esgotado (90 s; ver R-001-09) | Não: uma segunda espera de 90 s passaria do limite da tela (100 s) | `AI_TIMEOUT` |
 | Resposta fora do formato | 1 vez (acima) | `AI_INVALID` |
 | Bloqueio de segurança da IA | Não | `AI_BLOCKED` |
 
