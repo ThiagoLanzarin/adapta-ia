@@ -17,7 +17,7 @@ def test_health_returns_ok():
     response = client.get("/health")
 
     assert response.status_code == 200
-    assert response.json() == {"status": "ok"}
+    assert response.json() == {"status": "ok", "aiProvider": "fake"}
 
 
 def test_cors_allows_only_the_configured_origin():
