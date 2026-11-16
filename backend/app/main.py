@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.ai_providers.base import AiProvider
 from app.ai_providers.fake import FakeAiProvider
 from app.ai_providers.gemini import GeminiProvider
-from app.api import adaptations, health, pictograms
+from app.api import adaptations, health, pictograms, slides
 from app.api.errors import register_error_handlers
 from app.config import Settings, get_settings
 from app.pictogram_providers.arasaac import ArasaacProvider
@@ -53,6 +53,7 @@ def create_app(
     app.include_router(health.router)
     app.include_router(pictograms.router)
     app.include_router(adaptations.router)
+    app.include_router(slides.router)
     return app
 
 
