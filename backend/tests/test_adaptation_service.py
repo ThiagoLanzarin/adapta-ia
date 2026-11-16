@@ -12,7 +12,7 @@ from app.ai_providers.fake import FakeAiProvider
 from app.models.material import Material
 from app.models.profile import StudentProfile
 from app.services.adaptation_service import AdaptationService
-from app.services.errors import AdaptationError
+from app.services.errors import ServiceError
 from tests.factories import ai_answer_json, ai_step
 
 TEXT = Material(text="1) Como se chama a etapa em que a água vira vapor?")
@@ -27,7 +27,7 @@ def adapt(answers, sleeps=None):
 
 def adapt_error(answers) -> tuple[str, FakeAiProvider]:
     fake = FakeAiProvider(answers)
-    with pytest.raises(AdaptationError) as error:
+    with pytest.raises(ServiceError) as error:
         AdaptationService(fake, sleep=lambda _: None).adapt(TEXT, "test", PROFILE)
     return error.value.code, fake
 

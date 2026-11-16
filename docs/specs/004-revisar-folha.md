@@ -57,7 +57,7 @@ preto e branco, para a folha ficar certa para o meu aluno.
 
 | Situação | O que o professor vê |
 |---|---|
-| ARASAAC fora do ar ao buscar opções | "Não consegui buscar pictogramas agora. Tente de novo." |
+| ARASAAC fora do ar ao buscar opções (`PICTOGRAMS_UNAVAILABLE`) | "Não consegui buscar pictogramas agora. Tente de novo." |
 | Texto apagado por inteiro | A etapa fica vazia na folha; a tela avisa "Etapa sem texto" |
 
 ## Dados

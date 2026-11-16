@@ -14,6 +14,7 @@ ErrorCode = Literal[
     "FILE_TYPE",
     "TOO_MANY_SLIDES",
     "INVALID_INPUT",
+    "PICTOGRAMS_UNAVAILABLE",
 ]
 
 
