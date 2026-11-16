@@ -26,8 +26,9 @@
 3. No primeiro commit do ramo, escreva seu nome em **Responsável**, mude o **Estado** para
    `em andamento` e envie o ramo ao GitHub, para os outros verem.
 4. Faça a tarefa seguindo as regras do `CLAUDE.md`.
-5. Ao abrir o pedido de revisão, mude o estado para `em revisão`.
-6. Quando o pedido for aprovado e juntado, o estado passa a `concluída`.
+5. Ao abrir o pedido de revisão (sempre com base na `main`), mude o estado para `em revisão`.
+6. Quando o pedido for juntado, o estado passa a `concluída`. Até o fim do projeto, a IA
+   revisa e junta sem esperar outra pessoa; no fim, o grupo revisa tudo à mão.
 
 Os passos 3, 5 e 6 são uma proposta de como marcar; o grupo pode ajustar.
 

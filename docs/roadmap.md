@@ -65,7 +65,7 @@ depende de opinião depois desta etapa.
 | 3 | Render, conforme a sugestão. Conta criada na T20a |
 | 4 | Conforme a sugestão |
 | 5 | **Python 3.13** (a versão já instalada na máquina de quem começa; a sugestão de 3.12 foi trocada para não exigir outra instalação) e **Node 22 LTS**. Conferir na instalação se as bibliotecas suportam o 3.13 |
-| 6 | Conforme a sugestão, quando a equipe entrar. Até lá, os pedidos de revisão de hoje são revisados por outra pessoa do grupo antes de entrar em `main` |
+| 6 | Até o fim do projeto, a IA revisa o próprio pedido e junta na `main`, sem esperar outra pessoa. No fim, o grupo revisa tudo à mão. Os pares de revisão ficam para depois da entrega |
 | 7, 8, 9 | Conforme a sugestão |
 
 **Já decidido (não reabrir):** specs 001 a 007 aprovadas em 16/11/2026; arquitetura em
