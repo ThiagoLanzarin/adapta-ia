@@ -74,7 +74,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 | T08b | Rota de slides | 3 | T07, T08a | Gabriel | concluída |
 | T11 | Enviar PowerPoint e escolher slides | 3 | T10, T08b | Gabriel | concluída |
 | T19 | Histórico | 4 | T12 | Gabriel | concluída |
-| T18 | Perfis de aluno | 4 | T10 | | livre |
+| T18 | Perfis de aluno | 4 | T10 | Gabriel | concluída |
 | T09 | Nova versão a pedido (servidor) | 5 | T08a | | livre |
 | T15 | Nova versão a pedido (tela) | 5 | T12, T09 | | livre |
 | T22 | Provedor de respostas gravadas (reserva) | Entrega | T05 | | livre |
@@ -286,6 +286,12 @@ início da tarefa.
   - o professor escolhe um perfil ao adaptar;
   - o apelido não é enviado ao servidor.
 - **Se não der tempo:** a tela de adaptação mantém as opções de apoio a cada vez (como na T10).
+- **Notas (16/11/2026):**
+  - O banco `adapta-ai` subiu para a versão 2, com `profiles`. O histórico da versão 1 é
+    mantido (conferido no navegador).
+  - A lista de perfis é lida por `shared/profile/useProfileList.ts`, usado pela página de
+    perfis e pelo formulário de adaptação (uma funcionalidade não importa de outra).
+  - `toStudentProfile` monta o perfil enviado campo a campo, para o apelido nunca vazar.
 
 ### Fatia 5 — IA a pedido
 

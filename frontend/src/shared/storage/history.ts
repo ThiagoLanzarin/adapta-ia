@@ -1,16 +1,13 @@
-import { openDatabase, toStorageError } from './db';
+import { openDatabase, runStorage } from './db';
 import type { HistoryEntry } from './historyTypes';
 
 export { StorageError } from './db';
 export type { HistoryEntry, StoredOriginal } from './historyTypes';
 
-async function run<T>(action: () => Promise<T>): Promise<T> {
-  try {
-    return await action();
-  } catch (error) {
-    throw toStorageError(error);
-  }
-}
+const BLOCKED_MESSAGE =
+  'Este navegador não deixa salvar o histórico. Imprima ou salve em PDF antes de sair.';
+
+const run = <T>(action: () => Promise<T>) => runStorage(BLOCKED_MESSAGE, action);
 
 /** CA-007-01, CA-007-05: saves a new entry or replaces it with its latest edits. */
 export function saveHistoryEntry(entry: HistoryEntry): Promise<void> {
