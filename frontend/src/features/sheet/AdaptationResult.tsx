@@ -3,6 +3,7 @@ import { useState } from 'react';
 import type { Adaptation } from '@/shared/types/contract';
 import type { OriginalMaterial } from '@/shared/types/original';
 
+import ColorToggle from './ColorToggle';
 import {
   type KeywordRef,
   removeFigure,
@@ -33,7 +34,7 @@ export default function AdaptationResult({
 }: AdaptationResultProps) {
   const [picking, setPicking] = useState<KeywordRef | null>(null);
   const imageUrl = original.kind === 'image' ? original.url : null;
-  const color = true;
+  const [color, setColor] = useState(true);
   const pickedKeyword = picking
     ? adaptation.steps.find((step) => step.id === picking.stepId)?.keywords[picking.index]
     : undefined;
@@ -57,9 +58,12 @@ export default function AdaptationResult({
           Confira a folha antes de imprimir. Clique num texto para reescrever ou num pictograma para
           trocar.
         </p>
-        <button type="button" onClick={onNew} className="rounded-lg bg-slate-200 px-4 py-2">
-          Adaptar outro material
-        </button>
+        <div className="flex flex-wrap items-center gap-3">
+          <ColorToggle color={color} onChange={setColor} />
+          <button type="button" onClick={onNew} className="rounded-lg bg-slate-200 px-4 py-2">
+            Adaptar outro material
+          </button>
+        </div>
       </div>
       <ReviewNotes adaptation={adaptation} />
       <div className="grid gap-6 lg:grid-cols-[2fr_3fr]">
