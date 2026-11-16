@@ -340,8 +340,7 @@ no Pydantic. Modelos em `backend/app/models/`; tipos da tela em
 `notes` tem até 500 caracteres.
 
 Os slides escolhidos viram um único texto para a IA, um bloco por slide, em ordem de número:
-`Slide 2: <título>
-<texto>` (CA-002-07). Slide sem título nem texto fica de fora.
+`Slide 2: <título>`, quebra de linha, `<texto>` (CA-002-07). Slide sem título nem texto fica de fora.
 
 ### Lista de slides
 
