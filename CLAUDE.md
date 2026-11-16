@@ -40,7 +40,11 @@ Aprovadas pelo grupo em 15/11/2026.
 - Repositório: https://github.com/eiq03/adapta-ia
 - Ramos no formato `tipo/tNN-descricao`, por exemplo `feat/t03-upload-imagem`.
 - Mensagens de commit em português.
-- O ramo entra em `main` por pedido de revisão, depois que outra pessoa do grupo olhar.
+- O ramo entra em `main` por pedido de revisão. Exceção temporária: até o fim do projeto, a IA revisa o próprio pedido (camadas, specs, testes, documentos)
+  e junta na `main`, sem esperar outra pessoa. No fim, o grupo revisa tudo à mão (decisão de
+  16/11/2026).
+- O pedido de revisão aponta sempre para a `main`. Ramo nunca usa outro ramo de tarefa como
+  base (foi assim que o pedido #3 caiu fora da `main`).
 
 ## Estrutura
 

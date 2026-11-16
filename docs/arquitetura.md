@@ -262,6 +262,8 @@ Gemini (resposta em JSON com schema) -> valida com Pydantic -> regras do serviç
 - Repositório único, com `frontend/` e `backend/`: https://github.com/eiq03/adapta-ia
 - Um ramo por tarefa, com o nome no formato `tipo/tNN-descricao`.
   Exemplos: `feat/t03-upload-imagem`, `fix/t07-busca-pictograma`.
+- Até o fim do projeto, a IA revisa e junta os pedidos sem esperar outra pessoa; no fim, o
+  grupo revisa tudo à mão (decisão de 16/11/2026). Depois disso, volta a valer:
 - O ramo entra na linha principal por pedido de revisão (pull request), depois que outra
   pessoa do grupo olhar.
 - Mensagens de commit em português.
