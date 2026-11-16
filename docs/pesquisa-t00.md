@@ -160,6 +160,29 @@ Quem ativa é o membro dono da chave. Depois de ativar: conferir os novos limite
 anotar aqui. Na T05, avaliar trocar `GEMINI_MODEL` para `gemini-3.6-flash` (há indício de que
 o `3.5-flash` está descontinuado e redirecionado) [a verificar].
 
+## T05: Gemini real no sistema completo (16/11/2026, créditos pré-pagos ativos)
+
+Pipeline inteiro (regra de adaptar + ARASAAC) com `gemini-3.6-flash`, perfil "lê pouco,
+passo a passo, sensível a excesso visual", nas 3 fotos:
+
+| Prova | Tempo total | Questões | Alternativas | Texto de apoio | Figuras | Pictogramas achados |
+|---|---|---|---|---|---|---|
+| Português | 32 s | 10/10 | 32/32 | 1 (igual ao original) | — | 7 de 8 |
+| Ciências | 20 s | 10/10 | 20/20 | 2 | questão 7 | 10 de 10 |
+| Matemática 7º ano | 30 s | 10/10 | 40/40 | — | questões 7 e 10 | 5 de 9 |
+
+- **Modelo escolhido: `gemini-3.6-flash`.** O `3.5-flash` aparecia no painel como 3.6 e há
+  indício de que está descontinuado; o 3.6 manteve tudo nas 3 provas.
+- **Nenhum aviso falso.** O quadro "O que mudou" agora cita as omissões ("BOA SORTE!",
+  cabeçalho), resolvendo a descoberta 7.
+- **Palavras abstratas ficam sem pictograma** ("juros", "desconto", "quadrilátero"): é
+  esperado; a palavra aparece sem imagem.
+- **Custo:** cerca de 1.770 tokens de entrada, 2.000 a 2.900 de saída e **1.700 a 3.300 de
+  "raciocínio"** (cobrados como saída) por foto. Estimativa: perto de US$ 0,05 por prova
+  fotografada [preço a verificar], ou cerca de 200 provas com US$ 10.
+- Ponto de atenção: na Matemática, "triplo" ganhou a palavra de busca "multiplicar", que
+  pode sugerir o caminho da conta. O professor revisa (spec 004).
+
 ## Decisões para a T03 e a T05
 
 Além das da seção anterior:

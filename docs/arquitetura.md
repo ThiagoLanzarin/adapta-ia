@@ -209,7 +209,7 @@ a imagem fiel do slide.
 
 | Tema | Decisão |
 |---|---|
-| IA | Faixa gratuita do Gemini; provedor trocável pela camada `ai_providers`. O nome do modelo vem da variável de ambiente `GEMINI_MODEL`. Escolhido na T00: `gemini-3.5-flash` (ver [pesquisa-t00.md](pesquisa-t00.md)); sem troca automática para modelo mais leve, porque o `flash-lite` mudou conteúdo cobrado |
+| IA | Faixa gratuita do Gemini; provedor trocável pela camada `ai_providers`. O nome do modelo vem da variável de ambiente `GEMINI_MODEL`. Escolhido na T05: `gemini-3.6-flash` (ver [pesquisa-t00.md](pesquisa-t00.md)); sem troca automática para modelo mais leve, porque o `flash-lite` mudou conteúdo cobrado |
 | PowerPoint | Extração no nosso servidor, **só do texto** na E1 (figuras na V2). O Gemini aceita `.pptx` direto, mas o converte em texto, não permite listar slides para escolher e prenderia o sistema a esse provedor |
 | Imagens aceitas | PNG, JPEG, WEBP, HEIC e HEIF (os formatos que o Gemini recebe). O formato é conferido pelos primeiros bytes do arquivo, nunca pelo nome nem pelo tipo informado pelo navegador (T08a) |
 | Redução da imagem | No navegador, com canvas e sem biblioteca: lado maior com até 1600 px, JPEG com qualidade 0,85. Resolve o limite de 20 MB do Gemini, o tempo de envio e o espaço no IndexedDB, e apaga os metadados (como o GPS). HEIC/HEIF segue sem redução, porque o Chrome não abre esse formato no canvas |
@@ -419,6 +419,11 @@ Avisos (`code`):
 `POST /api/adaptations/revise`, JSON com `adaptation` (a atual, já editada), `profile`,
 `materialType` e `instruction` (o pedido do professor, até 300 caracteres). Devolve uma
 `Adaptation`.
+
+### Saúde do servidor
+
+`GET /health` devolve `{ "status": "ok", "aiProvider": "gemini" }`. Com `aiProvider` diferente
+de `gemini`, a tela mostra "Modo demonstração: a IA não lê o seu material".
 
 ### Pictogramas
 

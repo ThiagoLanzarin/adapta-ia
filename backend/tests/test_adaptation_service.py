@@ -4,6 +4,7 @@ import pytest
 
 from app.ai_providers.errors import (
     AiBlockedError,
+    AiProviderError,
     AiQuotaError,
     AiTimeoutError,
     AiUnavailableError,
@@ -105,3 +106,10 @@ def test_image_material_is_sent_with_its_type():
     assert fake.requests[0].image == b"jpeg-bytes"
     assert fake.requests[0].image_mime_type == "image/jpeg"
     assert "figureBox" in fake.requests[0].prompt
+
+
+def test_request_refused_by_the_ai_gives_ai_invalid_without_retry():
+    code, fake = adapt_error([AiProviderError("400 INVALID_ARGUMENT")])
+
+    assert code == "AI_INVALID"
+    assert len(fake.requests) == 1

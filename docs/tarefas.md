@@ -63,7 +63,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 | T04 | Contrato de IA, IA simulada e regra de adaptar | 1 | T01, T03 | Gabriel | concluída |
 | T06 | Pictogramas ARASAAC | 1 | T01, T03 | Gabriel | concluída |
 | T08a | Rota de adaptar: texto e imagem | 1 | T04, T06 | Gabriel | concluída |
-| T05 | Provedor Gemini | 1 | T04 e a chave | | livre |
+| T05 | Provedor Gemini | 1 | T04 e a chave | Gabriel | concluída |
 | T10 | Enviar imagem e colar texto | 1 | T02, T03 | | livre |
 | T12 | Folha adaptada ao lado do original | 1 | T10 | | livre |
 | T13 | Editar o texto da folha | 2 | T12 | | livre |

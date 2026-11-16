@@ -6,7 +6,18 @@ const LABELS = {
   offline: { text: 'Servidor indisponível', color: 'bg-red-100 text-red-800' },
 };
 
+/** Warns when the answers come from the fake AI, so nobody takes them as a real adaptation. */
 export default function ServerStatusBadge() {
-  const label = LABELS[useServerStatus()];
-  return <span className={`rounded-full px-3 py-1 text-sm ${label.color}`}>{label.text}</span>;
+  const { status, aiProvider } = useServerStatus();
+  const label = LABELS[status];
+  return (
+    <span className="flex flex-wrap items-center gap-2">
+      <span className={`rounded-full px-3 py-1 text-sm ${label.color}`}>{label.text}</span>
+      {status === 'online' && aiProvider !== 'gemini' && (
+        <span className="rounded-full bg-amber-100 px-3 py-1 text-sm text-amber-800">
+          Modo demonstração: a IA não lê o seu material
+        </span>
+      )}
+    </span>
+  );
 }

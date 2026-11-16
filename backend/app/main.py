@@ -9,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.ai_providers.base import AiProvider
 from app.ai_providers.fake import FakeAiProvider
+from app.ai_providers.gemini import GeminiProvider
 from app.api import adaptations, health, pictograms
 from app.api.errors import register_error_handlers
 from app.config import Settings, get_settings
@@ -18,9 +19,12 @@ from app.services.adaptation_service import AdaptationService
 from app.services.pictogram_service import PictogramService
 
 
-def build_ai_provider(settings: Settings) -> AiProvider:
-    # The Gemini provider arrives in T05; until then every setting uses the fake.
-    return FakeAiProvider()
+def build_ai_provider(settings: Settings) -> tuple[AiProvider, str]:
+    """The chosen provider and its name. Without a key, always the fake (T05)."""
+    if settings.ai_provider == "gemini" and settings.gemini_api_key and settings.gemini_model:
+        return GeminiProvider(settings.gemini_api_key, settings.gemini_model), "gemini"
+    # "replay" arrives in T22.
+    return FakeAiProvider(), "fake"
 
 
 def create_app(
@@ -30,12 +34,15 @@ def create_app(
 ) -> FastAPI:
     settings = settings or get_settings()
     pictogram_service = PictogramService(pictogram_provider or ArasaacProvider())
+    if ai is None:
+        ai, ai_name = build_ai_provider(settings)
+    else:
+        ai_name = "custom"
 
     app = FastAPI(title="Adapta Aí")
+    app.state.ai_provider_name = ai_name
     app.state.pictogram_service = pictogram_service
-    app.state.adaptation_service = AdaptationService(
-        ai or build_ai_provider(settings), pictograms=pictogram_service
-    )
+    app.state.adaptation_service = AdaptationService(ai, pictograms=pictogram_service)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=[settings.allowed_origin],
