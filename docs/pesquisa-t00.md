@@ -182,6 +182,9 @@ passo a passo, sensível a excesso visual", nas 3 fotos:
   fotografada [preço a verificar], ou cerca de 200 provas com US$ 10.
 - Ponto de atenção: na Matemática, "triplo" ganhou a palavra de busca "multiplicar", que
   pode sugerir o caminho da conta. O professor revisa (spec 004).
+- **Palavra com dois sentidos (T12):** na questão 9 de Matemática, "massa" (massa corporal)
+  recebeu o pictograma de macarrão. A busca do ARASAAC não sabe o sentido da frase; a troca
+  manual (spec 004, T14) resolve. Bom exemplo para a apresentação do princípio P2.
 
 ## Decisões para a T03 e a T05
 
