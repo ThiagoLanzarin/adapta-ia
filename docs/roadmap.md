@@ -219,6 +219,10 @@ demonstração.
 | 15h–16h | Gravar o vídeo da demonstração (última reserva) |
 | 16h–17h | Ensaio completo, com tempo marcado, incluindo as perguntas difíceis (privacidade, fidelidade, custo da IA, SDD, arquitetura) |
 | 18h40 | Abrir o `/health` e a tela publicada, para o Render acordar |
+
+**Cota no dia 18:** a chave da apresentação tem 20 pedidos por dia e 5 por minuto. Nesse dia,
+ela só é usada no ensaio (até 8 pedidos) e na apresentação. Ninguém testa com ela. Os
+desenvolvedores usam a IA simulada ou as próprias chaves.
 | 19h | Apresentação |
 
 **Ordem das reservas na hora:**

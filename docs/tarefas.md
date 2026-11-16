@@ -167,9 +167,10 @@ início da tarefa.
 - **Depende de:** um membro ter criado a chave no Google AI Studio.
 - **Pronto quando:**
   - com a chave no `.env`, uma adaptação real funciona de ponta a ponta;
-  - foi testado com 3 fotos de provas em branco (pendência da T00, ver
-    [pesquisa-t00.md](pesquisa-t00.md)), anotando o tempo e a qualidade da leitura;
-  - o pedido à IA inclui as descobertas 5, 6 e 7 da pesquisa da T00;
+  - o pedido à IA inclui as descobertas 5, 6, 7, 10, 12 e 14 da
+    [pesquisa da T00](pesquisa-t00.md) (texto-base mantido, figura sinalizada, palavra de
+    busca pelo sentido, nenhuma palavra-chave que seja resposta possível);
+  - os testes com o Gemini real respeitam a cota (20 pedidos por dia por chave);
   - os erros do Google viram os códigos da seção 7 da arquitetura, com tempo-limite de
     cerca de 60 s;
   - sem a chave, o sistema segue funcionando com a IA simulada;
