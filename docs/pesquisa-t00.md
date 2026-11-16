@@ -10,7 +10,8 @@
   3º ano, com 5 itens incluindo 3a/3b), criadas pelo grupo, sem dados de aluno.
 - Perfil fixo: lê pouco; precisa de passo a passo; sensível a excesso visual; "TEA nível 1".
 - Schema provisório da seção 10 da arquitetura (`AiAdaptation`), pedido em JSON.
-- **Ainda falta:** fotos de provas em branco (a leitura de imagem não foi testada).
+- Depois, 3 imagens de provas em branco (Ciências com figura, Português com texto-base,
+  Matemática com figuras geométricas), em duas colunas, com o `gemini-3.5-flash`.
 
 ## Resultados
 
@@ -70,7 +71,66 @@ Tokens por prova em texto: cerca de 600 a 750 de entrada e 650 a 1.300 de saída
 | Tempo-limite | 60 s fica com folga (10 a 11 s por prova em texto); conferir com fotos |
 | Pedido à IA | Acrescentar as descobertas 5, 6 e 7 |
 
+## Fotos (16/11/2026)
+
+| Prova | Tempo | Formato | Questões | Alternativas |
+|---|---|---|---|---|
+| Ciências, sistema solar (questão 1 com itens a–d, figura na 7) | 19 s | Válido | 10 de 10 | 20 de 20 |
+| Matemática, 7º ano (figuras geométricas nas questões 7 e 10) | 21 s | Válido | 10 de 10 | 40 de 40 |
+| Português, Dia do Trabalho (texto-base + 10 questões) | 23 s | Válido | 10 de 10 | 32 de 32 |
+
+Cerca de 1.500 tokens de entrada e 1.800 a 2.200 de saída por foto. A leitura das duas
+colunas veio na ordem certa nas 3 provas.
+
+**Descobertas com fotos:**
+
+10. **O texto-base sumiu da prova de Português.** A IA transcreveu o texto "1º de maio" em
+    `transcription`, mas nas etapas ficou só "Leia o texto abaixo com atenção", sem o texto.
+    Sem ele, as 10 questões não têm como ser respondidas. A conferência de questões não
+    pega isso, porque todas as questões estão lá. **É a falha mais grave encontrada.**
+11. **Figuras com dados viram texto, e isso ajudou.** Na Matemática, os ângulos das figuras
+    (110°, 120°, 60°; triângulo com 90° e 45°) foram escritos no enunciado, corretamente.
+12. **Figura sem dados não tem como ser reproduzida.** Na Ciências, a questão 7 ("Observe a
+    imagem...") ficou apontando para uma imagem que não existe na folha adaptada, e o
+    professor não é avisado.
+13. **Palavra-chave tirada das alternativas.** "oxigênio" veio da alternativa (a), e não do
+    enunciado. A regra do servidor que remove palavra fora do texto (CA-001-08) pegou.
+14. **Verbos de enunciado como palavra de busca se repetem** ("indicar", "servir",
+    "substituir", "ler"). Confirma a descoberta 5.
+15. **A IA trocou "EXCETO" por "NÃO"** ("Qual opção NÃO ajuda..."). Mantém o sentido e é mais
+    claro. Bom exemplo de adaptação.
+
+## Limites da faixa gratuita (painel do AI Studio, 16/11/2026)
+
+| Modelo no painel | Pedidos por minuto | Pedidos por dia | Tokens por minuto |
+|---|---|---|---|
+| Gemini 3.6 Flash | 5 | **20** | 250 mil |
+| Gemini 3.8 Flash | 5 | 20 | 250 mil |
+| Gemini 3.5 Flash Lite | 15 | 500 | 250 mil |
+
+O painel não lista um "3.5 Flash". Os 6 pedidos que fizemos com `gemini-3.5-flash` até a
+hora do print aparecem como "Gemini 3.6 Flash" (6 de 20), então o nome parece apontar para
+esse modelo [a verificar: conferir no painel se o uso subiu para 9 depois das 3 fotos].
+
+**O que isso significa: 20 adaptações por dia, por chave.** Para o grupo todo, contando
+desenvolvimento, testes e a apresentação. Cada nova tentativa também conta.
+
+## Decisões para a T03 e a T05
+
+Além das da seção anterior:
+
+| Tema | Decisão proposta |
+|---|---|
+| Texto-base (descoberta 10) | Novo tipo de etapa `"text"` no contrato: texto de apoio que as questões usam. Em prova, ele é mantido **como no original** (só quebrado em parágrafos curtos), porque as questões citam trechos dele |
+| Figura sem dados (descoberta 12) | Novo campo `needsFigure` na etapa. Quando for `true`, o servidor gera o aviso `NEEDS_FIGURE`: "A questão 7 depende de uma figura do original. Cole ou desenhe a figura na folha impressa" |
+| Uso da cota | Desenvolvimento só com a IA simulada. O Gemini só em testes planejados, anotados |
+| Chaves | Cada membro que for testar com o Gemini cria a própria chave, na própria conta. Não se divide a mesma chave entre várias pessoas |
+| Apresentação | A chave da apresentação não é usada no dia 18 antes das 19h, exceto no ensaio (até 8 pedidos). As respostas do ensaio viram a reserva (T22) |
+| Nova tentativa | Continua sendo 1, só para resposta fora do formato e 503/504. Em 429, nunca |
+| Respostas salvas | As respostas brutas da T00 já servem de material para a reserva (T22) |
+
 ## Pendências
 
-- Rodar com 3 fotos de provas em branco antes de fechar a T05 (tempo e leitura da imagem).
-- Anotar os limites da faixa gratuita do `gemini-3.5-flash`, vistos no painel do AI Studio.
+- Aplicar na T03 as mudanças de contrato acima (`"text"` e `needsFigure`), depois de o grupo
+  aprovar a mudança na spec 001.
+- Conferir no painel se o uso do "Gemini 3.6 Flash" subiu para 9 depois das fotos.

@@ -121,7 +121,8 @@ spec pode contrariar estão em [constituicao.md](constituicao.md).
   mesmo pictograma com o parâmetro `color=false`.
 - **Cota da IA gratuita:** os limites diários da faixa gratuita do Gemini são baixos e o
   Google não publica os números. Só aparecem no painel do AI Studio, na conta de quem criar
-  a chave. Por isso o limite de 5 slides por vez, uma chamada à IA por adaptação e o
+  a chave. No painel do grupo, em 16/11/2026: **5 pedidos por minuto e 20 por dia** para o
+  modelo escolhido (ver [pesquisa-t00.md](pesquisa-t00.md)). Por isso o limite de 5 slides por vez, uma chamada à IA por adaptação e o
   provedor trocável.
 - **Dados na faixa gratuita do Gemini:** pelos termos da API, na faixa gratuita o Google usa
   o que é enviado e o que é gerado para melhorar os produtos dele, e pessoas podem revisar
