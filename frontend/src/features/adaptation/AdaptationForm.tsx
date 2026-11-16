@@ -7,6 +7,7 @@ import SupportOptionsFields from '@/shared/ui/SupportOptionsFields';
 
 import MaterialInput from './MaterialInput';
 import MaterialTypePicker from './MaterialTypePicker';
+import ProfileSelect from './ProfileSelect';
 import { useAdaptationRequest } from './useAdaptationRequest';
 
 function materialFields(material: OriginalMaterial) {
@@ -50,7 +51,10 @@ export default function AdaptationForm({ onDone }: AdaptationFormProps) {
       }}
     >
       <MaterialTypePicker value={materialType} onChange={setMaterialType} />
-      <SupportOptionsFields profile={profile} onChange={setProfile} />
+      <div className="space-y-4">
+        <ProfileSelect onChoose={setProfile} />
+        <SupportOptionsFields profile={profile} onChange={setProfile} />
+      </div>
       <MaterialInput value={material} onChange={setMaterial} onError={showError} />
 
       {error && (
