@@ -1,12 +1,8 @@
-"""T00 — quick probe of the real Gemini API, outside the layers.
+"""T00 — quick probe of the real Gemini API, outside the layers (docs/pesquisa-t00.md).
 
-Sends each material in a folder (photos of blank tests or .txt files) to Gemini with
-the draft schema from docs/arquitetura.md (section 10) and reports, per material:
-time, whether the JSON is valid, and whether every question of the original survived.
-Each raw answer is saved as JSON next to the materials, for T03 and for the replay
-provider (T22). The key is read from backend/.env and never printed.
-
-Usage (inside backend/, with the venv active):
+Sends each photo or .txt in a folder to Gemini with the draft schema and reports time,
+format and question coverage. Raw answers are saved next to the materials; the key is
+read from backend/.env and never printed. Usage, inside backend/ with the venv active:
     python scripts/probe_gemini.py --list-models
     python scripts/probe_gemini.py "C:/path/to/tests" --model <model-name>
 """
@@ -46,11 +42,13 @@ class AiKeyword(BaseModel):
 
 
 class AiStep(BaseModel):
-    kind: Literal["instruction", "question"]
+    kind: Literal["instruction", "text", "question"]
     sourceNumber: str | None
     text: str
     options: list[str]
     keywords: list[AiKeyword]
+    needsFigure: bool
+    figureBox: list[int] | None
 
 
 class AiAdaptation(BaseModel):
@@ -75,7 +73,10 @@ Faça, nesta ordem:
    - frases curtas e palavras do dia a dia; mantenha os termos da disciplina;
    - enunciado com mais de uma ação vira etapas separadas;
    - cada questão é um passo "question" com "sourceNumber" igual ao número do original;
-   - instruções gerais são passos "instruction" com "sourceNumber" nulo e "options" vazio.
+   - instruções gerais são passos "instruction" com "sourceNumber" nulo e "options" vazio;
+   - texto de apoio que as questões usam (texto-base, poema, trecho) é um passo "text",
+     colocado antes das questões, com o texto COMPLETO e IGUAL ao original, só dividido em
+     parágrafos curtos; não simplifique texto-base, porque as questões citam trechos dele.
 4. Regras de prova, obrigatórias:
    - mantenha TODAS as questões e TODAS as alternativas, simplificando só o texto;
    - não acrescente conteúdo;
@@ -85,7 +86,14 @@ Faça, nesta ordem:
 5. Em cada palavra-chave, "word" é a palavra exatamente como aparece no texto do passo, e
    "searchTerm" é a forma mais simples e concreta para buscar um pictograma (verbo no
    infinitivo, substantivo no singular).
-6. Em "teacherNotes", diga em frases curtas o que você simplificou, juntou ou dividiu.
+6. Figuras: se um passo precisa de uma figura do original para ser respondido (gráfico,
+   figura geométrica, mapa, ilustração citada no enunciado), marque "needsFigure" true e
+   dê em "figureBox" a caixa da figura na imagem enviada: [ymin, xmin, ymax, xmax],
+   normalizada de 0 a 1000. Figuras só decorativas não entram. Sem figura, "needsFigure"
+   false e "figureBox" nulo. Se os dados da figura puderem ser escritos no texto, escreva-os
+   também.
+7. Em "teacherNotes", diga em frases curtas o que você simplificou, juntou, dividiu ou
+   omitiu (inclusive instruções como "use caneta azul").
 Se não conseguir ler o material, devolva "transcription" vazio e "steps" vazio."""
 
 
@@ -111,6 +119,9 @@ def check(adaptation: AiAdaptation) -> dict[str, object]:
         "missing_questions": missing,
         "options_total": sum(len(s.options) for s in questions),
         "keywords_not_in_text": keywords_not_in_text,
+        "text_steps": sum(1 for s in adaptation.steps if s.kind == "text"),
+        "text_chars": sum(len(s.text) for s in adaptation.steps if s.kind == "text"),
+        "figures": {s.sourceNumber: s.figureBox for s in adaptation.steps if s.needsFigure},
         "over_limits": len(adaptation.steps) > MAX_STEPS
         or any(len(s.keywords) > MAX_KEYWORDS_PER_STEP for s in adaptation.steps),
     }

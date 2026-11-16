@@ -100,6 +100,33 @@ colunas veio na ordem certa nas 3 provas.
 15. **A IA trocou "EXCETO" por "NÃO"** ("Qual opção NÃO ajuda..."). Mantém o sentido e é mais
     claro. Bom exemplo de adaptação.
 
+## Texto-base e figuras (segunda rodada, 16/11/2026)
+
+O pedido à IA ganhou duas regras e o schema ganhou o tipo `"text"` e os campos
+`needsFigure` e `figureBox` (caixa da figura na imagem, `[ymin, xmin, ymax, xmax]` de 0 a
+1000). Rodado de novo nas mesmas 3 fotos.
+
+| Prova | Tempo | Resultado |
+|---|---|---|
+| Ciências | 26 s | 10/10 questões; textos de apoio em etapas `"text"`; figura da questão 7 com caixa |
+| Matemática 7º ano | 28 s | 10/10 questões; figuras das questões 7 e 10 com caixa; imagem decorativa (dinheiro) ignorada |
+| Português | 503 na 1ª vez; **88 s** na 2ª | 10/10 questões; texto-base **completo e igual ao original**, antes das questões |
+
+16. **O texto-base agora entra.** Resolve a descoberta 10.
+17. **As caixas das figuras estão certas.** Recortadas da foto com essas caixas, as 3
+    figuras saíram inteiras (a Lua, o quadrilátero com os ângulos e o triângulo). Com uma
+    margem de 1,5%, entra um pedaço do texto vizinho ("Calcule x", "(A) 135°"); a margem deve
+    ser menor, perto de 0,5%.
+18. **A IA separa figura necessária de enfeite.** O monte de dinheiro da questão 1 não foi
+    marcado.
+19. **O tempo pode passar de 60 s com o modelo sobrecarregado** (88 s). O tempo-limite passa
+    para 90 s, e a tela precisa mostrar que está trabalhando.
+
+**Decisão:** a figura do original vai para a folha adaptada. A tela recorta a figura da
+imagem que ela já tem (a foto reduzida), com canvas e sem biblioteca, usando a caixa que a IA
+devolveu. O servidor não mexe em imagem. Quando não há imagem (texto colado ou PowerPoint),
+ou a IA não devolve a caixa, o servidor gera o aviso `NEEDS_FIGURE`.
+
 ## Limites da faixa gratuita (painel do AI Studio, 16/11/2026)
 
 | Modelo no painel | Pedidos por minuto | Pedidos por dia | Tokens por minuto |
@@ -122,7 +149,8 @@ Além das da seção anterior:
 | Tema | Decisão proposta |
 |---|---|
 | Texto-base (descoberta 10) | Novo tipo de etapa `"text"` no contrato: texto de apoio que as questões usam. Em prova, ele é mantido **como no original** (só quebrado em parágrafos curtos), porque as questões citam trechos dele |
-| Figura sem dados (descoberta 12) | Novo campo `needsFigure` na etapa. Quando for `true`, o servidor gera o aviso `NEEDS_FIGURE`: "A questão 7 depende de uma figura do original. Cole ou desenhe a figura na folha impressa" |
+| Figura (descobertas 12, 17 e 18) | Campos `needsFigure` e `figureBox` na etapa. A tela recorta a figura da foto e a coloca na folha. Sem caixa ou sem foto, aviso `NEEDS_FIGURE` |
+| Tempo-limite | 90 s (descoberta 19) |
 | Uso da cota | Desenvolvimento só com a IA simulada. O Gemini só em testes planejados, anotados |
 | Chaves | Cada membro que for testar com o Gemini cria a própria chave, na própria conta. Não se divide a mesma chave entre várias pessoas |
 | Apresentação | A chave da apresentação não é usada no dia 18 antes das 19h, exceto no ensaio (até 8 pedidos). As respostas do ensaio viram a reserva (T22) |
@@ -131,6 +159,6 @@ Além das da seção anterior:
 
 ## Pendências
 
-- Aplicar na T03 as mudanças de contrato acima (`"text"` e `needsFigure`), depois de o grupo
-  aprovar a mudança na spec 001.
+- Aplicar na T03 as mudanças de contrato acima (`"text"`, `needsFigure`, `figureBox`),
+  aprovadas pelo grupo em 16/11/2026, começando pela spec 001.
 - Conferir no painel se o uso do "Gemini 3.6 Flash" subiu para 9 depois das fotos.
