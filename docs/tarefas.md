@@ -1,18 +1,27 @@
 # Adapta Aí — Tarefas
 
-> Documento da fase 3. Lista o trabalho da entrega de 3 dias (E1), na ordem combinada.
+> Documento da fase 3. Lista o trabalho da entrega (E1), na ordem combinada.
 > O que o sistema faz está em [especificacao.md](especificacao.md); como ele é organizado,
 > em [arquitetura.md](arquitetura.md).
 
-- **Entrega:** quarta-feira, 18/11/2026.
+- **Apresentação:** quarta-feira, 18/11/2026, às 19h.
+- **Congelamento:** 18/11 ao meio-dia. Depois disso, só correção de erro, ensaio, gravação
+  das respostas de reserva e vídeo da demonstração.
+- **Equipe:** 5 pessoas.
 - **Ordem:** fatia fina primeiro. Cada fatia termina com algo que funciona e dá para mostrar.
 - **Divisão:** próxima tarefa livre. Qualquer pessoa do grupo pega a próxima tarefa cujas
-  dependências estejam concluídas.
-- **Se faltar tempo:** a primeira a cair é a T18 (perfis de aluno).
+  dependências estejam concluídas. As frentes abaixo são uma sugestão para as 5 pessoas.
+- **Se faltar tempo:** cai primeiro a nova versão a pedido (T09 e T15, spec 005); depois, os
+  perfis de aluno (T18, spec 003).
+- **Spec antes do código:** toda tarefa pertence a uma spec em [specs/](specs/README.md). A
+  tarefa só começa quando a spec dela está `aprovada` (portões da
+  [constituição](constituicao.md)). O pedido de revisão lista os critérios de aceite (CA)
+  que a tarefa cumpre.
 
 ## Como usar esta lista
 
-1. Escolha uma tarefa com estado `livre` e com as dependências `concluída`.
+1. Escolha uma tarefa com estado `livre`, com as dependências `concluída` e com a spec
+   `aprovada`.
 2. Crie o ramo da tarefa (formato `tipo/tNN-descricao`).
 3. No primeiro commit do ramo, escreva seu nome em **Responsável**, mude o **Estado** para
    `em andamento` e envie o ramo ao GitHub, para os outros verem.
@@ -22,31 +31,53 @@
 
 Os passos 3, 5 e 6 são uma proposta de como marcar; o grupo pode ajustar.
 
+## Frentes sugeridas (5 pessoas)
+
+As specs 001 a 007 foram aprovadas em 16/11/2026. Antes das frentes, o grupo fecha os
+acordos da etapa E0 do [roadmap](roadmap.md).
+
+O contrato (T03) é o que destrava todas as frentes. Com o exemplo do contrato pronto, tela e
+servidor andam sem esperar um pelo outro.
+
+| Frente | Sequência |
+|---|---|
+| P1: servidor núcleo | T01 → T04 → T08a → T09 |
+| P2: IA | T00 → T05 → T22 |
+| P3: tela de entrada | T02 → T10 → T14 → T19 |
+| P4: folha | T02 (junto com P3) → T12 → T13 → T16 → T17 → T18 → T15 (a T12 começa com o exemplo do contrato, antes do servidor) |
+| P5: ARASAAC, PowerPoint e publicação | T20a → T06 → T07 → T08b → T11 → T20b |
+
+O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estão no
+[roadmap](roadmap.md).
+
 ## Quadro
 
 | Tarefa | Título | Fatia | Depende de | Responsável | Estado |
 |---|---|---|---|---|---|
+| T00 | Prova rápida do Gemini | 1 | a chave | | livre |
 | T01 | Esqueleto do servidor | 1 | — | | livre |
 | T02 | Esqueleto da tela | 1 | — | | livre |
-| T03 | Formato dos dados | 1 | T01 | | livre |
-| T04 | Contrato de IA, IA simulada e regra de adaptar | 1 | T03 | | livre |
-| T06 | Pictogramas ARASAAC | 1 | T03 | | livre |
+| T20a | Publicar o esqueleto | 1 | T01, T02 | | livre |
+| T03 | Formato dos dados | 1 | T00 (resultado) | | livre |
+| T04 | Contrato de IA, IA simulada e regra de adaptar | 1 | T01, T03 | | livre |
+| T06 | Pictogramas ARASAAC | 1 | T01, T03 | | livre |
 | T08a | Rota de adaptar: texto e imagem | 1 | T04, T06 | | livre |
-| T10 | Enviar imagem e colar texto | 1 | T02, T08a | | livre |
-| T12 | Folha adaptada ao lado do original | 1 | T10 | | livre |
 | T05 | Provedor Gemini | 1 | T04 e a chave | | livre |
+| T10 | Enviar imagem e colar texto | 1 | T02, T03 | | livre |
+| T12 | Folha adaptada ao lado do original | 1 | T10 | | livre |
 | T13 | Editar o texto da folha | 2 | T12 | | livre |
 | T14 | Trocar e remover pictograma | 2 | T12, T06 | | livre |
 | T16 | Colorido / preto e branco | 2 | T12 | | livre |
 | T17 | Imprimir e baixar PDF | 2 | T12 | | livre |
 | T07 | Leitor de PowerPoint | 3 | T03 | | livre |
-| T08b | Rota de adaptar: slides | 3 | T07, T08a | | livre |
+| T08b | Rota de slides | 3 | T07, T08a | | livre |
 | T11 | Enviar PowerPoint e escolher slides | 3 | T10, T08b | | livre |
 | T19 | Histórico | 4 | T12 | | livre |
 | T18 | Perfis de aluno | 4 | T10 | | livre |
 | T09 | Nova versão a pedido (servidor) | 5 | T08a | | livre |
 | T15 | Nova versão a pedido (tela) | 5 | T12, T09 | | livre |
-| T20 | Publicar | Entrega | Fatia 1 | | livre |
+| T22 | Provedor de respostas gravadas (reserva) | Entrega | T05 | | livre |
+| T20b | Publicar a versão final | Entrega | Fatia 1 | | livre |
 | T21 | Testar e roteiro da demonstração | Entrega | Tudo que for entregue | | livre |
 
 Estados: `livre`, `em andamento`, `em revisão`, `concluída`.
@@ -58,79 +89,119 @@ início da tarefa.
 
 ### Fatia 1 — Ponta a ponta: texto ou imagem vira folha
 
+#### T00 — Prova rápida do Gemini
+- **Objetivo:** antes de fechar o contrato, testar o Gemini real com 3 materiais reais (pelo
+  menos 2 provas em branco fotografadas) e o schema proposto na seção 10 da arquitetura.
+- **Pastas:** `backend/scripts/` (script solto, fora das camadas; pode ser apagado depois)
+- **Pronto quando:** o grupo sabe se o JSON vem no formato, quanto tempo cada pedido leva, se
+  as questões e as alternativas foram mantidas e qual modelo usar; o resultado foi anotado e
+  levado para a T03.
+
 #### T01 — Esqueleto do servidor
 - **Objetivo:** servidor FastAPI que sobe, com estrutura de pastas, testes e configuração.
 - **Pastas:** `backend/`
-- **Pronto quando:** o servidor sobe localmente e responde em uma rota de verificação;
-  `pytest` roda um teste; existe `.env.example`; o Ruff passa; há instruções de como rodar.
+- **Pronto quando:** o servidor sobe localmente e responde em `/health`; `pytest` roda um
+  teste; existe `.env.example` (com `AI_PROVIDER`, `GEMINI_API_KEY`, `GEMINI_MODEL`,
+  `ALLOWED_ORIGIN`); o CORS lê a origem permitida; o Ruff passa; há instruções de como rodar.
 
 #### T02 — Esqueleto da tela
 - **Objetivo:** projeto React com TypeScript, Tailwind e as páginas vazias.
 - **Pastas:** `frontend/`
 - **Pronto quando:** o projeto sobe localmente; existem as páginas de início, adaptação,
   histórico e perfis, cada uma com seu endereço; ESLint e Prettier passam; existe o cliente
-  da API em `shared`.
+  da API em `shared`, com o endereço do servidor vindo de `VITE_API_URL`.
+
+#### T20a — Publicar o esqueleto
+- **Objetivo:** publicar já no primeiro dia, para os problemas de hospedagem aparecerem cedo.
+- **Pronto quando:** a hospedagem foi confirmada com o grupo (recomendação: Render); a tela
+  abre num endereço público e chama o `/health` do servidor publicado; a chave está só nas
+  variáveis de ambiente do servidor.
 
 #### T03 — Formato dos dados
-- **Objetivo:** fechar os campos do contrato (material, perfil, adaptação, etapa,
-  palavra-chave) e declará-los no servidor e na tela.
-- **Pastas:** `backend/app/models/`, `frontend/src/shared/`
+- **Objetivo:** fechar os campos do contrato (pedido, perfil, adaptação, etapa,
+  palavra-chave, erro) e declará-los no servidor e na tela.
+- **Pastas:** `backend/app/models/`, `frontend/src/shared/`, `docs/`
+- **Ponto de partida:** seção 10 da arquitetura e o resultado da T00.
 - **Pronto quando:** os campos foram confirmados com o grupo; os modelos existem dos dois
-  lados com os mesmos nomes; a seção 9 da arquitetura está atualizada.
+  lados com os mesmos nomes; existe `docs/contrato-exemplo.json` e um teste do pytest que o
+  valida; a seção 10 da arquitetura está atualizada.
 
 #### T04 — Contrato de IA, IA simulada e regra de adaptar
 - **Objetivo:** definir o que qualquer provedor de IA precisa saber fazer, criar um provedor
-  simulado para testes e escrever a regra que monta a adaptação.
+  simulado para testes, escrever o texto do pedido à IA e a regra que monta a adaptação.
 - **Pastas:** `backend/app/ai_providers/`, `backend/app/services/`, `backend/tests/`
-- **Requisitos:** RF-04, RF-05, RF-08
-- **Pronto quando:** a regra de adaptar funciona com a IA simulada e tem testes; nenhum
-  arquivo de `services` menciona o Gemini.
+- **Requisitos:** RF-04, RF-05, RF-08, RF-26, RF-27
+- **Pronto quando:**
+  - a regra de adaptar funciona com a IA simulada e tem testes;
+  - a regra valida a resposta e tenta de novo uma vez se vier inválida;
+  - a regra remove palavra-chave que não aparece no texto da etapa;
+  - a regra gera o aviso `MISSING_QUESTION`;
+  - o texto do pedido traz as regras de prova (arquitetura, seção 7);
+  - nenhum arquivo de `services` menciona o Gemini.
 
 #### T06 — Pictogramas ARASAAC
 - **Objetivo:** buscar pictogramas por palavra em português e devolver alternativas.
-- **Pastas:** `backend/app/services/`, `backend/app/api/`, `backend/tests/`
+- **Pastas:** `backend/app/pictogram_providers/`, `backend/app/services/`, `backend/app/api/`,
+  `backend/tests/`
 - **Requisitos:** RF-06, e a parte de servidor de RF-11 e RF-13
-- **Pronto quando:** a busca devolve a melhor opção e as alternativas; palavra sem resultado
-  não causa erro; os testes não dependem da internet.
+- **Pronto quando:**
+  - a busca usa a palavra de busca e, sem resultado, a palavra exibida;
+  - devolve a melhor opção e as alternativas;
+  - as buscas de uma adaptação rodam em paralelo e ficam em cache na memória;
+  - palavra sem resultado não causa erro;
+  - os testes não dependem da internet.
 
 #### T08a — Rota de adaptar: texto e imagem
-- **Objetivo:** rota que recebe texto colado ou imagem, mais o perfil, e devolve a adaptação
-  com pictogramas.
+- **Objetivo:** rota que recebe texto colado ou imagem, mais o tipo de material e o perfil, e
+  devolve a adaptação com pictogramas.
 - **Pastas:** `backend/app/api/`, `backend/app/readers/`, `backend/tests/`
 - **Requisitos:** RF-01, RF-19
 - **Pronto quando:** a rota funciona com a IA simulada; recusa arquivo acima de 20 MB e
-  formato não aceito com mensagem clara; tem testes.
-- **A decidir na tarefa:** o que fazer com foto próxima de 20 MB (ponto em aberto da
-  arquitetura).
+  formato não aceito com o erro padrão do contrato; tem testes.
+
+#### T05 — Provedor Gemini
+- **Objetivo:** implementar o contrato de IA usando o Gemini, para texto e imagem, com saída
+  estruturada.
+- **Pastas:** `backend/app/ai_providers/`
+- **Depende de:** um membro ter criado a chave no Google AI Studio.
+- **Pronto quando:**
+  - com a chave no `.env`, uma adaptação real funciona de ponta a ponta;
+  - os erros do Google viram os códigos da seção 7 da arquitetura, com tempo-limite de
+    cerca de 60 s;
+  - sem a chave, o sistema segue funcionando com a IA simulada;
+  - a chave não aparece no código nem no Git.
 
 #### T10 — Enviar imagem e colar texto
-- **Objetivo:** tela em que o professor envia uma imagem ou cola um texto e pede a adaptação.
+- **Objetivo:** tela em que o professor escolhe o tipo de material, envia uma imagem ou cola
+  um texto e pede a adaptação.
 - **Pastas:** `frontend/src/features/adaptation/`
-- **Requisitos:** RF-01, RF-19
-- **Pronto quando:** o professor envia imagem ou texto, vê o andamento e recebe o resultado
-  ou uma mensagem de erro compreensível.
+- **Requisitos:** RF-01, RF-19, RF-26
+- **Pronto quando:**
+  - o tipo de material vem marcado como "Prova";
+  - a imagem é reduzida no navegador antes do envio (arquitetura, seção 6);
+  - enquanto as opções de apoio não vêm do perfil (T18), a tela mostra as 5 opções e o campo
+    de observações com a frase "Não escreva o nome do aluno";
+  - o professor vê o andamento e recebe o resultado ou a mensagem de erro do servidor.
 
 #### T12 — Folha adaptada ao lado do original
 - **Objetivo:** mostrar o original e a folha adaptada lado a lado, com etapas e pictogramas.
 - **Pastas:** `frontend/src/features/sheet/`
-- **Requisitos:** RF-09
-- **Pronto quando:** a folha mostra título, etapas numeradas e pictogramas com legenda, ao
-  lado do original; funciona em tela de computador.
-
-#### T05 — Provedor Gemini
-- **Objetivo:** implementar o contrato de IA usando o Gemini, para texto e imagem.
-- **Pastas:** `backend/app/ai_providers/`
-- **Depende de:** um membro ter criado a chave no Google AI Studio.
-- **Pronto quando:** com a chave no `.env`, uma adaptação real funciona de ponta a ponta;
-  sem a chave, o sistema segue funcionando com a IA simulada; a chave não aparece no código
-  nem no Git.
+- **Requisitos:** RF-09, RF-27
+- **Pronto quando:**
+  - a folha mostra título, etapas numeradas, questões com o número do original e as
+    alternativas, e pictogramas com legenda;
+  - o original mostra a imagem ou o texto e o texto lido pela IA;
+  - o quadro "O que mudou" e os avisos aparecem fora da folha;
+  - funciona em tela de computador;
+  - pode começar com `docs/contrato-exemplo.json` antes de o servidor ficar pronto.
 
 ### Fatia 2 — Revisar e levar para a sala
 
 #### T13 — Editar o texto da folha
 - **Pastas:** `frontend/src/features/sheet/`
 - **Requisitos:** RF-10
-- **Pronto quando:** o professor clica em uma frase, reescreve e a mudança permanece na folha.
+- **Pronto quando:** o professor clica em uma frase ou alternativa, reescreve e a mudança
+  permanece na folha.
 
 #### T14 — Trocar e remover pictograma
 - **Pastas:** `frontend/src/features/sheet/`
@@ -146,29 +217,31 @@ início da tarefa.
 #### T17 — Imprimir e baixar PDF
 - **Pastas:** `frontend/src/features/sheet/`
 - **Requisitos:** RF-14, RF-15, RF-16
-- **Pronto quando:** a impressão sai em A4 só com a folha adaptada; o botão de PDF abre a
+- **Pronto quando:** a impressão sai em A4 só com a folha adaptada (sem o quadro "O que
+  mudou" nem os avisos); a impressão espera os pictogramas carregarem; o botão de PDF abre a
   impressão do navegador; o crédito do ARASAAC aparece no rodapé.
 
 ### Fatia 3 — PowerPoint
 
 #### T07 — Leitor de PowerPoint
-- **Objetivo:** extrair texto e figuras de cada slide de um `.pptx`.
+- **Objetivo:** extrair o texto de cada slide de um `.pptx`. As figuras ficam para a V2.
 - **Pastas:** `backend/app/readers/`, `backend/tests/`
 - **Requisitos:** RF-02
-- **Pronto quando:** dado um `.pptx`, o leitor devolve a lista de slides com título, texto e
-  figuras; arquivo inválido gera erro claro; tem testes com um arquivo de exemplo.
+- **Pronto quando:** dado um `.pptx`, o leitor devolve a lista de slides com número, título e
+  texto; arquivo inválido gera erro claro; tem testes com um arquivo de exemplo.
 
-#### T08b — Rota de adaptar: slides
+#### T08b — Rota de slides
 - **Pastas:** `backend/app/api/`, `backend/tests/`
 - **Requisitos:** RF-02, RF-03
-- **Pronto quando:** uma rota devolve a lista de slides do arquivo enviado; a rota de adaptar
-  aceita os slides escolhidos e recusa mais de 5; tem testes.
+- **Pronto quando:** `POST /api/slides` devolve a lista de slides do arquivo enviado; a rota
+  de adaptar aceita os slides escolhidos como uma única adaptação e recusa mais de 5
+  (`TOO_MANY_SLIDES`); tem testes.
 
 #### T11 — Enviar PowerPoint e escolher slides
 - **Pastas:** `frontend/src/features/adaptation/`
 - **Requisitos:** RF-02, RF-03
 - **Pronto quando:** o professor envia o arquivo, vê a lista de slides por título e texto,
-  marca até 5 e recebe as folhas adaptadas.
+  marca até 5 e recebe uma folha adaptada.
 
 ### Fatia 4 — Guardar
 
@@ -181,33 +254,46 @@ início da tarefa.
 #### T18 — Perfis de aluno
 - **Pastas:** `frontend/src/features/profiles/`
 - **Requisitos:** RF-07, RF-08
-- **Pronto quando:** o professor cria, edita e apaga perfis com apelido, opções de apoio e
-  observações; escolhe um perfil ao adaptar.
-- **Se não der tempo:** a tela de adaptação mantém as três opções de apoio marcadas a cada vez.
+- **Pronto quando:**
+  - o professor cria, edita e apaga perfis com apelido, as 5 opções de apoio e observações;
+  - o campo de observações traz a frase "Não escreva o nome do aluno";
+  - o professor escolhe um perfil ao adaptar;
+  - o apelido não é enviado ao servidor.
+- **Se não der tempo:** a tela de adaptação mantém as opções de apoio a cada vez (como na T10).
 
 ### Fatia 5 — IA a pedido
 
 #### T09 — Nova versão a pedido (servidor)
 - **Pastas:** `backend/app/services/`, `backend/app/api/`, `backend/tests/`
 - **Requisitos:** RF-12
-- **Pronto quando:** a rota recebe a adaptação atual e o pedido do professor e devolve uma
-  nova versão; tem testes com a IA simulada.
+- **Pronto quando:** a rota recebe a adaptação atual (já com as edições do professor), o
+  perfil e o pedido, e devolve uma nova versão; tem testes com a IA simulada.
 
 #### T15 — Nova versão a pedido (tela)
 - **Pastas:** `frontend/src/features/sheet/`
 - **Requisitos:** RF-12
-- **Pronto quando:** o professor escreve um pedido e a folha é substituída pela nova versão.
-- **A decidir na tarefa:** o que acontece com as edições manuais já feitas.
+- **Decidido em 16/11:** a tela envia a folha já editada, então as edições manuais entram no
+  pedido à IA. Antes de substituir, a tela pede confirmação.
+- **Pronto quando:** o professor escreve um pedido, confirma e a folha é substituída pela
+  nova versão.
 
 ### Entrega
 
-#### T20 — Publicar
-- **Objetivo:** pesquisar os planos gratuitos atuais, escolher a hospedagem com o grupo e
-  publicar o sistema.
-- **Pronto quando:** o sistema abre em um endereço público e uma adaptação real funciona nele;
-  a chave da IA está configurada só no servidor.
+#### T22 — Provedor de respostas gravadas (reserva)
+- **Objetivo:** provedor `replay` que devolve respostas reais do Gemini gravadas no ensaio,
+  para a apresentação funcionar mesmo se a cota acabar.
+- **Pastas:** `backend/app/ai_providers/`, `backend/tests/`
+- **Pronto quando:** com `AI_PROVIDER=replay`, os materiais do roteiro devolvem as respostas
+  gravadas; material não gravado devolve erro claro; a tela mostra "modo demonstração".
+
+#### T20b — Publicar a versão final
+- **Pronto quando:** a versão congelada está publicada e uma adaptação real funciona nela.
 
 #### T21 — Testar e roteiro da demonstração
 - **Objetivo:** testar com materiais reais e preparar a apresentação.
-- **Pronto quando:** o grupo testou com pelo menos uma foto, um PowerPoint e um texto reais;
-  os problemas encontrados foram registrados; existe um roteiro da demonstração.
+- **Pronto quando:**
+  - o grupo testou com pelo menos uma prova fotografada, um PowerPoint e um texto reais;
+  - os problemas encontrados foram registrados;
+  - as respostas de reserva foram gravadas (T22);
+  - existe um vídeo da demonstração;
+  - existe um roteiro, incluindo abrir o `/health` antes de começar.
