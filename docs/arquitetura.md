@@ -119,7 +119,7 @@ adapta-ia/
       services/            camada 2: regras (adaptar, pictogramas, conferir questões)
       ai_providers/        camada 3: interface (base.py), erros, texto do pedido (prompt.py),
                            IA simulada (fake.py); Gemini e replay nas T05 e T22
-      pictogram_providers/ camada 3: interface de pictogramas + ARASAAC e simulado
+      pictogram_providers/ camada 3: interface (base.py), ARASAAC (arasaac.py) e simulado (fake.py)
       readers/             camada 3: pptx, imagem, texto
       models/              formato dos dados, usado por todas as camadas
     tests/
@@ -215,7 +215,7 @@ a imagem fiel do slide.
 | Redução da imagem | No navegador, com canvas e sem biblioteca: lado maior com até 1600 px, JPEG com qualidade 0,85. Resolve o limite de 20 MB do Gemini, o tempo de envio e o espaço no IndexedDB, e apaga os metadados (como o GPS). HEIC/HEIF segue sem redução, porque o Chrome não abre esse formato no canvas |
 | Tamanho máximo | 20 MB por arquivo enviado, conferido também no servidor |
 | Figuras do original | A IA devolve a caixa da figura na foto; a **tela** recorta a figura da foto reduzida (canvas, sem biblioteca) e a coloca junto da questão. O servidor não mexe em imagem. Sem foto ou sem caixa, aviso `NEEDS_FIGURE` |
-| Pictogramas | A IA sugere a palavra de busca; o servidor busca no ARASAAC (primeiro pela palavra de busca, depois pela palavra exibida), em paralelo e com cache na memória. A IA nunca escolhe o número do pictograma. A tela monta o endereço da imagem a partir do número |
+| Pictogramas | A IA sugere a palavra de busca; o servidor busca no ARASAAC, primeiro pela palavra de busca e, sem resultado, pela palavra exibida. A IA nunca escolhe o número. Testado em 16/11 (T06): a rota `bestsearch` traz só os casos exatos e é a primeira escolha; a `search` traz muitos e completa as alternativas (até 10); palavra sem resultado responde 404. Buscas em paralelo (até 8) e em cache na memória; ao preencher a folha, a `search` só roda se a `bestsearch` não achar nada (6 palavras: 4,1 s → 1,3 s). ARASAAC fora do ar durante a adaptação deixa a palavra sem imagem; na troca de pictograma (spec 004), vira o erro `PICTOGRAMS_UNAVAILABLE`. A tela monta a imagem com `https://api.arasaac.org/v1/pictograms/{id}` (com `?color=false` para preto e branco) |
 | Navegação | Páginas com endereço próprio |
 | Armazenamento | IndexedDB no navegador, guardando original e adaptada |
 | Preto e branco | Parâmetro `color=false` da API do ARASAAC. É estado da tela, não dado da adaptação |
@@ -431,8 +431,10 @@ Avisos (`code`):
 { "code": "AI_QUOTA", "message": "A IA gratuita atingiu o limite. Tente em alguns minutos." }
 ```
 
-Códigos: `AI_QUOTA`, `AI_TIMEOUT`, `AI_UNAVAILABLE`, `AI_INVALID`, `AI_BLOCKED`,
-`FILE_TOO_LARGE`, `FILE_TYPE`, `TOO_MANY_SLIDES`, `INVALID_INPUT`. A mensagem vem em
+Códigos e status HTTP: `AI_QUOTA` (429), `AI_TIMEOUT` (504), `AI_UNAVAILABLE` (503),
+`AI_INVALID` (502), `AI_BLOCKED` (422), `FILE_TOO_LARGE` (413), `FILE_TYPE` (415),
+`TOO_MANY_SLIDES` (422), `INVALID_INPUT` (422), `PICTOGRAMS_UNAVAILABLE` (503). Tabela em
+`backend/app/api/errors.py`. A mensagem vem em
 português, pronta para mostrar ao professor.
 
 ### Guardado só no navegador (IndexedDB)
@@ -458,6 +460,6 @@ português, pronta para mostrar ao professor.
    da faixa gratuita e qual modelo usar (`GEMINI_MODEL`).
 2. **Foto grande.** Decidido em 16/11: redução no navegador (seção 6).
 3. **Campos do contrato de dados.** Fechado na T03 (seção 10).
-4. **Busca no ARASAAC.** Conferir, na documentação da API, qual rota de busca dá o melhor
-   resultado em português (a busca simples ou a "melhor busca").
+4. **Busca no ARASAAC.** Decidido na T06: `bestsearch` primeiro, `search` para completar
+   (seção 6).
 5. **Hospedagem.** Decidido e publicado no Render (seção 6, "Publicação no Render").

@@ -17,7 +17,8 @@ from app.models.adaptation import MAX_STEPS, Adaptation
 from app.models.ai_adaptation import AiAdaptation, ai_response_schema
 from app.models.material import Material
 from app.models.profile import MaterialType, StudentProfile
-from app.services.errors import AdaptationError
+from app.services.errors import ServiceError
+from app.services.pictogram_service import PictogramService
 from app.services.post_processing import build_adaptation, max_keywords
 
 RETRY_DELAY_SECONDS = 2.0
@@ -39,8 +40,14 @@ def parse_answer(raw: str) -> AiAdaptation:
 
 
 class AdaptationService:
-    def __init__(self, ai: AiProvider, sleep: Callable[[float], None] = time.sleep) -> None:
+    def __init__(
+        self,
+        ai: AiProvider,
+        pictograms: PictogramService | None = None,
+        sleep: Callable[[float], None] = time.sleep,
+    ) -> None:
         self._ai = ai
+        self._pictograms = pictograms
         self._sleep = sleep
 
     def adapt(
@@ -58,10 +65,11 @@ class AdaptationService:
             except _RetryUnavailable:
                 self._sleep(RETRY_DELAY_SECONDS)
                 continue
-            return build_adaptation(answer, material_type, profile, material.has_image)
+            adaptation = build_adaptation(answer, material_type, profile, material.has_image)
+            return self._pictograms.fill(adaptation) if self._pictograms else adaptation
         # Only reached when the second answer was also invalid: an unavailable AI on the
         # second attempt raises AI_UNAVAILABLE inside _call.
-        raise AdaptationError("AI_INVALID")
+        raise ServiceError("AI_INVALID")
 
     def _build_request(
         self,
@@ -90,15 +98,15 @@ class AdaptationService:
         try:
             return self._ai.generate(request)
         except AiQuotaError as error:
-            raise AdaptationError("AI_QUOTA") from error
+            raise ServiceError("AI_QUOTA") from error
         except AiTimeoutError as error:
-            raise AdaptationError("AI_TIMEOUT") from error
+            raise ServiceError("AI_TIMEOUT") from error
         except AiBlockedError as error:
-            raise AdaptationError("AI_BLOCKED") from error
+            raise ServiceError("AI_BLOCKED") from error
         except AiUnavailableError as error:
             if can_retry:
                 raise _RetryUnavailable from error
-            raise AdaptationError("AI_UNAVAILABLE") from error
+            raise ServiceError("AI_UNAVAILABLE") from error
 
 
 class _RetryUnavailable(Exception):

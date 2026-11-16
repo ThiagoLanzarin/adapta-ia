@@ -16,7 +16,8 @@ export type ErrorCode =
   | 'FILE_TOO_LARGE'
   | 'FILE_TYPE'
   | 'TOO_MANY_SLIDES'
-  | 'INVALID_INPUT';
+  | 'INVALID_INPUT'
+  | 'PICTOGRAMS_UNAVAILABLE';
 
 /** Sent to the server. The nickname stays in the browser (spec 003). */
 export interface StudentProfile {

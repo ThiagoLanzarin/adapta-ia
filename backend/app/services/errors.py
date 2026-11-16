@@ -1,4 +1,4 @@
-"""Errors of the system rules, with the messages the teacher sees (spec 001, error table)."""
+"""Errors of the system rules, with the messages the teacher sees (specs 001 and 004)."""
 
 from app.models.errors import ErrorCode
 
@@ -12,10 +12,11 @@ MESSAGES: dict[ErrorCode, str] = {
     "FILE_TYPE": "Envie uma foto (JPG, PNG, WEBP ou HEIC) ou cole o texto.",
     "TOO_MANY_SLIDES": "Escolha até 5 slides por vez.",
     "INVALID_INPUT": "Confira o material e as opções e tente de novo.",
+    "PICTOGRAMS_UNAVAILABLE": "Não consegui buscar pictogramas agora. Tente de novo.",
 }
 
 
-class AdaptationError(Exception):
+class ServiceError(Exception):
     def __init__(self, code: ErrorCode, message: str | None = None) -> None:
         self.code = code
         self.message = message or MESSAGES[code]
