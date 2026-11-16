@@ -1,28 +1,28 @@
 import { useState } from 'react';
 
 import { AdaptationForm } from '@/features/adaptation';
-import { AdaptationResult } from '@/features/sheet';
-import type { Adaptation, StudentProfile } from '@/shared/types/contract';
+import { toStoredOriginal } from '@/features/history';
+import type { HistoryEntry } from '@/shared/storage/history';
 import type { OriginalMaterial } from '@/shared/types/original';
 import PageTitle from '@/shared/ui/PageTitle';
 
+import AdaptationWorkspace from './AdaptationWorkspace';
+
 interface Result {
-  adaptation: Adaptation;
+  entry: HistoryEntry;
   original: OriginalMaterial;
-  profile: StudentProfile;
 }
 
-/** Composes the two features: the form (adaptation) and the result (sheet). */
+/** Composes the form (adaptation) and, once adapted, the sheet saved in the history. */
 export default function AdaptationPage() {
   const [result, setResult] = useState<Result | null>(null);
 
   if (result) {
     return (
-      <AdaptationResult
-        adaptation={result.adaptation}
+      <AdaptationWorkspace
+        key={result.entry.id}
+        initial={result.entry}
         original={result.original}
-        onePerPage={result.profile.easilyDistracted}
-        onChange={(adaptation) => setResult({ ...result, adaptation })}
         onNew={() => setResult(null)}
       />
     );
@@ -34,7 +34,20 @@ export default function AdaptationPage() {
         subtitle="Escolha o tipo, marque o que ajuda o aluno e envie a prova em branco."
       />
       <AdaptationForm
-        onDone={(adaptation, original, profile) => setResult({ adaptation, original, profile })}
+        onDone={(adaptation, original, profile) => {
+          const now = new Date().toISOString();
+          // CA-007-01: saved right away, named after the sheet title.
+          const entry: HistoryEntry = {
+            id: crypto.randomUUID(),
+            name: adaptation.title,
+            createdAt: now,
+            updatedAt: now,
+            profile,
+            original: toStoredOriginal(original),
+            adaptation,
+          };
+          setResult({ entry, original });
+        }}
       />
     </section>
   );

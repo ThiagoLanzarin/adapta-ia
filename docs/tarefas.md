@@ -73,7 +73,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 | T07 | Leitor de PowerPoint | 3 | T03 | Gabriel | concluída |
 | T08b | Rota de slides | 3 | T07, T08a | Gabriel | concluída |
 | T11 | Enviar PowerPoint e escolher slides | 3 | T10, T08b | Gabriel | concluída |
-| T19 | Histórico | 4 | T12 | | livre |
+| T19 | Histórico | 4 | T12 | Gabriel | concluída |
 | T18 | Perfis de aluno | 4 | T10 | | livre |
 | T09 | Nova versão a pedido (servidor) | 5 | T08a | | livre |
 | T15 | Nova versão a pedido (tela) | 5 | T12, T09 | | livre |
@@ -268,6 +268,14 @@ início da tarefa.
 - **Requisitos:** RF-17
 - **Pronto quando:** cada adaptação é salva no navegador com original e adaptada; o
   professor dá nome, busca pelo nome, reabre para editar e apaga.
+- **Notas (16/11/2026):**
+  - Acesso ao IndexedDB só em `shared/storage` (pacote `idb` 8.0.4, já previsto na
+    arquitetura). O banco `adapta-ai` está na versão 1, só com `history`; a T18 sobe para a 2
+    e cria `profiles` no mesmo `upgrade`.
+  - `pages/AdaptationWorkspace.tsx` junta a folha e o histórico, porque uma funcionalidade
+    não importa de outra. Serve à adaptação nova e à reaberta (`/historico/:id`).
+  - Mensagens de navegador bloqueado e de espaço cheio estão no código, mas não foram
+    testadas: o navegador do teste não deixa simular os dois casos.
 
 #### T18 — Perfis de aluno
 - **Pastas:** `frontend/src/features/profiles/`
