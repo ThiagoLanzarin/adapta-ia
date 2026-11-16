@@ -14,12 +14,15 @@ import {
 } from './editAdaptation';
 import OriginalPanel from './OriginalPanel';
 import PictogramPicker from './PictogramPicker';
+import PrintButtons from './PrintButtons';
 import ReviewNotes from './ReviewNotes';
 import Sheet from './Sheet';
 
 interface AdaptationResultProps {
   adaptation: Adaptation;
   original: OriginalMaterial;
+  /** Profile option "se distrai fácil" (CA-006-06). */
+  onePerPage: boolean;
   onChange: (adaptation: Adaptation) => void;
   onNew: () => void;
 }
@@ -29,6 +32,7 @@ interface AdaptationResultProps {
 export default function AdaptationResult({
   adaptation,
   original,
+  onePerPage,
   onChange,
   onNew,
 }: AdaptationResultProps) {
@@ -60,17 +64,24 @@ export default function AdaptationResult({
         </p>
         <div className="flex flex-wrap items-center gap-3">
           <ColorToggle color={color} onChange={setColor} />
+          <PrintButtons />
           <button type="button" onClick={onNew} className="rounded-lg bg-slate-200 px-4 py-2">
             Adaptar outro material
           </button>
         </div>
       </div>
       <ReviewNotes adaptation={adaptation} />
-      <div className="grid gap-6 lg:grid-cols-[2fr_3fr]">
+      <div className="grid gap-6 lg:grid-cols-[2fr_3fr] print:block">
         <div className="print:hidden lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] lg:self-start lg:overflow-y-auto">
           <OriginalPanel original={original} transcription={adaptation.transcription} />
         </div>
-        <Sheet adaptation={adaptation} imageUrl={imageUrl} color={color} actions={actions} />
+        <Sheet
+          adaptation={adaptation}
+          imageUrl={imageUrl}
+          color={color}
+          onePerPage={onePerPage}
+          actions={actions}
+        />
       </div>
       {pickedKeyword && (
         <PictogramPicker
