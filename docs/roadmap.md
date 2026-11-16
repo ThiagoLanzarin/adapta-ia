@@ -102,7 +102,7 @@ hospedagem no Render; ordem de queda (005, depois 003).
 |---|---|
 | Schema rejeitado | Achatar o schema e tentar de novo |
 | Questões somem | Reforçar as regras no pedido à IA |
-| Mais de 60 s por pedido | Trocar para um modelo mais leve |
+| Mais de 90 s por pedido | Avaliar outro modelo, conferindo a fidelidade (o `flash-lite` foi descartado na T00) |
 
 Qualquer ajuste no contrato entra na T03, antes de alguém programar em cima dele.
 
@@ -169,7 +169,7 @@ impressa em papel (ou em PDF) está correta.
 
 **C3 — 17/11, 22h:**
 - A **spec 003 não ficou pronta?** É cortada: a tela continua com as opções de apoio a cada
-  vez (CA-001-25).
+  vez (CA-001-26).
 - A **spec 002 não ficou pronta?** Também é cortada, e o PowerPoint vira "cole o texto do
   slide" na apresentação.
 

@@ -5,7 +5,7 @@
 - **Tarefas:** T18
 - **Depende de:** spec 001 (o perfil é enviado no pedido de adaptação)
 - **Se faltar tempo:** cai depois da spec 005. Sem ela, a tela de adaptação mostra as opções
-  de apoio a cada vez (CA-001-25).
+  de apoio a cada vez (CA-001-26).
 
 ## Objetivo
 

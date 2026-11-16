@@ -32,6 +32,8 @@ Como professor, imprimo a folha ou salvo em PDF, num layout A4 limpo, pronto par
 - **CA-006-07** [manual] A folha tem espaço para o nome do aluno e a data no topo, para
   preencher à mão.
 - **CA-006-08** [manual] Em preto e branco (spec 004), os pictogramas saem sem cor.
+- **CA-006-09** [manual] As figuras recortadas do original saem junto da questão, sem
+  separar a figura da questão entre duas páginas.
 
 ## Regras
 

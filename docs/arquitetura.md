@@ -203,6 +203,7 @@ a imagem fiel do slide.
 | Imagens aceitas | PNG, JPEG, WEBP, HEIC e HEIF (os formatos que o Gemini recebe) |
 | Redução da imagem | No navegador, com canvas e sem biblioteca: lado maior com até 1600 px, JPEG com qualidade 0,85. Resolve o limite de 20 MB do Gemini, o tempo de envio e o espaço no IndexedDB, e apaga os metadados (como o GPS). HEIC/HEIF segue sem redução, porque o Chrome não abre esse formato no canvas |
 | Tamanho máximo | 20 MB por arquivo enviado, conferido também no servidor |
+| Figuras do original | A IA devolve a caixa da figura na foto; a **tela** recorta a figura da foto reduzida (canvas, sem biblioteca) e a coloca junto da questão. O servidor não mexe em imagem. Sem foto ou sem caixa, aviso `NEEDS_FIGURE` |
 | Pictogramas | A IA sugere a palavra de busca; o servidor busca no ARASAAC (primeiro pela palavra de busca, depois pela palavra exibida), em paralelo e com cache na memória. A IA nunca escolhe o número do pictograma. A tela monta o endereço da imagem a partir do número |
 | Navegação | Páginas com endereço próprio |
 | Armazenamento | IndexedDB no navegador, guardando original e adaptada |
@@ -241,7 +242,7 @@ Gemini (resposta em JSON com schema) -> valida com Pydantic -> regras do serviç
 | Erro | Nova tentativa | Código devolvido |
 |---|---|---|
 | Limite da cota (429) | Não | `AI_QUOTA` |
-| Tempo esgotado (cerca de 60 s) ou erro do Google (5xx) | 1 vez, depois de cerca de 2 s | `AI_TIMEOUT` ou `AI_UNAVAILABLE` |
+| Tempo esgotado (90 s; ver R-001-09) ou erro do Google (5xx) | 1 vez, depois de cerca de 2 s | `AI_TIMEOUT` ou `AI_UNAVAILABLE` |
 | Resposta fora do formato | 1 vez (acima) | `AI_INVALID` |
 | Bloqueio de segurança da IA | Não | `AI_BLOCKED` |
 
@@ -274,17 +275,19 @@ Gemini (resposta em JSON com schema) -> valida com Pydantic -> regras do serviç
 
 ## 10. Contrato de dados
 
-Proposta da revisão de 16/11/2026. A T03 confirma com o grupo e cria os modelos dos dois lados.
-Nomes em camelCase no JSON. No Pydantic, usar `alias_generator=to_camel`, que já vem no
-Pydantic, para manter snake_case no Python.
+Fechado na T03 (16/11/2026), com o resultado da [pesquisa da T00](pesquisa-t00.md).
+Nomes em camelCase no JSON. No Python, snake_case com `alias_generator=to_camel`, que já vem
+no Pydantic. Modelos em `backend/app/models/`; tipos da tela em
+`frontend/src/shared/types/contract.ts`.
 
 ### Pedido de adaptação
 
 `POST /api/adaptations`, multipart, com:
 
 - `materialType`: `"test"`, `"activity"` ou `"content"`.
-- `profile`: JSON do perfil, sem o apelido.
-- Uma das três: `file` (imagem), `text` (texto colado) ou `slides` (JSON com até 5 slides).
+- `profile`: JSON do perfil, **sem o apelido** (campo a mais é recusado com `INVALID_INPUT`).
+- Exatamente uma destas: `file` (imagem), `text` (texto colado, até 20.000 caracteres) ou
+  `slides` (JSON com 1 a 5 slides).
 
 ```json
 {
@@ -300,7 +303,7 @@ Pydantic, para manter snake_case no Python.
 }
 ```
 
-`notes` tem até 500 caracteres. `slides` aceita no máximo 5 itens.
+`notes` tem até 500 caracteres.
 
 ### Lista de slides
 
@@ -314,59 +317,68 @@ Pydantic, para manter snake_case no Python.
 
 ```json
 {
-  "title": "Prova de Ciências",
-  "objective": "Reconhecer as etapas do ciclo da água",
-  "transcription": "1) O que acontece com a água quando o sol esquenta? ...",
-  "sourceQuestions": ["1", "2", "3"],
-  "teacherNotes": ["Dividi o enunciado da questão 2 em duas frases."],
+  "title": "Prova de Língua Portuguesa",
+  "objective": "Interpretar um texto informativo",
+  "transcription": "Leia o texto para responder às questões 1 a 10 ...",
+  "sourceQuestions": ["1", "2"],
+  "teacherNotes": ["Omiti a instrução 'use caneta azul'."],
   "steps": [
     {
-      "kind": "question",
-      "sourceNumber": "1",
-      "text": "O sol esquenta a água. O que acontece com a água?",
-      "options": ["Ela sobe como vapor.", "Ela vira gelo."],
-      "keywords": [{ "word": "sol", "searchTerm": "sol" }]
+      "kind": "text",
+      "sourceNumber": null,
+      "text": "1º DE MAIO - DIA DO TRABALHO\n\nComemorado no dia 1º de maio, ...",
+      "options": [],
+      "keywords": [],
+      "needsFigure": false,
+      "figureBox": null
     }
   ]
 }
 ```
 
-- `sourceQuestions`: os números das questões que a IA encontrou no original.
+- O schema enviado à IA **não tem limites de tamanho** (o Gemini recusa; ver seção 7). Os
+  limites são conferidos pelo servidor.
 - A IA não devolve número de pictograma.
+- `figureBox` é `[ymin, xmin, ymax, xmax]`, de 0 a 1000, relativo à imagem enviada.
 
 ### Resposta da API (`Adaptation`)
 
-```json
-{
-  "schemaVersion": 1,
-  "materialType": "test",
-  "title": "Prova de Ciências",
-  "objective": "Reconhecer as etapas do ciclo da água",
-  "transcription": "1) O que acontece com a água quando o sol esquenta? ...",
-  "teacherNotes": ["Dividi o enunciado da questão 2 em duas frases."],
-  "warnings": [{ "code": "MISSING_QUESTION", "message": "A questão 3 do original não aparece na adaptação." }],
-  "steps": [
-    {
-      "id": "s1",
-      "kind": "question",
-      "sourceNumber": "1",
-      "text": "O sol esquenta a água. O que acontece com a água?",
-      "options": ["Ela sobe como vapor.", "Ela vira gelo."],
-      "keywords": [{ "word": "sol", "searchTerm": "sol", "pictogramId": 7252 }]
-    }
-  ]
-}
-```
+O exemplo completo, validado por teste, está em
+[contrato-exemplo.json](contrato-exemplo.json). Os números de pictograma e as caixas de figura
+do exemplo são ilustrativos.
 
-Regras:
+| Campo | Tipo | Regra |
+|---|---|---|
+| `schemaVersion` | `1` | Sobe quando o contrato mudar de forma incompatível |
+| `materialType` | `"test" \| "activity" \| "content"` | O que o professor escolheu |
+| `title`, `objective`, `transcription` | texto | `transcription` é o que a IA leu do original |
+| `teacherNotes` | lista de textos | Quadro "O que mudou" |
+| `warnings` | lista de `{ code, message }` | Gerados pelo servidor, não pela IA |
+| `steps` | lista de 0 a 20 etapas | Na ordem da folha |
 
-- `kind`: `"instruction"` ou `"question"`. `options` só tem itens em `question`.
-- `sourceNumber` é texto ("4a" é válido) ou `null` quando a etapa não vem de uma questão.
-- `pictogramId` é `null` quando o ARASAAC não achou nada.
-- `warnings` são gerados pelo servidor, não pela IA. `MISSING_QUESTION` aparece quando um
-  item de `sourceQuestions` não aparece em nenhum `sourceNumber`. `UNREADABLE` aparece quando
-  a transcrição vem vazia (foto ilegível).
-- `id` de cada etapa é gerado pelo servidor e serve para a edição.
+Etapa (`Step`):
+
+| Campo | Tipo | Regra |
+|---|---|---|
+| `id` | texto | Gerado pelo servidor (`s1`, `s2`...), único |
+| `kind` | `"instruction" \| "text" \| "question"` | `text` = texto de apoio |
+| `sourceNumber` | texto ou `null` | Número da questão no original ("4a" vale); `null` fora de `question` |
+| `text` | texto | O enunciado, a instrução ou o texto de apoio |
+| `options` | lista de textos | Só em `question` |
+| `keywords` | lista de 0 a 3 | Nunca em `text`. Máximo por perfil: R-001-04 |
+| `needsFigure` | booleano | A etapa depende de uma figura do original |
+| `figureBox` | 4 inteiros de 0 a 1000, ou `null` | Só quando `needsFigure`; início menor que o fim |
+
+Palavra-chave (`Keyword`): `word` (como aparece no texto), `searchTerm` (o que foi buscado no
+ARASAAC) e `pictogramId` (inteiro, ou `null` sem resultado).
+
+Avisos (`code`):
+
+| Código | Quando |
+|---|---|
+| `MISSING_QUESTION` | Um item de `sourceQuestions` não aparece em nenhum `sourceNumber` |
+| `UNREADABLE` | A transcrição veio vazia (foto ilegível) |
+| `NEEDS_FIGURE` | Etapa com `needsFigure` sem caixa válida, ou material que não é imagem |
 
 ### Nova versão a pedido (spec 005)
 
@@ -376,8 +388,8 @@ Regras:
 
 ### Pictogramas
 
-`GET /api/pictograms?q=palavra` devolve `{ "results": [{ "id": 7252 }] }`, com a melhor opção
-primeiro.
+`GET /api/pictograms?q=palavra` (1 a 50 caracteres) devolve
+`{ "results": [{ "id": 7252 }] }`, com até 10 opções e a melhor primeiro.
 
 ### Erro (todas as rotas)
 
@@ -391,17 +403,19 @@ português, pronta para mostrar ao professor.
 
 ### Guardado só no navegador (IndexedDB)
 
-- Perfil: `id`, `nickname`, as opções de apoio e `notes`.
+- Perfil: `id`, `nickname`, as 5 opções de apoio e `notes`.
 - Histórico: `id`, `name`, `createdAt`, `updatedAt`, a cópia do perfil usado, o original
-  (imagem reduzida, texto ou slides) e a `Adaptation` com as edições.
+  (imagem reduzida, texto ou slides) e a `Adaptation` com as edições. A imagem reduzida é
+  usada para recortar as figuras de novo ao reabrir.
 
 ### Como tela e servidor ficam iguais
 
-- Os tipos são escritos à mão dos dois lados (`backend/app/models/` e `frontend/src/shared/`).
-- Um exemplo completo de `Adaptation` fica em `docs/contrato-exemplo.json`. Um teste do
-  pytest valida esse exemplo contra o modelo Pydantic. A tela usa o mesmo exemplo como dado
-  falso, para a folha ser feita antes do servidor ficar pronto.
-- Se o contrato mudar, muda o exemplo, e o teste mostra o que quebrou.
+- Os tipos são escritos à mão dos dois lados (`backend/app/models/` e
+  `frontend/src/shared/types/contract.ts`).
+- O exemplo `docs/contrato-exemplo.json` é validado contra o modelo Pydantic por um teste.
+  A tela usa uma cópia em `frontend/src/shared/fixtures/`, e outro teste confere que a cópia
+  é igual ao original.
+- Se o contrato mudar, muda o exemplo, e os testes mostram o que quebrou.
 - Depois (V2): gerar os tipos da tela a partir do OpenAPI do FastAPI (exige biblioteca nova).
 
 ## Pontos em aberto
@@ -409,7 +423,7 @@ português, pronta para mostrar ao professor.
 1. **Chave do Gemini.** Um membro cria a chave no Google AI Studio e confere os limites reais
    da faixa gratuita e qual modelo usar (`GEMINI_MODEL`).
 2. **Foto grande.** Decidido em 16/11: redução no navegador (seção 6).
-3. **Campos do contrato de dados.** Proposta na seção 10, a confirmar na T03.
+3. **Campos do contrato de dados.** Fechado na T03 (seção 10).
 4. **Busca no ARASAAC.** Conferir, na documentação da API, qual rota de busca dá o melhor
    resultado em português (a busca simples ou a "melhor busca").
 5. **Hospedagem.** Decidido: Render. Conferir os limites do plano gratuito na T20a.

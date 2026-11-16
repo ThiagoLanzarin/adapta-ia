@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "materialType": "test",
+  "title": "Prova de Ciências",
+  "objective": "Reconhecer as etapas do ciclo da água",
+  "transcription": "Leia o texto e responda.\nO CICLO DA ÁGUA\nO sol aquece a água dos rios e dos mares. A água vira vapor e sobe. No alto, o vapor esfria e forma as nuvens.\n1) Como se chama a etapa em que a água vira vapor?\na) Condensação b) Evaporação c) Precipitação d) Infiltração\n2) Observe o gráfico e responda: em qual mês choveu mais?\n3) Observe a figura do ciclo da água e numere as etapas.\n4) Cite dois exemplos de precipitação.",
+  "teacherNotes": [
+    "Dividi o texto em frases curtas, sem mudar o conteúdo.",
+    "Omiti a instrução \"use caneta azul ou preta\"."
+  ],
+  "warnings": [
+    {
+      "code": "NEEDS_FIGURE",
+      "message": "A questão 3 depende de uma figura do original. Cole ou desenhe a figura na folha impressa."
+    },
+    {
+      "code": "MISSING_QUESTION",
+      "message": "A questão 4 do original não aparece na adaptação. Confira antes de imprimir."
+    }
+  ],
+  "steps": [
+    {
+      "id": "s1",
+      "kind": "instruction",
+      "sourceNumber": null,
+      "text": "Leia o texto. Depois, responda às questões.",
+      "options": [],
+      "keywords": [
+        { "word": "texto", "searchTerm": "texto", "pictogramId": 2549 }
+      ],
+      "needsFigure": false,
+      "figureBox": null
+    },
+    {
+      "id": "s2",
+      "kind": "text",
+      "sourceNumber": null,
+      "text": "O CICLO DA ÁGUA\n\nO sol aquece a água dos rios e dos mares.\n\nA água vira vapor e sobe.\n\nNo alto, o vapor esfria e forma as nuvens.",
+      "options": [],
+      "keywords": [],
+      "needsFigure": false,
+      "figureBox": null
+    },
+    {
+      "id": "s3",
+      "kind": "question",
+      "sourceNumber": "1",
+      "text": "A água vira vapor. Como se chama essa etapa?",
+      "options": ["a) Condensação", "b) Evaporação", "c) Precipitação", "d) Infiltração"],
+      "keywords": [
+        { "word": "vapor", "searchTerm": "vapor", "pictogramId": null }
+      ],
+      "needsFigure": false,
+      "figureBox": null
+    },
+    {
+      "id": "s4",
+      "kind": "question",
+      "sourceNumber": "2",
+      "text": "Olhe o gráfico. Em qual mês choveu mais?",
+      "options": [],
+      "keywords": [
+        { "word": "gráfico", "searchTerm": "gráfico", "pictogramId": 3051 }
+      ],
+      "needsFigure": true,
+      "figureBox": [540, 120, 760, 480]
+    },
+    {
+      "id": "s5",
+      "kind": "question",
+      "sourceNumber": "3",
+      "text": "Olhe a figura do ciclo da água. Escreva o número de cada etapa.",
+      "options": [],
+      "keywords": [],
+      "needsFigure": true,
+      "figureBox": null
+    }
+  ]
+}
