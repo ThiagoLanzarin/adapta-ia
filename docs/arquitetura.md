@@ -221,6 +221,28 @@ a imagem fiel do slide.
 | CORS | O servidor só aceita pedidos da origem da tela (variável de ambiente) |
 | Hospedagem | Decidido em 16/11: Render, com a tela como site estático e o servidor como web service, ambos no plano gratuito. A chave fica só nas variáveis de ambiente do web service. O plano gratuito dorme após 15 minutos sem acesso e demora para acordar: abrir `/health` antes da apresentação |
 
+### Publicação no Render (T20a, 16/11/2026)
+
+| | Servidor | Tela |
+|---|---|---|
+| Endereço | https://adapta-ia.onrender.com | https://adapta-ai-d5ax.onrender.com |
+| Tipo | Web Service, plano Free, Python 3 | Static Site |
+| Pasta | `backend` | `frontend` |
+| Build | `pip install -r requirements.txt` | `npm ci && npm run build` (publica `dist`) |
+| Início | `uvicorn app.main:app --host 0.0.0.0 --port $PORT` | — |
+| Variáveis | `PYTHON_VERSION`, `AI_PROVIDER`, `GEMINI_MODEL`, `GEMINI_API_KEY` (segredo), `ALLOWED_ORIGIN` = endereço da tela | `NODE_VERSION`, `VITE_API_URL` = endereço do servidor |
+| Regra | Verificação de saúde em `/health` | Reescrita `/*` → `/index.html` |
+
+- Os serviços estão na conta do Render do membro que criou a chave do Gemini. A chave só
+  existe nas variáveis do servidor, no Render; nunca no GitHub.
+- O repositório foi ligado pelo **link público** (o dono, `eiq03`, não precisou autorizar).
+  Por isso **não há deploy automático**: depois de cada merge na `main`, abrir cada serviço →
+  **Manual Deploy** → **Deploy latest commit**. Se o dono instalar o app do Render no GitHub,
+  passa a ser automático.
+- `VITE_API_URL` entra na hora do build da tela: se mudar, a tela precisa de novo deploy.
+- Conferido: `/health` responde; o servidor só aceita pedidos da origem da tela (CORS); as
+  rotas da tela abrem direto; o selo da tela mostra "Servidor conectado".
+
 ## 7. Saída da IA e falhas
 
 ### Validação
@@ -434,4 +456,4 @@ português, pronta para mostrar ao professor.
 3. **Campos do contrato de dados.** Fechado na T03 (seção 10).
 4. **Busca no ARASAAC.** Conferir, na documentação da API, qual rota de busca dá o melhor
    resultado em português (a busca simples ou a "melhor busca").
-5. **Hospedagem.** Decidido: Render. Conferir os limites do plano gratuito na T20a.
+5. **Hospedagem.** Decidido e publicado no Render (seção 6, "Publicação no Render").
