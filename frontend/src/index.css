@@ -1,0 +1,6 @@
+@import 'tailwindcss';
+
+/* Large, calm defaults: the users are teachers, the sheets are for autistic students. */
+html {
+  font-size: 18px;
+}

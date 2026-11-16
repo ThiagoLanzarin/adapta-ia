@@ -57,7 +57,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 |---|---|---|---|---|---|
 | T00 | Prova rápida do Gemini | 1 | a chave | Gabriel | concluída |
 | T01 | Esqueleto do servidor | 1 | — | Gabriel | concluída |
-| T02 | Esqueleto da tela | 1 | — | | livre |
+| T02 | Esqueleto da tela | 1 | — | Gabriel | concluída |
 | T20a | Publicar o esqueleto | 1 | T01, T02 | | livre |
 | T03 | Formato dos dados | 1 | T00 (resultado) | Gabriel | concluída |
 | T04 | Contrato de IA, IA simulada e regra de adaptar | 1 | T01, T03 | | livre |

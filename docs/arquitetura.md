@@ -81,6 +81,9 @@ SERVIDOR (Python + FastAPI)
   e não o `tailwind.config.js` dos tutoriais da versão 3.
 - React Router: usar o modo declarativo (`<BrowserRouter>` e `<Routes>`), não o
   "framework mode".
+- TypeScript: fixado na 6.0 (T02). O template do Vite veio com o 7.0, mas o
+  `typescript-eslint` só suporta versões abaixo de 6.1. O template também troca o ESLint pelo
+  oxlint; mantivemos o ESLint, que é o aprovado.
 
 ## 3. Estrutura de pastas
 
@@ -100,12 +103,14 @@ adapta-ia/
     contrato-exemplo.json  exemplo do contrato, validado por teste (criado na T03)
   frontend/
     src/
+      App.tsx              rotas (React Router)
+      pages/               uma página por endereço; só junta funcionalidades
       features/
         adaptation/        enviar material, escolher slides
         sheet/             folha adaptada, edição, impressão
         profiles/          perfis de aluno
         history/           salvar, buscar, reabrir
-      shared/              componentes genéricos, cliente da API, tipos
+      shared/              api (cliente), types (contrato), fixtures, ui, storage
   backend/
     app/
       main.py              ponto de montagem: cria o app e escolhe os provedores
@@ -174,6 +179,9 @@ shared/    api (cliente HTTP)  storage (IndexedDB)  types (contrato)  ui (compon
 - Um componente não chama a API direto. Usa o cliente em `shared/api`.
 - Um componente não usa o IndexedDB direto. Usa `shared/storage`.
 - Uma funcionalidade não importa de dentro de outra. O que duas precisam vai para `shared`.
+- Essas três regras são **cobradas pelo ESLint** (`frontend/eslint.config.js`): import entre
+  funcionalidades, `fetch` e `indexedDB` fora de `shared`, e o pacote `idb` fora de
+  `shared/storage` dão erro no `npm run lint`.
 
 ## 5. Caminho de uma adaptação
 
