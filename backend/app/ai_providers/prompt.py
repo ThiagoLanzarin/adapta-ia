@@ -32,7 +32,12 @@ Faça, nesta ordem:
    - "searchTerm" é a forma simples e concreta do SENTIDO da palavra na frase, para buscar
      um pictograma (verbo no infinitivo, substantivo no singular);
    - nunca use verbos de comando do enunciado ("arme", "efetue", "marque", "leia", "indique");
-   - nunca escolha uma palavra que seja uma resposta possível da questão.
+   - nunca escolha uma palavra que seja uma resposta possível da questão;
+   - só escolha uma palavra se o desenho comum dela mostra o mesmo sentido que ela tem na
+     frase: nada de sentido figurado ou técnico (o "braço" do rio, a "raiz" de um número,
+     "ganhar" tempo) e nada sobre o próprio texto ("palavra", "expressão", "trecho", "ideia",
+     "indicar"); prefira o ser ou objeto principal ("aranha", não "pata");
+   - na dúvida, não escolha: imagem errada confunde mais do que nenhuma imagem.
 5. Figuras: se um passo precisa de uma figura do original para ser respondido (gráfico,
    figura geométrica, mapa, ilustração citada), marque "needsFigure" true e{figure_rule}
    Figuras só decorativas não entram. Sem figura: "needsFigure" false e "figureBox" nulo.
@@ -78,13 +83,13 @@ def describe_profile(profile: StudentProfile) -> str:
         lines.append("- se distrai fácil: uma ação por passo, sem informação que não seja usada.")
     if profile.takes_things_literally:
         lines.append(
-            "- entende ao pé da letra: nos enunciados, troque metáforas, expressões populares,"
+            "- interpreta a linguagem de forma literal: nos enunciados, troque metáforas, expressões populares,"
             " ironia e perguntas vagas por frases diretas; não troque quando a questão pergunta"
             " justamente sobre a expressão."
         )
     if profile.needs_predictability:
         lines.append(
-            "- fica ansioso sem saber o que vem: comece cada questão dizendo exatamente o que"
+            "- precisa de previsibilidade: comece cada questão dizendo exatamente o que"
             ' fazer e quantas respostas ("Marque 1 alternativa.", "Escreva 1 número."), sem'
             " mudar o que a questão pede."
         )

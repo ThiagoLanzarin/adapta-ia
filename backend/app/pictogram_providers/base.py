@@ -8,8 +8,10 @@ class PictogramUnavailableError(Exception):
 
 
 class PictogramProvider(Protocol):
-    def search(self, term: str, limit: int = 10) -> list[int]:
+    def search(self, term: str, limit: int = 10, exact: bool = False) -> list[int]:
         """Up to `limit` pictogram ids for a Portuguese term, best first; empty if none.
+
+        `exact` keeps only pictograms named by the term itself (R-001-10): no close matches.
 
         Raises PictogramUnavailableError when the source is down.
         """

@@ -49,6 +49,14 @@ def test_filling_a_sheet_skips_the_wide_search_when_best_search_finds():
     assert calls == ["/v1/pictograms/pt/bestsearch/sol"]
 
 
+def test_r_001_10_exact_search_never_uses_the_wide_search():
+    calls: list[str] = []
+    provider = provider_with({"/search/espaço em branco": (200, [{"_id": 9}])}, calls)
+
+    assert provider.search("espaço em branco", limit=1, exact=True) == []
+    assert all("/bestsearch/" in call for call in calls)
+
+
 def test_results_are_cached():
     calls: list[str] = []
     provider = provider_with({"/bestsearch/sol": (200, [{"_id": 1}])}, calls)

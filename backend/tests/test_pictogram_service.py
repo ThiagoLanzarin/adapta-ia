@@ -38,6 +38,16 @@ def test_ca_001_10_search_term_first_then_word_then_none():
     assert "sol" not in source.searched  # the word is only tried when the term fails
 
 
+def test_r_001_10_a_close_match_never_goes_on_the_sheet_but_is_an_alternative():
+    source = FakePictogramProvider(close={"desenho": [48]})
+
+    adaptation = adapt_with([{"word": "desenho", "searchTerm": "desenho"}], source)
+
+    assert ids(adaptation) == [None]
+    alternatives = PictogramService(source).alternatives("desenho").results
+    assert [option.id for option in alternatives] == [48]
+
+
 def test_ca_001_10_source_down_leaves_words_without_image():
     adaptation = adapt_with(
         [{"word": "sol", "searchTerm": "sol"}], FakePictogramProvider(down=True)

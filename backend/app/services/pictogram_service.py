@@ -19,7 +19,11 @@ class PictogramService:
         self._provider = provider
 
     def fill(self, adaptation: Adaptation) -> Adaptation:
-        """CA-001-10: search term first, then the shown word; no result means no image."""
+        """CA-001-10: search term first, then the shown word; no result means no image.
+
+        R-001-10: only exact matches go on the sheet. A wrong image confuses more than none;
+        the teacher still gets close matches when swapping (alternatives).
+        """
         keywords = [k for step in adaptation.steps for k in step.keywords]
         found = self._search_all({k.search_term for k in keywords})
         fallback = {k.word for k in keywords if not found.get(k.search_term)} - found.keys()
@@ -48,6 +52,6 @@ class PictogramService:
     def _search_quietly(self, term: str) -> list[int]:
         """During an adaptation, a down ARASAAC only leaves the word without an image."""
         try:
-            return self._provider.search(term, limit=1)
+            return self._provider.search(term, limit=1, exact=True)
         except PictogramUnavailableError:
             return []

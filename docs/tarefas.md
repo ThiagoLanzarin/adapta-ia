@@ -80,6 +80,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 | T22 | Provedor de respostas gravadas (reserva) | Entrega | T05 | Gabriel | concluída |
 | T20b | Publicar a versão final | Entrega | Fatia 1 | Gabriel | concluída |
 | T23 | Duas opções de apoio novas | Entrega | T18 | Gabriel | concluída |
+| T24 | Pictogramas no sentido da frase | Entrega | T06 | Gabriel | concluída |
 | T21 | Testar e roteiro da demonstração | Entrega | Tudo que for entregue | | livre |
 
 Estados: `livre`, `em andamento`, `em revisão`, `concluída`.
@@ -346,7 +347,7 @@ início da tarefa.
 - **Pedido em 17/11:** o grupo propôs 8 opções; entraram 2 (decisão na spec 003).
 - **Pastas:** `backend/app/models/`, `backend/app/ai_providers/prompt.py`,
   `frontend/src/shared/`, `frontend/src/features/sheet/`
-- **Pronto quando:** "entende tudo ao pé da letra" e "fica ansioso sem saber o que vem" estão
+- **Pronto quando:** "interpreta a linguagem de forma literal" e "precisa de previsibilidade" estão
   no perfil e no pedido à IA (CA-001-31, CA-001-32); a folha mostra o total de questões e
   "Questão 2 de 5" (CA-001-33); perfis antigos abrem com as opções novas desmarcadas.
 - **Feito em 17/11:** 3 testes novos (167 no total). Conferido no navegador com a IA simulada:
@@ -355,6 +356,22 @@ início da tarefa.
   prova de 3 questões com as duas opções: "Dê uma olhada no texto" saiu; a expressão "pulga
   atrás da orelha", que era o que a questão 2 avaliava, ficou; cada questão começou com
   "Marque 1 alternativa." ou "Escreva 1 resposta."; nenhuma alternativa mudou.
+
+#### T24 — Pictogramas no sentido da frase
+- **Pedido em 17/11:** imagens sem relação com a questão ("pata" de aranha virou perna de
+  cavalo; "alimento" da planta virou comida com maçã). Junto: nomes mais formais das opções
+  de 17/11 ("Interpreta a linguagem de forma literal", "Precisa de previsibilidade").
+- **Pastas:** `backend/app/ai_providers/prompt.py`, `backend/app/pictogram_providers/`,
+  `backend/app/services/pictogram_service.py`, `frontend/src/shared/profile/`
+- **Pronto quando:** regra R-001-10 no pedido à IA e na busca; testes com o identificador;
+  as 3 provas reais rodadas de novo e comparadas.
+- **Feito em 17/11:** 3 testes novos (170 no total). As 3 provas reais rodaram com o Gemini
+  (3 pedidos), com o perfil "lê pouco" e "mais imagens"; respostas em
+  `provas-teste/fotos/resultados-pictogramas-17-11/`, fora do repositório. Resultado em
+  R-001-10. Descartado: gerar imagens com IA (sem cota gratuita para modelos de imagem
+  [a verificar], estilo diferente do ARASAAC, mais lento, sem tempo de testar antes do
+  congelamento) e uma segunda chamada à IA para conferir os desenhos (dobra o uso da cota).
+  Ficam para a V2.
 
 #### T21 — Testar e roteiro da demonstração
 - **Objetivo:** testar com materiais reais e preparar a apresentação.
