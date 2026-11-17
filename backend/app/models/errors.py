@@ -10,6 +10,7 @@ ErrorCode = Literal[
     "AI_UNAVAILABLE",
     "AI_INVALID",
     "AI_BLOCKED",
+    "AI_NOT_RECORDED",
     "FILE_TOO_LARGE",
     "FILE_TYPE",
     "TOO_MANY_SLIDES",

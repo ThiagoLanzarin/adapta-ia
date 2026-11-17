@@ -1,7 +1,6 @@
 import { Link } from 'react-router';
 
 import PageTitle from '@/shared/ui/PageTitle';
-import ServerStatusBadge from '@/shared/ui/ServerStatusBadge';
 
 export default function HomePage() {
   return (
@@ -10,14 +9,13 @@ export default function HomePage() {
         title="Adapte a prova para o seu aluno"
         subtitle="Envie a foto da prova em branco e receba uma folha adaptada, com linguagem simples e pictogramas."
       />
-      <div className="flex flex-wrap items-center gap-4">
+      <div>
         <Link
           to="/adaptar"
           className="rounded-lg bg-teal-700 px-5 py-3 font-semibold text-white hover:bg-teal-800"
         >
           Começar uma adaptação
         </Link>
-        <ServerStatusBadge />
       </div>
     </section>
   );

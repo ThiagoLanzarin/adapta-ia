@@ -4,7 +4,7 @@ import pytest
 
 from app.config import get_settings
 
-ENV_VARS = ["AI_PROVIDER", "GEMINI_API_KEY", "GEMINI_MODEL", "ALLOWED_ORIGIN"]
+ENV_VARS = ["AI_PROVIDER", "GEMINI_API_KEY", "GEMINI_MODEL", "ALLOWED_ORIGIN", "AI_RECORD"]
 
 
 @pytest.fixture(autouse=True)

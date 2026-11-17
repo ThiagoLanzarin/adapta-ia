@@ -215,7 +215,7 @@ demonstração.
 
 | Hora (18/11) | O quê |
 |---|---|
-| 13h–15h | T21: rodar o roteiro com o Gemini real e gravar as respostas para o provedor de reserva |
+| 13h–15h | T21: rodar o roteiro com o Gemini real e gravar as respostas para o provedor de reserva: servidor local com `AI_RECORD=on`, no computador e navegador da apresentação; depois, commit dos arquivos de `replay_answers/` e publicar o servidor |
 | 15h–16h | Gravar o vídeo da demonstração (última reserva) |
 | 16h–17h | Ensaio completo, com tempo marcado, incluindo as perguntas difíceis (privacidade, fidelidade, custo da IA, SDD, arquitetura) |
 | 18h40 | Abrir o `/health` e a tela publicada, para o Render acordar |

@@ -77,7 +77,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 | T18 | Perfis de aluno | 4 | T10 | Gabriel | concluída |
 | T09 | Nova versão a pedido (servidor) | 5 | T08a | Gabriel | concluída |
 | T15 | Nova versão a pedido (tela) | 5 | T12, T09 | Gabriel | concluída |
-| T22 | Provedor de respostas gravadas (reserva) | Entrega | T05 | | livre |
+| T22 | Provedor de respostas gravadas (reserva) | Entrega | T05 | Gabriel | concluída |
 | T20b | Publicar a versão final | Entrega | Fatia 1 | | livre |
 | T21 | Testar e roteiro da demonstração | Entrega | Tudo que for entregue | | livre |
 
@@ -323,6 +323,12 @@ início da tarefa.
 - **Pastas:** `backend/app/ai_providers/`, `backend/tests/`
 - **Pronto quando:** com `AI_PROVIDER=replay`, os materiais do roteiro devolvem as respostas
   gravadas; material não gravado devolve erro claro; a tela mostra "modo demonstração".
+- **Feito em 17/11:** `replay.py` com o gravador (`AI_RECORD=on`, junto do Gemini) e o
+  repetidor (`AI_PROVIDER=replay`). Novo código de erro `AI_NOT_RECORDED`. O selo de status
+  foi para o cabeçalho, em todas as páginas. 8 testes em `tests/test_replay_provider.py`.
+  Conferido no navegador: selo, erro de material não gravado e o mesmo resumo para a mesma
+  foto. **Ainda falta gravar** as respostas do roteiro no ensaio (seção 7 da arquitetura);
+  sem isso, o modo `replay` só devolve `AI_NOT_RECORDED`.
 
 #### T20b — Publicar a versão final
 - **Como:** em cada serviço do Render, **Manual Deploy** → **Deploy latest commit** (não há

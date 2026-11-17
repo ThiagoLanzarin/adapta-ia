@@ -8,6 +8,9 @@ MESSAGES: dict[ErrorCode, str] = {
     "AI_UNAVAILABLE": "A IA demorou para responder. Tente de novo.",
     "AI_INVALID": "Não consegui montar a folha. Tente de novo ou cole o texto.",
     "AI_BLOCKED": "A IA recusou este material. Confira se a foto é da prova em branco.",
+    "AI_NOT_RECORDED": (
+        "Modo demonstração: este material não foi gravado no ensaio. Use um material do roteiro."
+    ),
     "FILE_TOO_LARGE": "O arquivo passa de 20 MB. Tire a foto de novo ou cole o texto.",
     "FILE_TYPE": "Envie uma foto (JPG, PNG, WEBP ou HEIC) ou cole o texto.",
     "TOO_MANY_SLIDES": "Escolha até 5 slides por vez.",

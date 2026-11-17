@@ -156,6 +156,7 @@ avaliação que a turma.
 | IA demorou ou está fora do ar | `AI_TIMEOUT`, `AI_UNAVAILABLE` | "A IA demorou para responder. Tente de novo." |
 | IA respondeu fora do formato duas vezes | `AI_INVALID` | "Não consegui montar a folha. Tente de novo ou cole o texto." |
 | IA recusou o material | `AI_BLOCKED` | "A IA recusou este material. Confira se a foto é da prova em branco." |
+| Modo demonstração e material não gravado (T22) | `AI_NOT_RECORDED` | "Modo demonstração: este material não foi gravado no ensaio. Use um material do roteiro." |
 | Foto ilegível (a IA não achou texto) | aviso `UNREADABLE` | "Não consegui ler a foto. Tire outra com mais luz ou cole o texto." |
 | Figura sem caixa, ou material sem foto | aviso `NEEDS_FIGURE` | "A questão 7 depende de uma figura do original. Cole ou desenhe a figura na folha impressa." |
 | Questão do original faltando | aviso `MISSING_QUESTION` | "A questão 3 do original não aparece na adaptação. Confira antes de imprimir." |

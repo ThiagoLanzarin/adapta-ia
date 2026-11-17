@@ -30,6 +30,7 @@ class Settings:
     gemini_api_key: str
     gemini_model: str
     allowed_origin: str
+    ai_record: bool = False
 
 
 def get_settings(env_file: Path = ENV_FILE) -> Settings:
@@ -41,4 +42,5 @@ def get_settings(env_file: Path = ENV_FILE) -> Settings:
         gemini_api_key=api_key,
         gemini_model=os.getenv("GEMINI_MODEL", ""),
         allowed_origin=os.getenv("ALLOWED_ORIGIN", "http://localhost:5173"),
+        ai_record=os.getenv("AI_RECORD", "").lower() == "on",
     )
