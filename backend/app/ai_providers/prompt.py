@@ -45,6 +45,14 @@ FIGURE_BOX_RULE = """ dê em "figureBox" a caixa da
    figura na imagem enviada: [ymin, xmin, ymax, xmax], normalizada de 0 a 1000."""
 NO_IMAGE_FIGURE_RULE = """ deixe "figureBox" nulo (não há imagem)."""
 
+REVISION_RULES = """
+Este material é uma folha JÁ ADAPTADA, com correções do professor. Faça uma nova versão
+seguindo o pedido do professor:
+- parta desta folha, não de outra versão; mantenha tudo o que o pedido não manda mudar;
+- mantenha o "sourceNumber" de cada questão e a ordem das questões;
+- as etapas marcadas "usa uma figura do original" continuam com "needsFigure" true.
+Pedido do professor: {instruction}"""
+
 TEST_RULES = """
 Regras de prova, obrigatórias:
 - mantenha TODAS as questões, com a numeração do original;
@@ -80,6 +88,7 @@ def build_prompt(
     has_image: bool,
     material_text: str | None = None,
     previous_error: str | None = None,
+    instruction: str | None = None,
 ) -> str:
     prompt = BASE_RULES.format(
         material_name=MATERIAL_NAMES[material_type],
@@ -89,6 +98,9 @@ def build_prompt(
     )
     if material_type == "test":
         prompt += "\n" + TEST_RULES
+    if instruction is not None:
+        # Spec 005: same rules as the first version (R-001-02 included), plus the request.
+        prompt += "\n" + REVISION_RULES.format(instruction=instruction)
     if previous_error:
         prompt += f"\n\nSua resposta anterior veio fora do formato ({previous_error}). Corrija."
     if material_text is not None:

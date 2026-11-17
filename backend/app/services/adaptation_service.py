@@ -18,11 +18,13 @@ from app.models.adaptation import MAX_STEPS, Adaptation
 from app.models.ai_adaptation import AiAdaptation, ai_response_schema
 from app.models.material import Material
 from app.models.profile import MaterialType, StudentProfile
+from app.models.revise import ReviseRequest
 from app.models.slides import Slide
 from app.services.errors import ServiceError
 from app.services.material_service import read_material
 from app.services.pictogram_service import PictogramService
 from app.services.post_processing import build_adaptation, max_keywords
+from app.services.revision import has_figures, keep_current_sheet_facts, sheet_to_text
 
 RETRY_DELAY_SECONDS = 2.0
 
@@ -64,13 +66,34 @@ class AdaptationService:
         """What the route calls: read the material, then adapt it."""
         return self.adapt(read_material(text, image, slides), material_type, profile)
 
+    def revise(self, request: ReviseRequest) -> Adaptation:
+        """Spec 005: a new version of the current sheet (with the edits), on request."""
+        instruction = request.instruction.strip()
+        if not instruction:
+            raise ServiceError("INVALID_INPUT")
+        return self.adapt(
+            Material(text=sheet_to_text(request.adaptation)),
+            request.material_type,
+            request.profile,
+            instruction=instruction,
+            current=request.adaptation,
+        )
+
     def adapt(
-        self, material: Material, material_type: MaterialType, profile: StudentProfile
+        self,
+        material: Material,
+        material_type: MaterialType,
+        profile: StudentProfile,
+        instruction: str | None = None,
+        current: Adaptation | None = None,
     ) -> Adaptation:
-        """One AI call; one more only for an invalid answer or an unavailable AI (R-001-01)."""
+        """One AI call; one more only for an invalid answer or an unavailable AI (R-001-01).
+        With `current`, it is a new version of that sheet (spec 005)."""
         previous_error: str | None = None
         for attempt in (1, 2):
-            request = self._build_request(material, material_type, profile, previous_error)
+            request = self._build_request(
+                material, material_type, profile, previous_error, instruction
+            )
             try:
                 answer = parse_answer(self._call(request, can_retry=attempt == 1))
             except InvalidAnswer as error:
@@ -79,7 +102,11 @@ class AdaptationService:
             except _RetryUnavailable:
                 self._sleep(RETRY_DELAY_SECONDS)
                 continue
-            adaptation = build_adaptation(answer, material_type, profile, material.has_image)
+            has_image = material.has_image
+            if current is not None:
+                answer = keep_current_sheet_facts(answer, current)
+                has_image = has_figures(current)
+            adaptation = build_adaptation(answer, material_type, profile, has_image)
             return self._pictograms.fill(adaptation) if self._pictograms else adaptation
         # Only reached when the second answer was also invalid: an unavailable AI on the
         # second attempt raises AI_UNAVAILABLE inside _call.
@@ -91,6 +118,7 @@ class AdaptationService:
         material_type: MaterialType,
         profile: StudentProfile,
         previous_error: str | None,
+        instruction: str | None = None,
     ) -> AiRequest:
         prompt = build_prompt(
             material_type=material_type,
@@ -99,6 +127,7 @@ class AdaptationService:
             has_image=material.has_image,
             material_text=material.text,
             previous_error=previous_error,
+            instruction=instruction,
         )
         return AiRequest(
             prompt=prompt,

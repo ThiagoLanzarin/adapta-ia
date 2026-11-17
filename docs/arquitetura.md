@@ -423,6 +423,12 @@ Avisos (`code`):
 `materialType` e `instruction` (o pedido do professor, até 300 caracteres). Devolve uma
 `Adaptation`.
 
+A IA recebe a folha atual como texto (`services/revision.py`), com as mesmas regras da
+primeira versão e o pedido no fim. Ela não vê a foto, então o servidor devolve da folha atual,
+sem perguntar à IA: a transcrição, os números das questões (para conferir
+`MISSING_QUESTION`) e a caixa de cada figura, pelo número da questão. Figura que o professor
+removeu continua removida.
+
 ### Saúde do servidor
 
 `GET /health` devolve `{ "status": "ok", "aiProvider": "gemini" }`. Com `aiProvider` diferente
