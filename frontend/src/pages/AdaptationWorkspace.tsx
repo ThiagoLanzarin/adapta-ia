@@ -30,6 +30,7 @@ export default function AdaptationWorkspace({
       <AdaptationResult
         adaptation={entry.adaptation}
         original={original}
+        profile={entry.profile}
         onePerPage={entry.profile.easilyDistracted}
         onChange={(adaptation) => update({ adaptation })}
         onNew={onNew}

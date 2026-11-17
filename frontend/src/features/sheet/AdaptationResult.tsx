@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import type { Adaptation } from '@/shared/types/contract';
+import type { Adaptation, StudentProfile } from '@/shared/types/contract';
 import type { OriginalMaterial } from '@/shared/types/original';
 
 import ColorToggle from './ColorToggle';
@@ -15,12 +15,15 @@ import {
 import OriginalPanel from './OriginalPanel';
 import PictogramPicker from './PictogramPicker';
 import PrintButtons from './PrintButtons';
+import RevisePanel from './RevisePanel';
 import ReviewNotes from './ReviewNotes';
 import Sheet from './Sheet';
 
 interface AdaptationResultProps {
   adaptation: Adaptation;
   original: OriginalMaterial;
+  /** The profile used, sent again with a new version (spec 005). */
+  profile: StudentProfile;
   /** Profile option "se distrai fácil" (CA-006-06). */
   onePerPage: boolean;
   onChange: (adaptation: Adaptation) => void;
@@ -32,6 +35,7 @@ interface AdaptationResultProps {
 export default function AdaptationResult({
   adaptation,
   original,
+  profile,
   onePerPage,
   onChange,
   onNew,
@@ -71,6 +75,7 @@ export default function AdaptationResult({
         </div>
       </div>
       <ReviewNotes adaptation={adaptation} />
+      <RevisePanel adaptation={adaptation} profile={profile} onRevised={onChange} />
       <div className="grid gap-6 lg:grid-cols-[2fr_3fr] print:block">
         <div className="print:hidden lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] lg:self-start lg:overflow-y-auto">
           <OriginalPanel original={original} transcription={adaptation.transcription} />

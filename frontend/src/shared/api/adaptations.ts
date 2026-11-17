@@ -23,3 +23,25 @@ export function createAdaptation(input: AdaptationInput): Promise<Adaptation> {
   }
   return request<Adaptation>('/api/adaptations', { method: 'POST', body: form });
 }
+
+export interface RevisionInput {
+  adaptation: Adaptation;
+  profile: StudentProfile;
+  instruction: string;
+}
+
+/** POST /api/adaptations/revise (spec 005): a new version of the current sheet, with the
+ * teacher's edits, following the request. */
+export function reviseAdaptation(input: RevisionInput): Promise<Adaptation> {
+  const body = {
+    adaptation: input.adaptation,
+    profile: input.profile,
+    materialType: input.adaptation.materialType,
+    instruction: input.instruction,
+  };
+  return request<Adaptation>('/api/adaptations/revise', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+}
