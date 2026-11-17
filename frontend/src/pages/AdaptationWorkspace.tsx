@@ -25,16 +25,20 @@ export default function AdaptationWorkspace({
     setEntry((current) => ({ ...current, ...change, updatedAt: new Date().toISOString() }));
 
   return (
-    <div className="space-y-6">
-      <HistoryNameField name={entry.name} onChange={(name) => update({ name })} error={saveError} />
-      <AdaptationResult
-        adaptation={entry.adaptation}
-        original={original}
-        profile={entry.profile}
-        onePerPage={entry.profile.easilyDistracted}
-        onChange={(adaptation) => update({ adaptation })}
-        onNew={onNew}
-      />
-    </div>
+    <AdaptationResult
+      title={
+        <HistoryNameField
+          name={entry.name}
+          onChange={(name) => update({ name })}
+          error={saveError}
+        />
+      }
+      adaptation={entry.adaptation}
+      original={original}
+      profile={entry.profile}
+      onePerPage={entry.profile.easilyDistracted}
+      onChange={(adaptation) => update({ adaptation })}
+      onNew={onNew}
+    />
   );
 }

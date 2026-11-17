@@ -1,17 +1,20 @@
 import { useState } from 'react';
 
 import type { OriginalMaterial } from '@/shared/types/original';
+import Icon, { type IconName } from '@/shared/ui/Icon';
+import { buttonClass, INPUT_CLASS } from '@/shared/ui/styles';
 
+import Dropzone from './Dropzone';
 import { MAX_UPLOAD_BYTES, reduceImage } from './reduceImage';
 import SlidePicker from './SlidePicker';
 
 export const MAX_TEXT_LENGTH = 20_000;
 type Mode = OriginalMaterial['kind'];
 
-const MODES: { mode: Mode; label: string }[] = [
-  { mode: 'image', label: 'Foto da prova' },
-  { mode: 'text', label: 'Colar texto' },
-  { mode: 'slides', label: 'PowerPoint' },
+const MODES: { mode: Mode; label: string; icon: IconName }[] = [
+  { mode: 'image', label: 'Foto da prova', icon: 'camera' },
+  { mode: 'text', label: 'Colar texto', icon: 'text' },
+  { mode: 'slides', label: 'PowerPoint', icon: 'slides' },
 ];
 const ACCEPTED = 'image/png,image/jpeg,image/webp,image/heic,image/heif,.heic,.heif';
 
@@ -47,16 +50,17 @@ export default function MaterialInput({ value, onChange, onError }: MaterialInpu
 
   return (
     <fieldset>
-      <legend className="mb-2 font-semibold">Material</legend>
-      <div className="mb-3 flex gap-2">
+      <legend className="sr-only">Material</legend>
+      <div className="mb-4 grid grid-cols-3 gap-1 rounded-xl bg-slate-100 p-1">
         {MODES.map((option) => (
           <button
             key={option.mode}
             type="button"
             aria-pressed={mode === option.mode}
             onClick={() => switchTo(option.mode)}
-            className={`rounded-lg px-4 py-2 ${mode === option.mode ? 'bg-teal-700 text-white' : 'bg-slate-200'}`}
+            className="flex items-center justify-center gap-2 rounded-lg px-2 py-2.5 text-slate-600 transition-colors hover:text-slate-900 aria-pressed:bg-white aria-pressed:font-semibold aria-pressed:text-brand-800 aria-pressed:shadow-sm"
           >
+            <Icon name={option.icon} className="hidden size-5 sm:block" />
             {option.label}
           </button>
         ))}
@@ -67,37 +71,56 @@ export default function MaterialInput({ value, onChange, onError }: MaterialInpu
           onError={onError}
         />
       )}
-      {mode === 'image' && (
-        <div className="space-y-3">
-          {/* The native file input looks like plain text after Tailwind's reset, so the
-              visible part is the label, styled as a big button that opens the file window. */}
-          <label className="flex cursor-pointer flex-col items-center gap-1 rounded-lg border-2 border-dashed border-teal-700 bg-teal-50 px-4 py-6 text-center hover:bg-teal-100 focus-within:outline-2 focus-within:outline-teal-700">
-            <span className="text-lg font-semibold text-teal-800">
-              {value?.kind === 'image' ? 'Trocar a foto' : 'Escolher foto da prova'}
-            </span>
-            <span className="text-sm text-slate-600">PNG, JPG, WEBP ou HEIC (foto do celular)</span>
-            <input
-              type="file"
-              accept={ACCEPTED}
-              aria-label="Foto da prova em branco"
-              className="sr-only"
-              onChange={(event) => {
-                void choose(event.target.files?.[0]);
-                event.target.value = '';
-              }}
+      {mode === 'image' &&
+        (value?.kind === 'image' ? (
+          <div className="animate-fade-in flex flex-wrap items-center gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-3">
+            <img
+              src={value.url}
+              alt="Prova enviada"
+              className="h-40 w-auto max-w-full rounded-lg border border-slate-200 bg-white object-contain"
             />
-          </label>
-          <p className="text-sm text-slate-600">Fotografe a prova em branco, sem nome de aluno.</p>
-          {reducing && <p className="text-sm">Preparando a foto...</p>}
-          {value?.kind === 'image' && (
-            <img src={value.url} alt="Prova enviada" className="max-h-64 rounded border" />
-          )}
-        </div>
-      )}
+            <div className="space-y-2">
+              <p className="flex items-center gap-2 font-semibold text-brand-800">
+                <Icon name="check" className="size-5" />
+                Foto pronta para adaptar
+              </p>
+              <label className={buttonClass('outline', 'sm', 'focus-within:ring-4')}>
+                <Icon name="refresh" className="size-4" />
+                Trocar a foto
+                <input
+                  type="file"
+                  accept={ACCEPTED}
+                  aria-label="Foto da prova em branco"
+                  className="sr-only"
+                  onChange={(event) => {
+                    void choose(event.target.files?.[0]);
+                    event.target.value = '';
+                  }}
+                />
+              </label>
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            <Dropzone
+              icon="camera"
+              title="Escolher foto da prova"
+              hint="PNG, JPG, WEBP ou HEIC (foto do celular)."
+              accept={ACCEPTED}
+              inputLabel="Foto da prova em branco"
+              busy={reducing ? 'Preparando a foto...' : null}
+              onFile={(file) => void choose(file)}
+            />
+            <p className="flex items-center gap-1.5 text-sm text-slate-600">
+              <Icon name="lock" className="size-4 text-amber-600" />
+              Fotografe a prova em branco, sem nome de aluno.
+            </p>
+          </div>
+        ))}
       {mode === 'text' && (
         <label className="block">
           <textarea
-            className="block w-full rounded-lg border border-slate-300 p-3"
+            className={`${INPUT_CLASS} min-h-48`}
             rows={8}
             maxLength={MAX_TEXT_LENGTH}
             aria-label="Texto da prova"
@@ -107,8 +130,9 @@ export default function MaterialInput({ value, onChange, onError }: MaterialInpu
               onChange(event.target.value ? { kind: 'text', text: event.target.value } : null)
             }
           />
-          <span className="mt-1 block text-right text-sm text-slate-600">
-            {value?.kind === 'text' ? value.text.length : 0}/{MAX_TEXT_LENGTH}
+          <span className="mt-1.5 block text-right text-sm tabular-nums text-slate-600">
+            {value?.kind === 'text' ? value.text.length.toLocaleString('pt-BR') : 0}/
+            {MAX_TEXT_LENGTH.toLocaleString('pt-BR')}
           </span>
         </label>
       )}

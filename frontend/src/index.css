@@ -1,8 +1,63 @@
 @import 'tailwindcss';
 
+/* Brand tokens. Teal is calm and reads well; amber is kept for warnings only. */
+@theme {
+  --font-sans:
+    'Atkinson Hyperlegible', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --color-brand-50: #f0fdfa;
+  --color-brand-100: #ccfbf1;
+  --color-brand-200: #99f6e4;
+  --color-brand-300: #5eead4;
+  --color-brand-400: #2dd4bf;
+  --color-brand-500: #14b8a6;
+  --color-brand-600: #0d9488;
+  --color-brand-700: #0f766e;
+  --color-brand-800: #115e59;
+  --color-brand-900: #134e4a;
+  --color-canvas: #f6f7f4;
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 4px 16px rgb(15 23 42 / 0.05);
+  --shadow-paper: 0 1px 3px rgb(15 23 42 / 0.06), 0 12px 32px rgb(15 23 42 / 0.08);
+}
+
 /* Large, calm defaults: the users are teachers, the sheets are for autistic students. */
 html {
   font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--color-canvas);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-brand-600);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--color-brand-200);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.25s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Spec 006: A4 sheet. CA-006-03: the ARASAAC credit goes in the bottom margin of every page;
@@ -21,6 +76,10 @@ html {
 @media print {
   html {
     font-size: 16px;
+  }
+
+  body {
+    background: white;
   }
 
   img {

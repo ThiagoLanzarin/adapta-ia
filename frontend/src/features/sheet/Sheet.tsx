@@ -22,7 +22,7 @@ export default function Sheet({ adaptation, imageUrl, color, onePerPage, actions
   return (
     <article
       {...{ [SHEET_ATTRIBUTE]: '' }}
-      className="rounded-xl bg-white p-8 shadow-sm print:rounded-none print:p-0 print:shadow-none"
+      className="rounded-md border border-slate-200 bg-white px-6 py-8 shadow-paper sm:px-12 sm:py-12 print:rounded-none print:border-0 print:p-0 print:shadow-none"
     >
       {/* CA-006-07, R-006-03: filled in by hand; the system never receives the name. */}
       <div className="mb-8 flex gap-6 text-lg">
@@ -35,7 +35,7 @@ export default function Sheet({ adaptation, imageUrl, color, onePerPage, actions
           <span className="flex-1 border-b border-slate-500" />
         </p>
       </div>
-      <h2 className="text-2xl font-bold">{adaptation.title}</h2>
+      <h2 className="text-3xl font-bold tracking-tight">{adaptation.title}</h2>
       {/* CA-001-33: the student knows how much is coming. */}
       <p className="mt-2 mb-8 text-lg text-slate-700">
         {total > 0 &&
@@ -59,7 +59,7 @@ export default function Sheet({ adaptation, imageUrl, color, onePerPage, actions
         })}
       </ol>
       {/* On screen only: in print the credit is in every page margin (index.css). */}
-      <footer className="mt-12 print:hidden border-t border-slate-200 pt-3 text-xs text-slate-500">
+      <footer className="mt-12 border-t border-slate-200 pt-3 text-xs text-slate-500 print:hidden">
         {ARASAAC_CREDIT}
       </footer>
     </article>

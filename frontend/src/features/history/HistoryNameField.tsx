@@ -1,3 +1,6 @@
+import Alert from '@/shared/ui/Alert';
+import Icon from '@/shared/ui/Icon';
+
 interface HistoryNameFieldProps {
   name: string;
   onChange: (name: string) => void;
@@ -8,25 +11,29 @@ interface HistoryNameFieldProps {
 export default function HistoryNameField({ name, onChange, error }: HistoryNameFieldProps) {
   return (
     <div className="space-y-2 print:hidden">
-      <label className="block space-y-1">
-        <span className="block font-semibold">Nome no histórico</span>
-        <input
-          value={name}
-          maxLength={120}
-          onChange={(event) => onChange(event.target.value)}
-          className="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2"
-        />
+      <label className="group block">
+        <span className="sr-only">Nome no histórico</span>
+        <span className="flex items-center gap-2 rounded-lg px-2 py-1 transition-colors focus-within:bg-slate-50 hover:bg-slate-50">
+          <input
+            value={name}
+            maxLength={120}
+            onChange={(event) => onChange(event.target.value)}
+            placeholder="Nome da adaptação"
+            className="min-w-0 flex-1 bg-transparent text-xl font-bold tracking-tight outline-none"
+          />
+          <Icon
+            name="pencil"
+            className="size-4 text-slate-400 transition-colors group-hover:text-brand-700"
+          />
+        </span>
         {!error && (
-          <span className="block text-sm text-slate-600">
+          <span className="flex items-center gap-1.5 px-2 text-sm text-slate-500">
+            <Icon name="check" className="size-3.5 text-brand-600" />
             Salvo sozinho neste navegador. Encontre depois em Histórico.
           </span>
         )}
       </label>
-      {error && (
-        <p role="alert" className="rounded-lg bg-red-50 p-3 text-red-800">
-          {error}
-        </p>
-      )}
+      {error && <Alert tone="error">{error}</Alert>}
     </div>
   );
 }

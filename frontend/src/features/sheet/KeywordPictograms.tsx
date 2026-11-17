@@ -11,7 +11,7 @@ interface KeywordPictogramsProps {
 }
 
 const BUTTON_CLASS =
-  'w-20 rounded-lg text-center hover:bg-teal-50 focus-visible:outline-2 focus-visible:outline-teal-700';
+  'w-20 rounded-xl p-0.5 text-center transition-colors hover:bg-brand-50 hover:ring-2 hover:ring-brand-200';
 
 /** Pictograms with their word as caption (RF-06). Each one is a button that opens the swap
  * window (CA-004-21). A word left without a picture (R-001-10: wrong or ambiguous, or removed by
@@ -33,7 +33,7 @@ export default function KeywordPictograms({
             type="button"
             onClick={() => onPick({ stepId, index })}
             title="Escolher um pictograma"
-            className={`${BUTTON_CLASS} flex size-20 flex-col items-center justify-center border-2 border-dashed border-slate-400 text-slate-600 print:hidden`}
+            className={`${BUTTON_CLASS} flex size-20 flex-col items-center justify-center border-2 border-dashed border-slate-300 text-slate-500 hover:border-brand-400 hover:text-brand-800 print:hidden`}
           >
             <span aria-hidden="true" className="text-2xl leading-none">
               +

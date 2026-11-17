@@ -2,9 +2,21 @@ import type { AiProviderName } from '@/shared/api/health';
 import { useServerStatus } from '@/shared/api/useServerStatus';
 
 const LABELS = {
-  checking: { text: 'Conectando ao servidor...', color: 'bg-amber-100 text-amber-800' },
-  online: { text: 'Servidor conectado', color: 'bg-teal-100 text-teal-800' },
-  offline: { text: 'Servidor indisponível', color: 'bg-red-100 text-red-800' },
+  checking: {
+    text: 'Conectando ao servidor...',
+    box: 'bg-amber-50 text-amber-900 ring-amber-200',
+    dot: 'bg-amber-500 animate-pulse',
+  },
+  online: {
+    text: 'Servidor conectado',
+    box: 'bg-brand-50 text-brand-900 ring-brand-200',
+    dot: 'bg-brand-500',
+  },
+  offline: {
+    text: 'Servidor indisponível',
+    box: 'bg-red-50 text-red-900 ring-red-200',
+    dot: 'bg-red-500',
+  },
 };
 
 /** Says where the answers come from when it is not the real AI: the fake AI gives always the
@@ -15,14 +27,19 @@ const AI_NOTES: Partial<Record<AiProviderName, string>> = {
   custom: 'IA simulada: a folha não vem do seu material',
 };
 
+const PILL = 'inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm ring-1';
+
 export default function ServerStatusBadge() {
   const { status, aiProvider } = useServerStatus();
   const label = LABELS[status];
   return (
-    <span className="flex flex-wrap items-center gap-2">
-      <span className={`rounded-full px-3 py-1 text-sm ${label.color}`}>{label.text}</span>
+    <span className="flex flex-wrap items-center justify-end gap-2">
+      <span className={`${PILL} ${label.box}`}>
+        <span aria-hidden="true" className={`size-2 rounded-full ${label.dot}`} />
+        {label.text}
+      </span>
       {status === 'online' && aiProvider && AI_NOTES[aiProvider] && (
-        <span className="rounded-full bg-amber-100 px-3 py-1 text-sm text-amber-800">
+        <span className={`${PILL} bg-amber-50 text-amber-900 ring-amber-200`}>
           {AI_NOTES[aiProvider]}
         </span>
       )}

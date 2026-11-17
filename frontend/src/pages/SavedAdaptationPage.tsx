@@ -12,7 +12,7 @@ export default function SavedAdaptationPage() {
   const { id = '' } = useParams();
   const state = useSavedEntry(id);
 
-  if (state.status === 'loading') return <p>Abrindo a adaptação...</p>;
+  if (state.status === 'loading') return <p className="text-slate-600">Abrindo a adaptação...</p>;
   if (state.status !== 'ready') {
     return (
       <section className="space-y-4">
@@ -22,7 +22,7 @@ export default function SavedAdaptationPage() {
             ? state.message
             : 'Esta adaptação não está mais no histórico deste navegador.'}
         </p>
-        <Link to="/historico" className="text-teal-700 underline">
+        <Link to="/historico" className="font-semibold text-brand-700 underline">
           Voltar ao histórico
         </Link>
       </section>

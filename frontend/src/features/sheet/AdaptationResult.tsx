@@ -1,9 +1,8 @@
-import { useState } from 'react';
+import { type ReactNode, useState } from 'react';
 
 import type { Adaptation, StudentProfile } from '@/shared/types/contract';
 import type { OriginalMaterial } from '@/shared/types/original';
 
-import ColorToggle from './ColorToggle';
 import {
   type KeywordRef,
   removeFigure,
@@ -14,7 +13,7 @@ import {
 } from './editAdaptation';
 import OriginalPanel from './OriginalPanel';
 import PictogramPicker from './PictogramPicker';
-import PrintButtons from './PrintButtons';
+import ResultToolbar from './ResultToolbar';
 import RevisePanel from './RevisePanel';
 import ReviewNotes from './ReviewNotes';
 import Sheet from './Sheet';
@@ -28,6 +27,8 @@ interface AdaptationResultProps {
   onePerPage: boolean;
   onChange: (adaptation: Adaptation) => void;
   onNew: () => void;
+  /** Shown at the start of the toolbar, like the name in the history. */
+  title?: ReactNode;
 }
 
 /** Spec 001, RF-09: original and adapted sheet side by side, with the notes outside it.
@@ -39,6 +40,7 @@ export default function AdaptationResult({
   onePerPage,
   onChange,
   onNew,
+  title,
 }: AdaptationResultProps) {
   const [picking, setPicking] = useState<KeywordRef | null>(null);
   const imageUrl = original.kind === 'image' ? original.url : null;
@@ -61,32 +63,28 @@ export default function AdaptationResult({
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-4 print:hidden">
-        <p className="text-slate-700">
-          Confira a folha antes de imprimir. Clique num texto para reescrever ou num pictograma para
-          trocar.
-        </p>
-        <div className="flex flex-wrap items-center gap-3">
-          <ColorToggle color={color} onChange={setColor} />
-          <PrintButtons />
-          <button type="button" onClick={onNew} className="rounded-lg bg-slate-200 px-4 py-2">
-            Adaptar outro material
-          </button>
-        </div>
-      </div>
-      <ReviewNotes adaptation={adaptation} />
-      <RevisePanel adaptation={adaptation} profile={profile} onRevised={onChange} />
-      <div className="grid gap-6 lg:grid-cols-[2fr_3fr] print:block">
-        <div className="print:hidden lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] lg:self-start lg:overflow-y-auto">
+      <ResultToolbar title={title} color={color} onColorChange={setColor} onNew={onNew} />
+      <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] print:block">
+        <div className="space-y-4 print:hidden lg:sticky lg:top-56 lg:max-h-[calc(100vh-15rem)] lg:overflow-y-auto lg:pr-1 lg:pb-2 [scrollbar-width:thin]">
+          <ReviewNotes adaptation={adaptation} />
           <OriginalPanel original={original} transcription={adaptation.transcription} />
+          <RevisePanel adaptation={adaptation} profile={profile} onRevised={onChange} />
         </div>
-        <Sheet
-          adaptation={adaptation}
-          imageUrl={imageUrl}
-          color={color}
-          onePerPage={onePerPage}
-          actions={actions}
-        />
+        <div className="min-w-0">
+          <p className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-600 print:hidden">
+            <span className="font-bold tracking-wider text-slate-500 uppercase">
+              Folha do aluno
+            </span>
+            <span>Clique num texto para reescrever ou num pictograma para trocar.</span>
+          </p>
+          <Sheet
+            adaptation={adaptation}
+            imageUrl={imageUrl}
+            color={color}
+            onePerPage={onePerPage}
+            actions={actions}
+          />
+        </div>
       </div>
       {pickedKeyword && (
         <PictogramPicker

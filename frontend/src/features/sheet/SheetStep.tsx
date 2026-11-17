@@ -31,7 +31,7 @@ export default function SheetStep({ step, position, imageUrl, color, actions }: 
   if (step.kind === 'text') {
     // R-001-07: the support text as in the original, only split into paragraphs.
     return (
-      <div className="rounded-lg border-2 border-slate-300 p-4 leading-relaxed">
+      <div className="rounded-xl border-2 border-slate-300 p-5 text-lg leading-relaxed">
         <EditableText value={step.text} label="texto de apoio" onSave={save} multiline>
           <span className="block space-y-3">
             {step.text.split(/\n{2,}/).map((paragraph, index) => (

@@ -1,5 +1,8 @@
 import { type ReactNode, useState } from 'react';
 
+import Icon from '@/shared/ui/Icon';
+import { buttonClass } from '@/shared/ui/styles';
+
 interface EditableTextProps {
   value: string;
   label: string;
@@ -25,9 +28,13 @@ export default function EditableText({
         title="Clique para editar"
         aria-label={`Editar ${label}`}
         onClick={() => setDraft(value)}
-        className="block w-full cursor-text rounded text-left hover:bg-amber-50 focus-visible:outline-2 focus-visible:outline-teal-700"
+        className="group relative -m-1.5 block w-[calc(100%+0.75rem)] cursor-text rounded-lg p-1.5 pr-8 text-left transition-colors hover:bg-amber-50 hover:ring-1 hover:ring-amber-200 print:m-0 print:w-full print:p-0"
       >
         {children}
+        <Icon
+          name="pencil"
+          className="absolute top-2 right-2 size-4 text-amber-700 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 print:hidden"
+        />
       </button>
     );
   }
@@ -39,7 +46,7 @@ export default function EditableText({
   };
 
   return (
-    <div className="w-full space-y-2 print:hidden">
+    <div className="animate-fade-in w-full space-y-2 print:hidden">
       <textarea
         autoFocus
         aria-label={label}
@@ -53,24 +60,28 @@ export default function EditableText({
             confirm();
           }
         }}
-        className="block w-full rounded-lg border-2 border-teal-700 p-2 text-lg"
+        className="block w-full rounded-xl border-2 border-brand-600 p-3 text-lg focus:ring-4 focus:ring-brand-100 focus:outline-none"
       />
-      <div className="flex gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <button
           type="button"
           onClick={confirm}
           disabled={!trimmed}
-          className="rounded-lg bg-teal-700 px-4 py-1 text-white disabled:opacity-50"
+          className={buttonClass('primary', 'sm')}
         >
+          <Icon name="check" className="size-4" />
           Confirmar
         </button>
         <button
           type="button"
           onClick={() => setDraft(null)}
-          className="rounded-lg bg-slate-200 px-4 py-1"
+          className={buttonClass('secondary', 'sm')}
         >
           Cancelar
         </button>
+        <span className="text-sm text-slate-500">
+          {multiline ? 'Esc para cancelar' : 'Enter confirma · Esc cancela'}
+        </span>
       </div>
     </div>
   );

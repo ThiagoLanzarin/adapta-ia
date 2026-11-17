@@ -1,6 +1,9 @@
 import { useRef, useState } from 'react';
 
 import { type SavedProfile, saveProfiles } from '@/shared/storage/profiles';
+import Alert from '@/shared/ui/Alert';
+import Icon from '@/shared/ui/Icon';
+import { buttonClass } from '@/shared/ui/styles';
 
 import { parseProfilesFile, profilesFileName, profilesToFile } from './profileFile';
 
@@ -40,9 +43,10 @@ export default function ProfileFileButtons({ profiles, onImported }: ProfileFile
   return (
     <section
       aria-labelledby="profile-file-title"
-      className="space-y-2 rounded-xl bg-white p-4 shadow-sm"
+      className="space-y-3 rounded-2xl border border-slate-200 bg-slate-50/80 p-5"
     >
-      <h2 id="profile-file-title" className="font-semibold">
+      <h2 id="profile-file-title" className="flex items-center gap-2 font-bold">
+        <Icon name="lock" className="size-5 text-slate-500" />
         Cópia de segurança
       </h2>
       <p className="text-sm text-slate-700">
@@ -57,15 +61,17 @@ export default function ProfileFileButtons({ profiles, onImported }: ProfileFile
             download(profilesToFile(profiles), profilesFileName());
             setMessage(null);
           }}
-          className="rounded-lg border-2 border-teal-700 px-4 py-2 font-semibold text-teal-800 disabled:opacity-50"
+          className={buttonClass('outline', 'md')}
         >
+          <Icon name="download" />
           Exportar perfis
         </button>
         <button
           type="button"
           onClick={() => inputRef.current?.click()}
-          className="rounded-lg border-2 border-teal-700 px-4 py-2 font-semibold text-teal-800"
+          className={buttonClass('outline', 'md')}
         >
+          <Icon name="upload" />
           Importar perfis
         </button>
         <input
@@ -82,12 +88,9 @@ export default function ProfileFileButtons({ profiles, onImported }: ProfileFile
         />
       </div>
       {message && (
-        <p
-          role={message.error ? 'alert' : 'status'}
-          className={message.error ? 'text-red-800' : 'text-teal-900'}
-        >
+        <Alert tone={message.error ? 'error' : 'success'} role={message.error ? 'alert' : 'status'}>
           {message.text}
-        </p>
+        </Alert>
       )}
     </section>
   );

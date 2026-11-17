@@ -3,11 +3,13 @@ import { useState } from 'react';
 import { EMPTY_PROFILE } from '@/shared/profile/supportOptions';
 import type { Adaptation, MaterialType, StudentProfile } from '@/shared/types/contract';
 import type { OriginalMaterial } from '@/shared/types/original';
+import FormSection from '@/shared/ui/FormSection';
 import SupportOptionsFields from '@/shared/ui/SupportOptionsFields';
 
 import MaterialInput from './MaterialInput';
 import MaterialTypePicker from './MaterialTypePicker';
 import ProfileSelect from './ProfileSelect';
+import SubmitPanel from './SubmitPanel';
 import { useAdaptationRequest } from './useAdaptationRequest';
 
 function materialFields(material: OriginalMaterial) {
@@ -44,38 +46,39 @@ export default function AdaptationForm({ onDone }: AdaptationFormProps) {
 
   return (
     <form
-      className="space-y-8 rounded-xl bg-white p-6 shadow-sm"
+      className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]"
       onSubmit={(event) => {
         event.preventDefault();
         void send();
       }}
     >
-      <MaterialTypePicker value={materialType} onChange={setMaterialType} />
-      <div className="space-y-4">
-        <ProfileSelect onChoose={setProfile} />
-        <SupportOptionsFields profile={profile} onChange={setProfile} />
-      </div>
-      <MaterialInput value={material} onChange={setMaterial} onError={showError} />
-
-      {error && (
-        <p role="alert" className="rounded-lg bg-red-50 p-3 text-red-800">
-          {error}
-        </p>
-      )}
-      <div className="flex flex-wrap items-center gap-4">
-        <button
-          type="submit"
-          disabled={loading}
-          className="rounded-lg bg-teal-700 px-6 py-3 font-semibold text-white hover:bg-teal-800 disabled:opacity-60"
+      {/* Disabled while waiting, so nothing changes under the AI. */}
+      <fieldset disabled={loading} className="min-w-0 space-y-6 disabled:opacity-70">
+        <FormSection step={1} title="Que material é?">
+          <MaterialTypePicker value={materialType} onChange={setMaterialType} />
+        </FormSection>
+        <FormSection
+          step={2}
+          title="Para quem é?"
+          hint="Escolha um perfil salvo ou marque o que ajuda o aluno. Nunca o nome."
         >
-          {loading ? 'Adaptando...' : 'Adaptar'}
-        </button>
-        {loading && (
-          <p aria-live="polite" className="text-slate-700">
-            A IA está lendo e adaptando a prova ({seconds} s). Pode levar até 1 minuto.
-          </p>
-        )}
-      </div>
+          <div className="space-y-6">
+            <ProfileSelect onChoose={setProfile} />
+            <SupportOptionsFields profile={profile} onChange={setProfile} />
+          </div>
+        </FormSection>
+        <FormSection step={3} title="Envie o material">
+          <MaterialInput value={material} onChange={setMaterial} onError={showError} />
+        </FormSection>
+      </fieldset>
+      <SubmitPanel
+        materialType={materialType}
+        profile={profile}
+        material={material}
+        loading={loading}
+        seconds={seconds}
+        error={error}
+      />
     </form>
   );
 }

@@ -30,6 +30,7 @@ export default function AdaptationPage() {
   return (
     <section>
       <PageTitle
+        eyebrow="Nova adaptação"
         title="Adaptar material"
         subtitle="Escolha o tipo, marque o que ajuda o aluno e envie a prova em branco."
       />

@@ -3,7 +3,10 @@ import { useState } from 'react';
 import { listSlides } from '@/shared/api/slides';
 import { ApiError } from '@/shared/api/client';
 import type { Slide } from '@/shared/types/contract';
+import Alert from '@/shared/ui/Alert';
+import Icon from '@/shared/ui/Icon';
 
+import Dropzone from './Dropzone';
 import { MAX_UPLOAD_BYTES } from './reduceImage';
 
 export const MAX_SLIDES = 5;
@@ -66,54 +69,53 @@ export default function SlidePicker({ onChange, onError }: SlidePickerProps) {
   const hasText = (slide: Slide) => slide.text.trim() !== '' || slide.title.trim() !== '';
 
   return (
-    <div className="space-y-3">
-      <label className="flex cursor-pointer flex-col items-center gap-1 rounded-lg border-2 border-dashed border-teal-700 bg-teal-50 px-4 py-6 text-center hover:bg-teal-100 focus-within:outline-2 focus-within:outline-teal-700">
-        <span className="text-lg font-semibold text-teal-800">
-          {slides ? 'Trocar o arquivo' : 'Escolher o PowerPoint'}
-        </span>
-        <span className="text-sm text-slate-600">Arquivo .pptx. Só o texto dos slides é lido.</span>
-        <input
-          type="file"
-          accept={ACCEPTED}
-          aria-label="Arquivo PowerPoint"
-          className="sr-only"
-          onChange={(event) => {
-            void send(event.target.files?.[0]);
-            event.target.value = '';
-          }}
-        />
-      </label>
-      {reading && <p className="text-sm">Lendo os slides...</p>}
+    <div className="space-y-4">
+      <Dropzone
+        icon="slides"
+        title={slides ? 'Trocar o arquivo' : 'Escolher o PowerPoint'}
+        hint="Arquivo .pptx. Só o texto dos slides é lido."
+        accept={ACCEPTED}
+        inputLabel="Arquivo PowerPoint"
+        busy={reading ? 'Lendo os slides...' : null}
+        onFile={(file) => void send(file)}
+      />
       {slides && !slides.some(hasText) && (
-        <p role="alert" className="rounded-lg bg-amber-50 p-3 text-amber-900">
+        <Alert tone="warning">
           Este arquivo não tem texto nos slides. Tire uma foto ou cole o texto.
-        </p>
+        </Alert>
       )}
       {slides && slides.some(hasText) && (
-        <fieldset className="space-y-2">
-          <legend className="mb-1 font-semibold">
-            Marque os slides da prova (até {MAX_SLIDES}): {chosen.length} marcado(s)
+        <fieldset className="space-y-3">
+          <legend className="mb-2 flex w-full flex-wrap items-baseline justify-between gap-2">
+            <span className="font-semibold">Marque os slides da prova (até {MAX_SLIDES})</span>
+            <span
+              className={`rounded-full px-2.5 py-0.5 text-sm font-semibold tabular-nums ${chosen.length > 0 ? 'bg-brand-100 text-brand-900' : 'bg-slate-100 text-slate-600'}`}
+            >
+              {chosen.length} de {MAX_SLIDES} marcado(s)
+            </span>
           </legend>
-          {limitHit && (
-            <p role="alert" className="rounded-lg bg-amber-50 p-3 text-amber-900">
-              Escolha até {MAX_SLIDES} slides por vez.
-            </p>
-          )}
-          <ul className="max-h-96 space-y-2 overflow-y-auto">
+          {limitHit && <Alert tone="warning">Escolha até {MAX_SLIDES} slides por vez.</Alert>}
+          <ul className="max-h-[28rem] space-y-2 overflow-y-auto pr-1">
             {slides.map((slide) => {
               const empty = !hasText(slide);
               return (
                 <li key={slide.index}>
                   <label
-                    className={`flex gap-3 rounded-lg border p-3 ${empty ? 'border-slate-200 text-slate-500' : 'cursor-pointer border-slate-300 hover:bg-slate-50 has-checked:border-teal-700 has-checked:bg-teal-50'}`}
+                    className={`flex gap-3 rounded-xl border-2 p-3 transition-colors ${empty ? 'border-slate-100 bg-slate-50 text-slate-500' : 'cursor-pointer border-slate-200 hover:border-slate-300 hover:bg-slate-50 has-checked:border-brand-600 has-checked:bg-brand-50 has-focus-visible:ring-4 has-focus-visible:ring-brand-100'}`}
                   >
                     <input
                       type="checkbox"
-                      className="mt-1 size-5 shrink-0"
+                      className="peer sr-only"
                       disabled={empty}
                       checked={chosen.includes(slide.index)}
                       onChange={() => toggle(slide.index)}
                     />
+                    <span
+                      aria-hidden="true"
+                      className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md border-2 border-slate-300 bg-white text-transparent peer-checked:border-brand-700 peer-checked:bg-brand-700 peer-checked:text-white peer-disabled:opacity-40"
+                    >
+                      <Icon name="check" className="size-4" />
+                    </span>
                     <span className="min-w-0">
                       <span className="block font-semibold">
                         Slide {slide.index}
