@@ -56,9 +56,17 @@ Aprovadas pelo grupo em 15/11/2026.
 
 ## Estado atual
 
-Especificação, constituição, specs 001 a 007 (aprovadas), arquitetura, tarefas e roadmap
-escritos em 16/11/2026. Próxima etapa: E0 do roadmap (acordos), depois E1 (fundação).
-Ainda não há código. Apresentação na quarta-feira, 18/11/2026, às 19h;
-funcionalidades congeladas ao meio-dia.
+Atualizado em 17/11/2026. As specs 001 a 007 estão implementadas e publicadas; 24 das 25
+tarefas estão concluídas (até a T22 e a T20b). Falta a T21 (testes com materiais reais,
+gravação das respostas de reserva, vídeo e ensaio), na tarde de 18/11.
+
+- Site: https://adapta-ai-d5ax.onrender.com
+- Servidor: https://adapta-ia.onrender.com (com o Gemini; `GET /health` diz qual IA está ligada)
+- Publicar: no Render, **Manual Deploy** → **Deploy latest commit** em cada serviço (seção 6
+  da arquitetura). Não há publicação automática.
+- Testes: 164 no servidor (`pytest`); a tela é conferida à mão no navegador.
+
+Apresentação na quarta-feira, 18/11/2026, às 19h; funcionalidades congeladas ao meio-dia.
+Depois disso, só correção de erro, sempre publicada de novo nos dois serviços.
 
 Foco do produto: prova fotografada em branco. Atividades e conteúdos também são aceitos.
