@@ -170,6 +170,15 @@ avaliação que a turma.
     antes, cerca de 6 imagens erradas e 6 fracas em 39; depois, 2 erradas em 21 ("anéis" do
     planeta virou anel de joia; "Terra" virou terra de plantar). O professor troca o que
     sobrar (spec 004).
+  - (17/11, tarde) Os pictogramas do ARASAAC estão em português de Portugal: a IA usa o nome
+    sem ambiguidade de lá ("caramelo" para bala de comer, "comboio" para trem). Palavra que
+    no ARASAAC tem desenhos com sentidos diferentes ("banco": assento ou agência) fica sem
+    imagem; na tela aparece como "+ palavra" para o professor escolher (CA-004-27). Testado
+    com 2 pedidos ao Gemini: bala, trem, geladeira, suco, sorvete, manga e pena vieram certos;
+    "banco" de praça veio como agência e agora fica sem imagem.
+- **R-001-11** (17/11) A folha nunca recebe sozinha um pictograma que o ARASAAC marca como
+  violento, sexual ou das categorias arma, crime, drogas, álcool ou cigarro. Em português,
+  "bala" no ARASAAC é só o projétil de arma. Na troca manual, o professor ainda vê todos.
 
 ## Erros e casos de borda
 

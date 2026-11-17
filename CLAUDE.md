@@ -56,8 +56,8 @@ Aprovadas pelo grupo em 15/11/2026.
 
 ## Estado atual
 
-Atualizado em 17/11/2026. As specs 001 a 007 estão implementadas e publicadas; 27 das 28
-tarefas estão concluídas (até a T25, exportar e importar perfis). Falta a T21 (testes com materiais reais,
+Atualizado em 17/11/2026. As specs 001 a 007 estão implementadas e publicadas; 28 das 29
+tarefas estão concluídas (até a T26, pictogramas ambíguos e sensíveis). Falta a T21 (testes com materiais reais,
 gravação das respostas de reserva, vídeo e ensaio), na tarde de 18/11, seguindo
 `docs/roteiro-demonstracao.md`.
 
@@ -65,7 +65,7 @@ gravação das respostas de reserva, vídeo e ensaio), na tarde de 18/11, seguin
 - Servidor: https://adapta-ia.onrender.com (com o Gemini; `GET /health` diz qual IA está ligada)
 - Publicar: no Render, **Manual Deploy** → **Deploy latest commit** em cada serviço (seção 6
   da arquitetura). Não há publicação automática.
-- Testes: 170 no servidor (`pytest`); a tela é conferida à mão no navegador.
+- Testes: 178 no servidor (`pytest`); a tela é conferida à mão no navegador.
 
 Apresentação na quarta-feira, 18/11/2026, às 19h; funcionalidades congeladas ao meio-dia.
 Depois disso, só correção de erro, sempre publicada de novo nos dois serviços.

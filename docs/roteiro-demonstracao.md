@@ -34,7 +34,7 @@
 | 7 | 1 min | **Pedir uma nova versão**: "Deixe as frases mais curtas." → confirmar | A nova versão parte da folha corrigida. Gasta 1 pedido: pular se a cota estiver baixa. |
 | 8 | 1 min | **Baixar PDF** | A4, letra grande, crédito do ARASAAC em toda página (licença CC BY-NC-SA). |
 | 9 | 30 s | **Histórico** → reabrir | Tudo salvo neste navegador, sem login. |
-| 10 | 2 min | Spec 001, CA-001-31 → `test_prompt.py`, `test_ca_001_31_...` | SDD: cada critério de aceite vira um teste com o mesmo nome. 170 testes no servidor. |
+| 10 | 2 min | Spec 001, CA-001-31 → `test_prompt.py`, `test_ca_001_31_...` | SDD: cada critério de aceite vira um teste com o mesmo nome. 178 testes no servidor. |
 | 11 | 1 min | Diagrama de camadas (arquitetura, seção 4) | Rota sem regra; regra sem Gemini; provedores trocáveis. Foi isso que permitiu a reserva gravada (seção 3). |
 
 O roadmap pedia mostrar um aviso de "questão faltando". Ele só aparece quando a IA perde uma
