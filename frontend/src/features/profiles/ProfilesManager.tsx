@@ -5,6 +5,7 @@ import { useProfileList } from '@/shared/profile/useProfileList';
 import { deleteProfile, type SavedProfile, saveProfile } from '@/shared/storage/profiles';
 
 import ProfileEditor from './ProfileEditor';
+import ProfileFileButtons from './ProfileFileButtons';
 
 function summary(profile: SavedProfile): string {
   const marked = SUPPORT_OPTIONS.filter((option) => profile[option.key]).map((option) =>
@@ -113,6 +114,7 @@ export default function ProfilesManager() {
           </li>
         ))}
       </ul>
+      <ProfileFileButtons profiles={profiles} onImported={reload} />
     </div>
   );
 }

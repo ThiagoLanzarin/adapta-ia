@@ -34,6 +34,12 @@ export function openDatabase(): Promise<IDBPDatabase<AdaptaDb>> {
   return database;
 }
 
+/** Asks the browser not to erase this site's data when the disk is full. Best effort: some
+ * browsers decide alone or ask the user; the answer does not change anything else. */
+export function requestPersistentStorage(): void {
+  void navigator.storage?.persist?.().catch(() => undefined);
+}
+
 /** Runs a storage action; any failure becomes a StorageError with a message to show. */
 export async function runStorage<T>(blockedMessage: string, action: () => Promise<T>): Promise<T> {
   try {

@@ -1,6 +1,6 @@
 import type { StudentProfile } from '@/shared/types/contract';
 
-import { openDatabase, runStorage } from './db';
+import { openDatabase, requestPersistentStorage, runStorage } from './db';
 import type { SavedProfile } from './profileTypes';
 
 export { StorageError } from './db';
@@ -32,9 +32,20 @@ export function listProfiles(): Promise<SavedProfile[]> {
 
 /** CA-003-01, CA-003-03: creates or replaces a profile. */
 export function saveProfile(profile: SavedProfile): Promise<void> {
+  requestPersistentStorage();
   return run(async () => {
     const db = await openDatabase();
     await db.put('profiles', profile);
+  });
+}
+
+/** CA-003-08: saves imported profiles in one go; same id replaces, the others are kept. */
+export function saveProfiles(profiles: SavedProfile[]): Promise<void> {
+  requestPersistentStorage();
+  return run(async () => {
+    const db = await openDatabase();
+    const transaction = db.transaction('profiles', 'readwrite');
+    await Promise.all([...profiles.map((p) => transaction.store.put(p)), transaction.done]);
   });
 }
 

@@ -469,7 +469,9 @@ português, pronta para mostrar ao professor.
 
 ### Guardado só no navegador (IndexedDB)
 
-- Perfil: `id`, `nickname`, as 7 opções de apoio e `notes`.
+- Perfil: `id`, `nickname`, as 7 opções de apoio e `notes`. Cópia de segurança num arquivo
+  JSON exportado e importado na página de perfis (R-003-04), sem passar pelo servidor.
+- Ao salvar perfis, a tela pede armazenamento permanente ao navegador (R-003-05).
 - Histórico: `id`, `name`, `createdAt`, `updatedAt`, a cópia do perfil usado, o original
   (imagem reduzida, texto ou slides) e a `Adaptation` com as edições. A imagem reduzida é
   usada para recortar as figuras de novo ao reabrir.
