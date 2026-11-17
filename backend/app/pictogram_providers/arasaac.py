@@ -24,8 +24,9 @@ class ArasaacProvider:
         self._full: dict[str, list[int]] = {}
         self._lock = threading.Lock()
 
-    def search(self, term: str, limit: int = MAX_RESULTS) -> list[int]:
-        """With limit 1 (filling a sheet), "search" only runs when "bestsearch" finds nothing."""
+    def search(self, term: str, limit: int = MAX_RESULTS, exact: bool = False) -> list[int]:
+        """ "bestsearch" first. The wide "search" only runs when more results are needed and
+        `exact` is off: on 17/11 it gave "espaço sideral" for "espaço em branco"."""
         key = term.strip().casefold()
         if not key:
             return []
@@ -34,7 +35,7 @@ class ArasaacProvider:
         best = self._best.get(key)
         if best is None:
             best = self._remember(self._best, key, self._fetch("bestsearch", key))
-        if len(best) >= limit:
+        if exact or len(best) >= limit:
             return best[:limit]
         full = self._merge(best, self._fetch("search", key))
         return self._remember(self._full, key, full)[:limit]

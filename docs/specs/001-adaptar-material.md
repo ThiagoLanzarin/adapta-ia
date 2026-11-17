@@ -105,10 +105,10 @@ avaliação que a turma.
 
 ### Opções de apoio de 17/11
 
-- **CA-001-31** [teste] Dada a opção "entende tudo ao pé da letra", então o pedido à IA manda
+- **CA-001-31** [teste] Dada a opção "interpreta a linguagem de forma literal", então o pedido à IA manda
   trocar linguagem figurada por frases diretas nos enunciados, menos quando a questão pergunta
   sobre a expressão, e as regras de prova continuam.
-- **CA-001-32** [teste] Dada a opção "fica ansioso sem saber o que vem", então o pedido à IA
+- **CA-001-32** [teste] Dada a opção "precisa de previsibilidade", então o pedido à IA
   manda começar cada questão dizendo o que fazer e quantas respostas, sem mudar o que é pedido.
 - **CA-001-33** [manual] A folha mostra "Esta folha tem N questões." abaixo do título e cada
   questão mostra "Questão 2 de 5". Quando o número do original é outro, "Questão 4a (2 de 5)".
@@ -132,8 +132,8 @@ avaliação que a turma.
   | Precisa de mais imagens | Mais palavras-chave por etapa (R-001-04) |
   | Sensível a excesso visual | Menos palavras-chave por etapa (R-001-04); sem enfeites |
   | Se distrai fácil | Uma questão por página na impressão (spec 006) |
-  | Entende tudo ao pé da letra (17/11) | Nos enunciados, metáforas, expressões populares, ironia e perguntas vagas viram frases diretas. Não troca quando a questão pergunta justamente sobre a expressão. O texto de apoio da prova fica igual (R-001-02) |
-  | Fica ansioso sem saber o que vem (17/11) | Cada questão começa dizendo exatamente o que fazer e quantas respostas ("Marque 1 alternativa."), sem mudar o que a questão pede |
+  | Interpreta a linguagem de forma literal (17/11) | Nos enunciados, metáforas, expressões populares, ironia e perguntas vagas viram frases diretas. Não troca quando a questão pergunta justamente sobre a expressão. O texto de apoio da prova fica igual (R-001-02) |
+  | Precisa de previsibilidade (17/11) | Cada questão começa dizendo exatamente o que fazer e quantas respostas ("Marque 1 alternativa."), sem mudar o que a questão pede |
 
   Todas as folhas, com ou sem essa opção, mostram o total de questões e "Questão 2 de 5"
   (CA-001-33): é só contagem, feita pela tela, sem a IA.
@@ -159,6 +159,17 @@ avaliação que a turma.
 - **R-001-09** Tempo-limite do pedido à IA: 90 s.
 - **R-001-06** A IA nunca escolhe o número do pictograma. Quem escolhe é o servidor, pela busca
   no ARASAAC.
+- **R-001-10** (17/11) Imagem errada confunde mais do que nenhuma imagem:
+  - a IA só escolhe palavra-chave cujo desenho comum mostra o mesmo sentido que ela tem na
+    frase; nada de sentido figurado ou técnico, nada sobre o próprio texto ("palavra",
+    "expressão", "indicar"); na dúvida, nenhuma;
+  - na folha, o servidor só usa pictograma achado pela busca exata do ARASAAC
+    (`bestsearch`). A busca ampla, que acha nomes parecidos, fica só para a troca manual
+    (spec 004).
+  - Medido em 3 provas reais (Ciências, Matemática e Português), com julgamento do grupo:
+    antes, cerca de 6 imagens erradas e 6 fracas em 39; depois, 2 erradas em 21 ("anéis" do
+    planeta virou anel de joia; "Terra" virou terra de plantar). O professor troca o que
+    sobrar (spec 004).
 
 ## Erros e casos de borda
 
