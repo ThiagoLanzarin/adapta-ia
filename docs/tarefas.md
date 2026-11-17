@@ -349,7 +349,7 @@ início da tarefa.
 - **Pronto quando:** "entende tudo ao pé da letra" e "fica ansioso sem saber o que vem" estão
   no perfil e no pedido à IA (CA-001-31, CA-001-32); a folha mostra o total de questões e
   "Questão 2 de 5" (CA-001-33); perfis antigos abrem com as opções novas desmarcadas.
-- **Feito em 17/11:** 3 testes novos (170 no total). Conferido no navegador com a IA simulada:
+- **Feito em 17/11:** 3 testes novos (167 no total). Conferido no navegador com a IA simulada:
   perfil antigo abre com as opções novas desmarcadas; o pedido leva as opções sem o apelido;
   a folha mostra "Esta folha tem 2 questões." e "Questão 1 de 2". Com o Gemini real (1 pedido),
   prova de 3 questões com as duas opções: "Dê uma olhada no texto" saiu; a expressão "pulga
