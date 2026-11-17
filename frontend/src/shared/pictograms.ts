@@ -6,5 +6,5 @@ export function pictogramUrl(id: number, color = true): string {
 }
 
 export const ARASAAC_CREDIT =
-  'Pictogramas: Sergio Palao. Origem: ARASAAC (https://arasaac.org). Licença: CC BY-NC-SA. ' +
-  'Propriedade: Governo de Aragão (Espanha).';
+  'Autor dos pictogramas: Sergio Palao. Origem: ARASAAC (http://www.arasaac.org). ' +
+  'Licença: CC (BY-NC-SA). Proprietário: Governo de Aragão (Espanha).';

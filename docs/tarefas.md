@@ -232,9 +232,9 @@ início da tarefa.
 - **Notas (16/11/2026):**
   - O crédito vai na margem de baixo de cada página (`@page @bottom-center` no `index.css`).
     Conferido no Chrome. Firefox e Safari: a verificar.
-  - O texto do crédito (R-006-01) ainda não foi conferido no site do ARASAAC: a página de
-    condições de uso não abriu no navegador da IA. Alguém do grupo confere e corrige
-    `ARASAAC_CREDIT` (`frontend/src/shared/pictograms.ts`), se precisar.
+  - O texto do crédito (R-006-01) foi conferido em 17/11 na página de termos de uso do
+    ARASAAC e alinhado ao segundo modelo oficial. Falta testar a impressão no Firefox
+    (não instalado no computador da IA): alguém do grupo confere o rodapé no Firefox.
 
 ### Fatia 3 — PowerPoint
 
@@ -393,3 +393,12 @@ início da tarefa.
   - as respostas de reserva foram gravadas (T22);
   - existe um vídeo da demonstração;
   - existe um roteiro, incluindo abrir o `/health` antes de começar.
+- **Andamento em 17/11:**
+  - Roteiro escrito em `docs/roteiro-demonstracao.md` (rascunho para o grupo ajustar).
+  - Testado com o Gemini no servidor publicado: PowerPoint de aula
+    (`provas-teste/powerpoint/ciclo-da-agua.pptx`, 3 slides): 3 questões mantidas, notas do
+    professor não lidas, palavras-chave água, nuvens, mar e chuva; nova versão a pedido sobre
+    essa folha: a correção feita à mão ficou, o texto de apoio virou frases curtas. Na nova
+    versão, as questões 1 e 2 ficaram sem palavra-chave (antes tinham).
+  - Texto colado (T20b) e 3 provas fotografadas (T24) já testados com o Gemini em 17/11.
+  - Falta: testes do grupo com materiais próprios, gravação, vídeo e ensaio.

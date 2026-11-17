@@ -58,7 +58,8 @@ Aprovadas pelo grupo em 15/11/2026.
 
 Atualizado em 17/11/2026. As specs 001 a 007 estão implementadas e publicadas; 27 das 28
 tarefas estão concluídas (até a T25, exportar e importar perfis). Falta a T21 (testes com materiais reais,
-gravação das respostas de reserva, vídeo e ensaio), na tarde de 18/11.
+gravação das respostas de reserva, vídeo e ensaio), na tarde de 18/11, seguindo
+`docs/roteiro-demonstracao.md`.
 
 - Site: https://adapta-ai-d5ax.onrender.com
 - Servidor: https://adapta-ia.onrender.com (com o Gemini; `GET /health` diz qual IA está ligada)
