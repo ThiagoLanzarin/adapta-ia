@@ -76,7 +76,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 | T19 | Histórico | 4 | T12 | Gabriel | concluída |
 | T18 | Perfis de aluno | 4 | T10 | Gabriel | concluída |
 | T09 | Nova versão a pedido (servidor) | 5 | T08a | Gabriel | concluída |
-| T15 | Nova versão a pedido (tela) | 5 | T12, T09 | | livre |
+| T15 | Nova versão a pedido (tela) | 5 | T12, T09 | Gabriel | concluída |
 | T22 | Provedor de respostas gravadas (reserva) | Entrega | T05 | | livre |
 | T20b | Publicar a versão final | Entrega | Fatia 1 | | livre |
 | T21 | Testar e roteiro da demonstração | Entrega | Tudo que for entregue | | livre |
@@ -308,6 +308,12 @@ início da tarefa.
   pedido à IA. Antes de substituir, a tela pede confirmação.
 - **Pronto quando:** o professor escreve um pedido, confirma e a folha é substituída pela
   nova versão.
+- **Feito em 17/11:** campo "Pedir uma nova versão" acima da folha (`RevisePanel`), com até 300
+  caracteres e confirmação "A folha atual será substituída", que avisa que trocas de
+  pictograma podem se perder (R-005-02). O perfil enviado é o da adaptação, guardado no
+  histórico. A nova versão é salva no histórico como qualquer edição. Conferido no navegador
+  com a IA simulada: o pedido leva o texto corrigido (CA-005-20) e, com erro de cota, a folha
+  fica como estava (CA-005-21). Não testado com o Gemini (cota).
 
 ### Entrega
 
