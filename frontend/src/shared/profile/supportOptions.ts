@@ -10,6 +10,8 @@ export const SUPPORT_OPTIONS: { key: SupportOptionKey; label: string }[] = [
   { key: 'needsMoreImages', label: 'Precisa de mais imagens' },
   { key: 'sensitiveToVisualClutter', label: 'Sensível a excesso visual' },
   { key: 'easilyDistracted', label: 'Se distrai fácil (uma questão por vez)' },
+  { key: 'takesThingsLiterally', label: 'Entende tudo ao pé da letra' },
+  { key: 'needsPredictability', label: 'Fica ansioso sem saber o que vem' },
 ];
 
 export const NOTES_MAX_LENGTH = 500;
@@ -23,6 +25,8 @@ export const EMPTY_PROFILE: StudentProfile = {
   needsMoreImages: false,
   sensitiveToVisualClutter: false,
   easilyDistracted: false,
+  takesThingsLiterally: false,
+  needsPredictability: false,
   notes: '',
 };
 

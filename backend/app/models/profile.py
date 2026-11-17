@@ -17,4 +17,6 @@ class StudentProfile(CamelModel):
     needs_more_images: bool = False
     sensitive_to_visual_clutter: bool = False
     easily_distracted: bool = False
+    takes_things_literally: bool = False
+    needs_predictability: bool = False
     notes: str = Field(default="", max_length=MAX_NOTES_LENGTH)

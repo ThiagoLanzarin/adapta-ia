@@ -343,6 +343,8 @@ no Pydantic. Modelos em `backend/app/models/`; tipos da tela em
     "needsMoreImages": false,
     "sensitiveToVisualClutter": true,
     "easilyDistracted": false,
+    "takesThingsLiterally": true,
+    "needsPredictability": false,
     "notes": "TEA nível 1. Gosta de dinossauros."
   },
   "slides": [{ "index": 2, "title": "Ciclo da água", "text": "..." }]
@@ -467,7 +469,7 @@ português, pronta para mostrar ao professor.
 
 ### Guardado só no navegador (IndexedDB)
 
-- Perfil: `id`, `nickname`, as 5 opções de apoio e `notes`.
+- Perfil: `id`, `nickname`, as 7 opções de apoio e `notes`.
 - Histórico: `id`, `name`, `createdAt`, `updatedAt`, a cópia do perfil usado, o original
   (imagem reduzida, texto ou slides) e a `Adaptation` com as edições. A imagem reduzida é
   usada para recortar as figuras de novo ao reabrir.

@@ -79,6 +79,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 | T15 | Nova versão a pedido (tela) | 5 | T12, T09 | Gabriel | concluída |
 | T22 | Provedor de respostas gravadas (reserva) | Entrega | T05 | Gabriel | concluída |
 | T20b | Publicar a versão final | Entrega | Fatia 1 | Gabriel | concluída |
+| T23 | Duas opções de apoio novas | Entrega | T18 | Gabriel | concluída |
 | T21 | Testar e roteiro da demonstração | Entrega | Tudo que for entregue | | livre |
 
 Estados: `livre`, `em andamento`, `em revisão`, `concluída`.
@@ -340,6 +341,20 @@ início da tarefa.
   questões e as três alternativas mantidas, palavras-chave só nos enunciados, 3 pictogramas
   carregados e "O que mudou" preenchido (1 pedido da cota). Correção feita depois do
   congelamento precisa ser publicada de novo nos dois serviços.
+
+#### T23 — Duas opções de apoio novas
+- **Pedido em 17/11:** o grupo propôs 8 opções; entraram 2 (decisão na spec 003).
+- **Pastas:** `backend/app/models/`, `backend/app/ai_providers/prompt.py`,
+  `frontend/src/shared/`, `frontend/src/features/sheet/`
+- **Pronto quando:** "entende tudo ao pé da letra" e "fica ansioso sem saber o que vem" estão
+  no perfil e no pedido à IA (CA-001-31, CA-001-32); a folha mostra o total de questões e
+  "Questão 2 de 5" (CA-001-33); perfis antigos abrem com as opções novas desmarcadas.
+- **Feito em 17/11:** 3 testes novos (170 no total). Conferido no navegador com a IA simulada:
+  perfil antigo abre com as opções novas desmarcadas; o pedido leva as opções sem o apelido;
+  a folha mostra "Esta folha tem 2 questões." e "Questão 1 de 2". Com o Gemini real (1 pedido),
+  prova de 3 questões com as duas opções: "Dê uma olhada no texto" saiu; a expressão "pulga
+  atrás da orelha", que era o que a questão 2 avaliava, ficou; cada questão começou com
+  "Marque 1 alternativa." ou "Escreva 1 resposta."; nenhuma alternativa mudou.
 
 #### T21 — Testar e roteiro da demonstração
 - **Objetivo:** testar com materiais reais e preparar a apresentação.
