@@ -78,7 +78,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 | T09 | Nova versão a pedido (servidor) | 5 | T08a | Gabriel | concluída |
 | T15 | Nova versão a pedido (tela) | 5 | T12, T09 | Gabriel | concluída |
 | T22 | Provedor de respostas gravadas (reserva) | Entrega | T05 | Gabriel | concluída |
-| T20b | Publicar a versão final | Entrega | Fatia 1 | | livre |
+| T20b | Publicar a versão final | Entrega | Fatia 1 | Gabriel | concluída |
 | T21 | Testar e roteiro da demonstração | Entrega | Tudo que for entregue | | livre |
 
 Estados: `livre`, `em andamento`, `em revisão`, `concluída`.
@@ -334,6 +334,12 @@ início da tarefa.
 - **Como:** em cada serviço do Render, **Manual Deploy** → **Deploy latest commit** (não há
   deploy automático; ver arquitetura, seção 6). Trocar `AI_PROVIDER` para `gemini` no servidor.
 - **Pronto quando:** a versão congelada está publicada e uma adaptação real funciona nela.
+- **Feito em 17/11:** os dois serviços publicados no commit `dfa9f0d` (PR #33), com
+  `AI_PROVIDER=gemini` no servidor. Antes: 164 testes, ruff, lint, tipos e build passando.
+  Adaptação real no site publicado, com texto colado de 2 questões e "lê pouco": as duas
+  questões e as três alternativas mantidas, palavras-chave só nos enunciados, 3 pictogramas
+  carregados e "O que mudou" preenchido (1 pedido da cota). Correção feita depois do
+  congelamento precisa ser publicada de novo nos dois serviços.
 
 #### T21 — Testar e roteiro da demonstração
 - **Objetivo:** testar com materiais reais e preparar a apresentação.
