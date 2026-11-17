@@ -38,6 +38,11 @@ aluno, e escolho esse perfil ao adaptar uma prova.
   o apelido.
 - **CA-003-07** [manual] O apelido é obrigatório e tem até 30 caracteres; as observações têm
   até 500 caracteres, com contador.
+- **CA-003-08** [manual] (17/11) Na página de perfis, "Exportar perfis" baixa um arquivo com
+  todos os perfis. Em outro navegador, "Importar perfis" com esse arquivo traz os perfis de
+  volta: o de mesmo `id` é substituído e os outros ficam. Um arquivo que não é de perfis
+  mostra "Este arquivo não é uma cópia de perfis do Adapta Aí. Escolha o arquivo exportado
+  nesta página." e nada muda.
 
 O lado do servidor (perfil sem apelido e uso das opções no pedido à IA) está nos critérios
 CA-001-06, CA-001-09 e CA-001-14.
@@ -48,6 +53,14 @@ CA-001-06, CA-001-09 e CA-001-14.
 - **R-003-02** Só as opções de apoio e as observações vão para o servidor.
 - **R-003-03** Apagar um perfil não apaga as adaptações do histórico feitas com ele; elas
   guardam uma cópia do perfil usado (spec 007).
+- **R-003-04** (17/11) Banco no servidor fica para a V2: exigiria login (P4) e levaria as
+  observações, que podem ter diagnóstico, para fora do computador do professor (P3). Em vez
+  disso, o professor exporta e importa os perfis num arquivo, feito e lido só no navegador.
+  O arquivo leva só `id`, apelido, opções e observações; campo desconhecido é descartado e
+  opção que falta vem desmarcada. A página avisa que o arquivo tem as observações dos alunos.
+- **R-003-05** (17/11) Ao salvar perfis, a tela pede ao navegador armazenamento permanente
+  (`navigator.storage.persist`), para os dados não serem apagados quando o disco enche. O
+  navegador pode recusar; nada muda para o professor.
 
 ## Erros e casos de borda
 

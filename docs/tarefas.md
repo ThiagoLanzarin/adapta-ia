@@ -81,6 +81,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 | T20b | Publicar a versão final | Entrega | Fatia 1 | Gabriel | concluída |
 | T23 | Duas opções de apoio novas | Entrega | T18 | Gabriel | concluída |
 | T24 | Pictogramas no sentido da frase | Entrega | T06 | Gabriel | concluída |
+| T25 | Exportar e importar perfis | Entrega | T18 | Gabriel | concluída |
 | T21 | Testar e roteiro da demonstração | Entrega | Tudo que for entregue | | livre |
 
 Estados: `livre`, `em andamento`, `em revisão`, `concluída`.
@@ -372,6 +373,17 @@ início da tarefa.
   [a verificar], estilo diferente do ARASAAC, mais lento, sem tempo de testar antes do
   congelamento) e uma segunda chamada à IA para conferir os desenhos (dobra o uso da cota).
   Ficam para a V2.
+
+#### T25 — Exportar e importar perfis
+- **Pedido em 17/11:** os perfis precisam ficar guardados sem o professor refazer. Já ficam no
+  navegador (T18); faltava cópia de segurança e levar para outro computador. Banco no
+  servidor ficou para a V2 (R-003-04).
+- **Pastas:** `frontend/src/features/profiles/`, `frontend/src/shared/storage/`
+- **Pronto quando:** CA-003-08 conferido no navegador.
+- **Feito em 17/11:** conferido no navegador local: exportar gera
+  `perfis-adapta-ai-AAAA-MM-DD.json`; com os perfis apagados, importar trouxe 2 perfis (um
+  deles de arquivo sem as opções de 17/11, que vieram desmarcadas, e com um campo a mais,
+  descartado); arquivo inválido e texto que não é JSON mostram a mensagem e não mudam nada.
 
 #### T21 — Testar e roteiro da demonstração
 - **Objetivo:** testar com materiais reais e preparar a apresentação.

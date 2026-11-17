@@ -56,8 +56,8 @@ Aprovadas pelo grupo em 15/11/2026.
 
 ## Estado atual
 
-Atualizado em 17/11/2026. As specs 001 a 007 estão implementadas e publicadas; 26 das 27
-tarefas estão concluídas (até a T24, pictogramas no sentido da frase). Falta a T21 (testes com materiais reais,
+Atualizado em 17/11/2026. As specs 001 a 007 estão implementadas e publicadas; 27 das 28
+tarefas estão concluídas (até a T25, exportar e importar perfis). Falta a T21 (testes com materiais reais,
 gravação das respostas de reserva, vídeo e ensaio), na tarde de 18/11.
 
 - Site: https://adapta-ai-d5ax.onrender.com
