@@ -288,6 +288,18 @@ Gemini (resposta em JSON com schema) -> valida com Pydantic -> regras do serviç
 | `fake` | Testes automáticos; sem chave | `AI_PROVIDER=fake` (padrão sem chave) |
 | `replay` | Reserva da apresentação: devolve respostas reais do Gemini gravadas no ensaio, procuradas por um resumo (hash) da entrada mais o perfil | `AI_PROVIDER=replay`. A tela mostra o selo "modo demonstração" |
 
+**Gravar e repetir (T22).** Com `AI_PROVIDER=gemini` e `AI_RECORD=on`, cada resposta do Gemini
+é salva em `backend/app/ai_providers/replay_answers/`, num arquivo com o nome do resumo
+(SHA-256 do texto do pedido à IA mais os bytes da foto). O arquivo guarda só a resposta da IA,
+sem o pedido. O texto do pedido já contém o material, o tipo e o perfil; por isso, o mesmo
+material com outro perfil não acha a gravação. Material não gravado dá `AI_NOT_RECORDED`, com
+a mensagem "Modo demonstração: este material não foi gravado no ensaio. Use um material do
+roteiro." A foto é reduzida no navegador antes de ir ao servidor: a mesma foto no mesmo
+navegador deu o mesmo resumo [verificado no Chrome, 17/11]; em outro navegador
+[a verificar]. Por isso o ensaio de gravação usa o mesmo computador e navegador da
+apresentação. A gravação roda com o servidor local (o Render não guarda arquivos entre
+publicações); depois, os arquivos entram no Git e o servidor é publicado de novo.
+
 ## 8. Testes
 
 - Servidor: testes automatizados nas regras (leitura de arquivo, montagem da adaptação,
@@ -431,8 +443,9 @@ removeu continua removida.
 
 ### Saúde do servidor
 
-`GET /health` devolve `{ "status": "ok", "aiProvider": "gemini" }`. Com `aiProvider` diferente
-de `gemini`, a tela mostra "Modo demonstração: a IA não lê o seu material".
+`GET /health` devolve `{ "status": "ok", "aiProvider": "gemini" }`. O cabeçalho de todas as
+páginas mostra o selo: com `fake`, "IA simulada: a folha não vem do seu material"; com
+`replay`, "Modo demonstração: respostas gravadas no ensaio" (CA-001-27, T22).
 
 ### Pictogramas
 
@@ -446,7 +459,8 @@ de `gemini`, a tela mostra "Modo demonstração: a IA não lê o seu material".
 ```
 
 Códigos e status HTTP: `AI_QUOTA` (429), `AI_TIMEOUT` (504), `AI_UNAVAILABLE` (503),
-`AI_INVALID` (502), `AI_BLOCKED` (422), `FILE_TOO_LARGE` (413), `FILE_TYPE` (415),
+`AI_INVALID` (502), `AI_BLOCKED` (422), `AI_NOT_RECORDED` (422, só no modo `replay`),
+`FILE_TOO_LARGE` (413), `FILE_TYPE` (415),
 `TOO_MANY_SLIDES` (422), `INVALID_INPUT` (422), `PICTOGRAMS_UNAVAILABLE` (503). Tabela em
 `backend/app/api/errors.py`. A mensagem vem em
 português, pronta para mostrar ao professor.

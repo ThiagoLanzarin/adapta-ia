@@ -19,3 +19,7 @@ class AiUnavailableError(AiProviderError):
 
 class AiBlockedError(AiProviderError):
     """The AI refused the material (safety block)."""
+
+
+class AiNotRecordedError(AiProviderError):
+    """Replay mode: no answer was recorded for this request (T22)."""

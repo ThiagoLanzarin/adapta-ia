@@ -10,6 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.ai_providers.base import AiProvider
 from app.ai_providers.fake import FakeAiProvider
 from app.ai_providers.gemini import GeminiProvider
+from app.ai_providers.replay import RecordingAiProvider, ReplayAiProvider
 from app.api import adaptations, health, pictograms, slides
 from app.api.errors import register_error_handlers
 from app.config import Settings, get_settings
@@ -20,10 +21,15 @@ from app.services.pictogram_service import PictogramService
 
 
 def build_ai_provider(settings: Settings) -> tuple[AiProvider, str]:
-    """The chosen provider and its name. Without a key, always the fake (T05)."""
+    """The chosen provider and its name. Without a key, Gemini falls back to the fake (T05).
+
+    AI_RECORD=on saves every Gemini answer for the replay provider (T22, rehearsal only).
+    """
+    if settings.ai_provider == "replay":
+        return ReplayAiProvider(), "replay"
     if settings.ai_provider == "gemini" and settings.gemini_api_key and settings.gemini_model:
-        return GeminiProvider(settings.gemini_api_key, settings.gemini_model), "gemini"
-    # "replay" arrives in T22.
+        gemini = GeminiProvider(settings.gemini_api_key, settings.gemini_model)
+        return (RecordingAiProvider(gemini) if settings.ai_record else gemini), "gemini"
     return FakeAiProvider(), "fake"
 
 

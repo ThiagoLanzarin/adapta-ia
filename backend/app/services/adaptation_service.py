@@ -8,6 +8,7 @@ from pydantic import ValidationError
 from app.ai_providers.base import AiProvider, AiRequest
 from app.ai_providers.errors import (
     AiBlockedError,
+    AiNotRecordedError,
     AiProviderError,
     AiQuotaError,
     AiTimeoutError,
@@ -146,6 +147,8 @@ class AdaptationService:
             raise ServiceError("AI_TIMEOUT") from error
         except AiBlockedError as error:
             raise ServiceError("AI_BLOCKED") from error
+        except AiNotRecordedError as error:
+            raise ServiceError("AI_NOT_RECORDED") from error
         except AiUnavailableError as error:
             if can_retry:
                 raise _RetryUnavailable from error

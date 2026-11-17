@@ -13,6 +13,7 @@ STATUS: dict[ErrorCode, int] = {
     "AI_UNAVAILABLE": 503,
     "AI_INVALID": 502,
     "AI_BLOCKED": 422,
+    "AI_NOT_RECORDED": 422,
     "FILE_TOO_LARGE": 413,
     "FILE_TYPE": 415,
     "TOO_MANY_SLIDES": 422,
