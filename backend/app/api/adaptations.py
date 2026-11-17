@@ -8,6 +8,7 @@ from pydantic import TypeAdapter, ValidationError
 from app.api.dependencies import get_adaptation_service
 from app.models.adaptation import Adaptation
 from app.models.profile import MaterialType, StudentProfile
+from app.models.revise import ReviseRequest
 from app.models.slides import Slide
 from app.services.adaptation_service import AdaptationService
 from app.services.errors import ServiceError
@@ -47,3 +48,12 @@ def create_adaptation(
     return service.adapt_submission(
         text, image, material_type, parse_profile(profile), parse_slides(slides)
     )
+
+
+@router.post("/adaptations/revise", response_model=Adaptation, response_model_by_alias=True)
+def revise_adaptation(
+    service: Annotated[AdaptationService, Depends(get_adaptation_service)],
+    request: ReviseRequest,
+) -> Adaptation:
+    """Spec 005: a new version of the current sheet, from the teacher's request."""
+    return service.revise(request)

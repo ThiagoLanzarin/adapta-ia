@@ -75,7 +75,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 | T11 | Enviar PowerPoint e escolher slides | 3 | T10, T08b | Gabriel | concluída |
 | T19 | Histórico | 4 | T12 | Gabriel | concluída |
 | T18 | Perfis de aluno | 4 | T10 | Gabriel | concluída |
-| T09 | Nova versão a pedido (servidor) | 5 | T08a | | livre |
+| T09 | Nova versão a pedido (servidor) | 5 | T08a | Gabriel | concluída |
 | T15 | Nova versão a pedido (tela) | 5 | T12, T09 | | livre |
 | T22 | Provedor de respostas gravadas (reserva) | Entrega | T05 | | livre |
 | T20b | Publicar a versão final | Entrega | Fatia 1 | | livre |
