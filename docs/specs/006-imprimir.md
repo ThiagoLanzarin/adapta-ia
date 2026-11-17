@@ -37,9 +37,11 @@ Como professor, imprimo a folha ou salvo em PDF, num layout A4 limpo, pronto par
 
 ## Regras
 
-- **R-006-01** Texto do crédito: "Pictogramas: Sergio Palao. Origem: ARASAAC
-  (https://arasaac.org). Licença: CC BY-NC-SA. Propriedade: Governo de Aragão (Espanha)."
-  Conferir o texto oficial na página de condições de uso do ARASAAC antes de fechar a T17.
+- **R-006-01** Texto do crédito, igual ao segundo modelo da página de termos de uso do
+  ARASAAC (https://arasaac.org/terms-of-use, conferido em 17/11/2026): "Autor dos
+  pictogramas: Sergio Palao. Origem: ARASAAC (http://www.arasaac.org). Licença: CC
+  (BY-NC-SA). Proprietário: Governo de Aragão (Espanha)." A página exige citar autor,
+  proprietário, origem e licença, e proíbe uso comercial.
 - **R-006-02** Folha: fonte sem serifa, grande, com espaço entre as etapas e sem enfeites.
 - **R-006-03** O nome do aluno é escrito à mão na folha impressa; o sistema nunca o recebe.
 
