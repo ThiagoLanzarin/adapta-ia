@@ -16,6 +16,8 @@ interface SheetProps {
 /** The student's sheet: what will be printed (spec 006). Nothing for the teacher goes here. */
 export default function Sheet({ adaptation, imageUrl, color, onePerPage, actions }: SheetProps) {
   const firstQuestion = adaptation.steps.findIndex((step) => step.kind === 'question');
+  const questionIds = adaptation.steps.filter((s) => s.kind === 'question').map((s) => s.id);
+  const total = questionIds.length;
 
   return (
     <article
@@ -33,14 +35,25 @@ export default function Sheet({ adaptation, imageUrl, color, onePerPage, actions
           <span className="flex-1 border-b border-slate-500" />
         </p>
       </div>
-      <h2 className="mb-8 text-2xl font-bold">{adaptation.title}</h2>
+      <h2 className="text-2xl font-bold">{adaptation.title}</h2>
+      {/* CA-001-33: the student knows how much is coming. */}
+      <p className="mt-2 mb-8 text-lg text-slate-700">
+        {total > 0 &&
+          (total === 1 ? 'Esta folha tem 1 questão.' : `Esta folha tem ${total} questões.`)}
+      </p>
       <ol className="space-y-10">
         {adaptation.steps.map((step, index) => {
           // CA-006-06: "se distrai fácil" puts each question on its own page.
           const newPage = onePerPage && step.kind === 'question' && index > firstQuestion;
           return (
             <li key={step.id} className={newPage ? 'print:break-before-page' : undefined}>
-              <SheetStep step={step} imageUrl={imageUrl} color={color} actions={actions} />
+              <SheetStep
+                step={step}
+                position={{ index: questionIds.indexOf(step.id) + 1, total }}
+                imageUrl={imageUrl}
+                color={color}
+                actions={actions}
+              />
             </li>
           );
         })}

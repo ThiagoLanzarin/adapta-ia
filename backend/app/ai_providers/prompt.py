@@ -76,6 +76,18 @@ def describe_profile(profile: StudentProfile) -> str:
         lines.append("- sensível a excesso visual: poucas palavras-chave, nada de enfeite.")
     if profile.easily_distracted:
         lines.append("- se distrai fácil: uma ação por passo, sem informação que não seja usada.")
+    if profile.takes_things_literally:
+        lines.append(
+            "- entende ao pé da letra: nos enunciados, troque metáforas, expressões populares,"
+            " ironia e perguntas vagas por frases diretas; não troque quando a questão pergunta"
+            " justamente sobre a expressão."
+        )
+    if profile.needs_predictability:
+        lines.append(
+            "- fica ansioso sem saber o que vem: comece cada questão dizendo exatamente o que"
+            ' fazer e quantas respostas ("Marque 1 alternativa.", "Escreva 1 número."), sem'
+            " mudar o que a questão pede."
+        )
     if profile.notes.strip():
         lines.append(f"- observações do professor: {profile.notes.strip()}")
     return "\n".join(lines) or "- sem necessidades marcadas: só simplifique a linguagem."

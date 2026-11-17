@@ -48,3 +48,27 @@ def test_retry_prompt_tells_the_previous_error_and_text_material_goes_last():
 
     assert "fora do formato (2 erro(s) de formato)" in prompt
     assert prompt.endswith("Material:\n1) Questão")
+
+
+def test_ca_001_31_literal_option_asks_for_direct_wording_but_keeps_the_assessed_expression():
+    prompt = prompt_for(profile=StudentProfile(takes_things_literally=True))
+
+    assert "entende ao pé da letra" in prompt
+    assert "não troque quando a questão pergunta justamente sobre a expressão" in prompt
+    # The support text of a test stays as in the original (R-001-02).
+    assert "mantenha o texto de apoio igual ao original" in prompt
+
+
+def test_ca_001_32_predictability_option_asks_for_an_explicit_command():
+    prompt = prompt_for(profile=StudentProfile(needs_predictability=True))
+
+    assert "Marque 1 alternativa." in prompt
+    assert "sem mudar o que a questão pede" in prompt
+    assert "ao pé da letra" not in prompt
+
+
+def test_new_options_are_absent_when_not_marked():
+    prompt = prompt_for(profile=StudentProfile(reads_little=True))
+
+    assert "ao pé da letra" not in prompt
+    assert "fica ansioso" not in prompt

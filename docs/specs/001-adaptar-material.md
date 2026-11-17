@@ -87,7 +87,7 @@ avaliação que a turma.
   original, e todas as alternativas. Os pictogramas aparecem só no enunciado.
 - **CA-001-25** [manual] Enquanto a adaptação é gerada, vejo que está em andamento. Se der
   erro, vejo a mensagem do servidor e posso tentar de novo sem perder o que enviei.
-- **CA-001-26** [manual] Sem a spec 003 pronta, a tela mostra as 5 opções de apoio e o campo
+- **CA-001-26** [manual] Sem a spec 003 pronta, a tela mostra as opções de apoio (7 desde 17/11) e o campo
   de observações com a frase "Não escreva o nome do aluno".
 - **CA-001-27** [manual] Com o provedor de respostas gravadas ligado, a tela mostra o selo
   "modo demonstração".
@@ -102,6 +102,16 @@ avaliação que a turma.
 - **CA-001-30** [manual] Dadas 3 provas reais fotografadas em branco, então todas as
   questões e alternativas do original aparecem na adaptação, e nenhuma questão traz a
   resposta destacada ou ilustrada. Conferido na T00 e de novo na T21.
+
+### Opções de apoio de 17/11
+
+- **CA-001-31** [teste] Dada a opção "entende tudo ao pé da letra", então o pedido à IA manda
+  trocar linguagem figurada por frases diretas nos enunciados, menos quando a questão pergunta
+  sobre a expressão, e as regras de prova continuam.
+- **CA-001-32** [teste] Dada a opção "fica ansioso sem saber o que vem", então o pedido à IA
+  manda começar cada questão dizendo o que fazer e quantas respostas, sem mudar o que é pedido.
+- **CA-001-33** [manual] A folha mostra "Esta folha tem N questões." abaixo do título e cada
+  questão mostra "Questão 2 de 5". Quando o número do original é outro, "Questão 4a (2 de 5)".
 
 ## Regras
 
@@ -122,6 +132,11 @@ avaliação que a turma.
   | Precisa de mais imagens | Mais palavras-chave por etapa (R-001-04) |
   | Sensível a excesso visual | Menos palavras-chave por etapa (R-001-04); sem enfeites |
   | Se distrai fácil | Uma questão por página na impressão (spec 006) |
+  | Entende tudo ao pé da letra (17/11) | Nos enunciados, metáforas, expressões populares, ironia e perguntas vagas viram frases diretas. Não troca quando a questão pergunta justamente sobre a expressão. O texto de apoio da prova fica igual (R-001-02) |
+  | Fica ansioso sem saber o que vem (17/11) | Cada questão começa dizendo exatamente o que fazer e quantas respostas ("Marque 1 alternativa."), sem mudar o que a questão pede |
+
+  Todas as folhas, com ou sem essa opção, mostram o total de questões e "Questão 2 de 5"
+  (CA-001-33): é só contagem, feita pela tela, sem a IA.
 
 - **R-001-04** Máximo de palavras-chave por etapa, aplicado pelo servidor:
 

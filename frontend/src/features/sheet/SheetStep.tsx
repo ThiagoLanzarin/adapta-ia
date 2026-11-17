@@ -3,21 +3,30 @@ import type { Step } from '@/shared/types/contract';
 import EditableText from './EditableText';
 import type { SheetActions } from './editAdaptation';
 import KeywordPictograms from './KeywordPictograms';
-import QuestionStep from './QuestionStep';
+import QuestionStep, { type QuestionPosition } from './QuestionStep';
 
 interface SheetStepProps {
   step: Step;
+  position: QuestionPosition;
   imageUrl: string | null;
   color: boolean;
   actions: SheetActions;
 }
 
 /** One step of the sheet, by kind: instruction, support text or question. */
-export default function SheetStep({ step, imageUrl, color, actions }: SheetStepProps) {
+export default function SheetStep({ step, position, imageUrl, color, actions }: SheetStepProps) {
   const save = (text: string) => actions.editText(step.id, text);
 
   if (step.kind === 'question') {
-    return <QuestionStep step={step} imageUrl={imageUrl} color={color} actions={actions} />;
+    return (
+      <QuestionStep
+        step={step}
+        position={position}
+        imageUrl={imageUrl}
+        color={color}
+        actions={actions}
+      />
+    );
   }
   if (step.kind === 'text') {
     // R-001-07: the support text as in the original, only split into paragraphs.

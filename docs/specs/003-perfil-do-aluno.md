@@ -24,9 +24,10 @@ aluno, e escolho esse perfil ao adaptar uma prova.
 
 ## Critérios de aceite
 
-- **CA-003-01** [manual] Crio um perfil com apelido, as 5 opções de apoio (lê pouco; precisa
-  de passo a passo; precisa de mais imagens; sensível a excesso visual; se distrai fácil) e
-  observações. Ele aparece na lista de perfis.
+- **CA-003-01** [manual] Crio um perfil com apelido, as 7 opções de apoio (lê pouco; precisa
+  de passo a passo; precisa de mais imagens; sensível a excesso visual; se distrai fácil;
+  entende tudo ao pé da letra; fica ansioso sem saber o que vem) e observações. Ele aparece na
+  lista de perfis. Perfis salvos antes de 17/11 abrem com as duas opções novas desmarcadas.
 - **CA-003-02** [manual] O campo de observações mostra a frase "Não escreva o nome do aluno.
   Pode escrever o diagnóstico e o que ajuda ele a aprender."
 - **CA-003-03** [manual] Edito e apago um perfil. Apagar pede confirmação.
@@ -58,4 +59,19 @@ CA-001-06, CA-001-09 e CA-001-14.
 ## Dados
 
 - Arquitetura, seção 10: `profile` no pedido de adaptação.
-- Guardado no navegador: `id`, `nickname`, as 5 opções e `notes`.
+- Guardado no navegador: `id`, `nickname`, as 7 opções e `notes`.
+
+## Decisão de 17/11: opções de apoio novas
+
+O grupo propôs 8 opções novas. Entraram 2, com efeito descrito em R-001-03:
+
+| Opção proposta | Decisão | Motivo |
+|---|---|---|
+| Entende tudo ao pé da letra | Entra | Só muda a forma do enunciado. Fontes: W3C COGA, padrão "Use Literal Language" (seção 4.4.4); National Autistic Society, guia de provas para professores [verificado em 17/11] |
+| Fica ansioso sem saber o que vem | Entra | Só forma. As fontes (National Autistic Society) tratam de ansiedade e previsibilidade [verificado em 17/11]; contar as questões é inferência do grupo, não está nelas |
+| Deduzir o que não está escrito | Fica fora | Tornar explícito o implícito pode entregar a resposta (P1). Só o professor sabe se a questão avalia interpretação |
+| Se perde com informação a mais | Já existe | "Se distrai fácil" já manda tirar informação que não é usada |
+| Dificuldade com perguntas abertas | Fica fora | Virar múltipla escolha inventa alternativas, uma delas a resposta (P1) |
+| Hiperlexia (perguntas de checagem) | Fica fora | Acrescenta questões e mexe no texto de apoio (P1, R-001-02). Talvez V2, só para conteúdo de aula |
+| Escreve com dificuldade | V2 | Espaço de resposta por tipo pede mudança no contrato e na impressão; trocar escrever por marcar é o mesmo problema das perguntas abertas |
+| Interesse do aluno (hiperfoco) | Fica fora na prova | Reescrever o cenário arrisca mudar dados da questão. O professor pode escrever o interesse nas observações. Talvez V2, só para atividade |

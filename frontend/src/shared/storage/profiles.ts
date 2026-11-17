@@ -11,11 +11,21 @@ const BLOCKED_MESSAGE =
 
 const run = <T>(action: () => Promise<T>) => runStorage(BLOCKED_MESSAGE, action);
 
+/** Profiles saved before the options of 17/11 have no such fields: they come unmarked. */
+function withNewOptions(profile: SavedProfile): SavedProfile {
+  const stored: Partial<SavedProfile> = profile;
+  return {
+    ...profile,
+    takesThingsLiterally: stored.takesThingsLiterally ?? false,
+    needsPredictability: stored.needsPredictability ?? false,
+  };
+}
+
 /** In alphabetical order of nickname. */
 export function listProfiles(): Promise<SavedProfile[]> {
   return run(async () => {
     const db = await openDatabase();
-    const profiles = await db.getAll('profiles');
+    const profiles = (await db.getAll('profiles')).map(withNewOptions);
     return profiles.sort((a, b) => a.nickname.localeCompare(b.nickname, 'pt-BR'));
   });
 }
@@ -45,6 +55,8 @@ export function toStudentProfile(profile: SavedProfile): StudentProfile {
     needsMoreImages: profile.needsMoreImages,
     sensitiveToVisualClutter: profile.sensitiveToVisualClutter,
     easilyDistracted: profile.easilyDistracted,
+    takesThingsLiterally: profile.takesThingsLiterally,
+    needsPredictability: profile.needsPredictability,
     notes: profile.notes,
   };
 }

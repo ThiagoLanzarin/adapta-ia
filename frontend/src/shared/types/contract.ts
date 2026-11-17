@@ -27,6 +27,8 @@ export interface StudentProfile {
   needsMoreImages: boolean;
   sensitiveToVisualClutter: boolean;
   easilyDistracted: boolean;
+  takesThingsLiterally: boolean;
+  needsPredictability: boolean;
   notes: string;
 }
 
