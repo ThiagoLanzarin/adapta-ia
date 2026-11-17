@@ -79,3 +79,10 @@ def test_r_001_10_keywords_only_when_the_common_picture_has_the_same_meaning():
 
     assert "o mesmo sentido que ela tem na" in prompt
     assert "na dúvida, não escolha" in prompt
+
+
+def test_r_001_10_search_term_uses_the_unambiguous_portuguese_of_portugal_name():
+    prompt = prompt_for()
+
+    assert "português de Portugal" in prompt
+    assert '"caramelo"' in prompt

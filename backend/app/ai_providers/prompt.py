@@ -30,7 +30,9 @@ Faça, nesta ordem:
 4. Palavras-chave (no máximo {max_keywords} por passo, nenhuma em passo "text"):
    - "word" é a palavra exatamente como aparece no texto do passo;
    - "searchTerm" é a forma simples e concreta do SENTIDO da palavra na frase, para buscar
-     um pictograma (verbo no infinitivo, substantivo no singular);
+     um pictograma (verbo no infinitivo, substantivo no singular); os pictogramas estão em
+     português de Portugal, então, se a palavra tiver outro sentido ou outro nome lá, use o
+     nome sem ambiguidade (bala de comer → "caramelo"; ônibus → "autocarro");
    - nunca use verbos de comando do enunciado ("arme", "efetue", "marque", "leia", "indique");
    - nunca escolha uma palavra que seja uma resposta possível da questão;
    - só escolha uma palavra se o desenho comum dela mostra o mesmo sentido que ela tem na
@@ -83,8 +85,9 @@ def describe_profile(profile: StudentProfile) -> str:
         lines.append("- se distrai fácil: uma ação por passo, sem informação que não seja usada.")
     if profile.takes_things_literally:
         lines.append(
-            "- interpreta a linguagem de forma literal: nos enunciados, troque metáforas, expressões populares,"
-            " ironia e perguntas vagas por frases diretas; não troque quando a questão pergunta"
+            "- interpreta a linguagem de forma literal: nos enunciados, troque metáforas,"
+            " expressões populares, ironia e perguntas vagas por frases diretas; não troque"
+            " quando a questão pergunta"
             " justamente sobre a expressão."
         )
     if profile.needs_predictability:

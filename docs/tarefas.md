@@ -82,6 +82,7 @@ O calendário, as etapas e os pontos de controle (o que cortar se atrasar) estã
 | T23 | Duas opções de apoio novas | Entrega | T18 | Gabriel | concluída |
 | T24 | Pictogramas no sentido da frase | Entrega | T06 | Gabriel | concluída |
 | T25 | Exportar e importar perfis | Entrega | T18 | Gabriel | concluída |
+| T26 | Pictogramas ambíguos e sensíveis | Entrega | T24 | Gabriel | concluída |
 | T21 | Testar e roteiro da demonstração | Entrega | Tudo que for entregue | | livre |
 
 Estados: `livre`, `em andamento`, `em revisão`, `concluída`.
@@ -384,6 +385,22 @@ início da tarefa.
   `perfis-adapta-ai-AAAA-MM-DD.json`; com os perfis apagados, importar trouxe 2 perfis (um
   deles de arquivo sem as opções de 17/11, que vieram desmarcadas, e com um campo a mais,
   descartado); arquivo inválido e texto que não é JSON mostram a mensagem e não mudam nada.
+
+#### T26 — Pictogramas ambíguos e sensíveis
+- **Pedido em 17/11:** numa prova de Matemática, "balas" (doce) virou o desenho de um projétil
+  de arma.
+- **Pastas:** `backend/app/pictogram_providers/arasaac.py`, `backend/app/ai_providers/prompt.py`,
+  `frontend/src/features/sheet/KeywordPictograms.tsx`
+- **Pronto quando:** R-001-10 (nome de Portugal e palavra ambígua) e R-001-11 (temas
+  sensíveis) com testes; CA-004-27 conferido no navegador.
+- **Feito em 17/11:** 8 testes novos (178 no total). 2 pedidos ao Gemini, servidor local:
+  "balas" → caramelo (doce), "ônibus" → autocarro (exemplos da própria regra, por isso o
+  segundo teste); trem, geladeira, suco, sorvete, manga e pena certos sem estar na regra;
+  "pedaço" → fatia (fraco); "banco" de praça → agência (agora sem imagem). Medido nos termos
+  já testados: a regra de ambiguidade barra "banco" e "Terra" (errados) e tira "trabalhador"
+  (certo). No navegador: removi um pictograma, apareceu "+ texto" só na tela, escolhi de
+  novo e a imagem voltou.
+- **Corrigido junto:** linha longa em `prompt.py` que o `ruff check` acusava desde o PR #36.
 
 #### T21 — Testar e roteiro da demonstração
 - **Objetivo:** testar com materiais reais e preparar a apresentação.
